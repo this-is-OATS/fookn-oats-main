@@ -97,7 +97,9 @@
       -webkit-user-select: none;
       user-select: none;
     }
-    #abort-voice-btn.visible { display: block; }
+    #abort-voice-btn.visible {
+      display: block !important;
+    }
     #status {
       font-size: 15px;
       color: #888;
@@ -842,6 +844,7 @@
 
       if (appConfig.deepgramLive) {
         liveFinalText = '';
+        setVoiceAbortVisible(true);
         try {
           const liveUrl = wsUrl('/live');
           statusEl.textContent = 'Connecting… ' + liveUrl;
@@ -855,6 +858,7 @@
               voiceBtn.classList.remove('busy');
               voiceBtn.classList.add('recording');
               statusEl.textContent = 'Listening… (tap to stop)';
+              setVoiceAbortVisible(true);
               // Start audio only once the server confirms Deepgram is connected.
               startLiveAudio().catch((err) => {
                 statusEl.textContent = err.message || 'Mic failed';
@@ -909,9 +913,11 @@
         voiceBtn.classList.remove('busy');
         voiceBtn.classList.add('recording');
         statusEl.textContent = 'Listening… (tap to stop)';
+        setVoiceAbortVisible(true);
       } catch (_) {
         statusEl.textContent = 'Mic blocked or unavailable';
         tapListening = false;
+        setVoiceAbortVisible(false);
       }
       voiceBusy = false;
     }
@@ -943,6 +949,7 @@
         } else if (send) {
           statusEl.textContent = 'No speech heard — try again';
         }
+        setVoiceAbortVisible(false);
         return;
       }
 
@@ -955,6 +962,7 @@
         await voicePointerUp();
       } else if (send) {
         statusEl.textContent = 'Stopped';
+        setVoiceAbortVisible(false);
       }
     }
 
