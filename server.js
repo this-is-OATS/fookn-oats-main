@@ -25,6 +25,7 @@ const os = require('os');
 const multer = require('multer');
 const WebSocket = require('ws');
 const { loadSttFixes, applySttFixes } = require('./lib/stt-fixes');
+const { applySpokenNumerals } = require('./lib/spoken-numerals');
 const {
     getVoiceSttBackend,
     getMicMode,
@@ -265,7 +266,8 @@ app.post('/command', (req, res) => {
 
     const preformatted = Boolean(req.body.preformatted);
     const afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, sttFixes);
-    const syntax = preformatted ? afterStt : oatsTranslate(afterStt);
+    const afterNums = preformatted ? afterStt : applySpokenNumerals(afterStt);
+    const syntax = preformatted ? afterNums : oatsTranslate(afterNums);
 
     udpPort.send({
         address: "/cmd",
@@ -275,9 +277,9 @@ app.post('/command', (req, res) => {
     console.log(
         preformatted
             ? `[CMD] LLM/direct → "${syntax}"`
-            : `[OATS] "${rawVoice}" | stt → "${afterStt}" | ma3 → "${syntax}"`
+            : `[OATS] "${rawVoice}" | stt → "${afterStt}" | nums → "${afterNums}" | ma3 → "${syntax}"`
     );
-    res.json({ status: "sent", command: syntax, stt: afterStt, raw: rawVoice, preformatted });
+    res.json({ status: "sent", command: syntax, stt: afterNums, sttRaw: afterStt, raw: rawVoice, preformatted });
 });
 
 // HTTPS server using self-signed cert

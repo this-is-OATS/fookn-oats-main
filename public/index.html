@@ -81,6 +81,23 @@
       opacity: 0.45;
       pointer-events: none;
     }
+    #abort-voice-btn {
+      display: none;
+      width: 100%;
+      max-width: 360px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #c0392b;
+      background: #2a1212;
+      color: #ff8a80;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    #abort-voice-btn.visible { display: block; }
     #status {
       font-size: 15px;
       color: #888;
@@ -178,6 +195,7 @@
   </div>
 
   <button type="button" id="voice-btn" aria-label="Hold to talk"></button>
+  <button type="button" id="abort-voice-btn" aria-label="Abort voice" hidden>Abort — discard, do not send</button>
   <div id="status">Loading…</div>
   <div id="transcript"></div>
   <div id="command-out"></div>
@@ -192,6 +210,7 @@
 
   <script>
     const voiceBtn = document.getElementById('voice-btn');
+    const abortVoiceBtn = document.getElementById('abort-voice-btn');
     const statusEl = document.getElementById('status');
     const transEl = document.getElementById('transcript');
     const cmdEl = document.getElementById('command-out');
@@ -215,6 +234,93 @@
     let liveHeldAt = 0;
     let tapListening = false;
     let tapTimer = 0;
+    /** User clicked Abort — browser Web Speech onend must not send to MA3 */
+    let voiceAborted = false;
+    let transcribeAbortController = null;
+
+    function setVoiceAbortVisible(on) {
+      if (!abortVoiceBtn) return;
+      abortVoiceBtn.hidden = !on;
+      abortVoiceBtn.classList.toggle('visible', on);
+      abortVoiceBtn.setAttribute('aria-hidden', on ? 'false' : 'true');
+    }
+
+    async function stopLiveDeepgramPipeline() {
+      try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
+      try { if (liveSource) liveSource.disconnect(); } catch (_) {}
+      liveProcessor = null;
+      liveSource = null;
+      try { if (liveAudio) await liveAudio.close(); } catch (_) {}
+      liveAudio = null;
+      if (liveStream) {
+        try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {}
+      }
+      liveStream = null;
+      if (liveWs) {
+        try { liveWs.close(); } catch (_) {}
+      }
+      liveWs = null;
+    }
+
+    async function abortVoiceSession() {
+      voiceAborted = true;
+      if (transcribeAbortController) {
+        try { transcribeAbortController.abort(); } catch (_) {}
+        transcribeAbortController = null;
+      }
+      clearTimeout(tapTimer);
+      tapTimer = 0;
+      tapListening = false;
+      voicePrepareCancel++;
+
+      if (browserRec) {
+        try { browserRec.abort(); } catch (_) {}
+        // browserRec.onend finishes cleanup when voiceAborted is true
+        return;
+      }
+
+      if (liveWs || liveAudio || liveStream || liveProcessor || liveSource) {
+        liveFinalText = '';
+        await stopLiveDeepgramPipeline();
+        voiceBusy = false;
+        liveHeldAt = 0;
+        voiceBtn.classList.remove('recording', 'busy');
+        transEl.textContent = '';
+        cmdEl.textContent = '';
+        statusEl.textContent = 'Aborted — nothing sent';
+        setVoiceAbortVisible(false);
+        return;
+      }
+
+      if (mediaRecorder) {
+        const rec = mediaRecorder;
+        mediaRecorder = null;
+        const done = new Promise((resolve) => {
+          rec.onstop = () => resolve();
+        });
+        if (rec.state === 'recording') {
+          try { rec.requestData(); } catch (_) {}
+          rec.stop();
+        }
+        await done;
+        mediaChunks = [];
+        recordStartedAt = 0;
+        voiceBusy = false;
+        voiceBtn.classList.remove('recording', 'busy');
+        transEl.textContent = '';
+        cmdEl.textContent = '';
+        statusEl.textContent = 'Aborted — nothing sent';
+        setVoiceAbortVisible(false);
+        return;
+      }
+
+      voiceBusy = false;
+      voiceBtn.classList.remove('recording', 'busy');
+      transEl.textContent = '';
+      cmdEl.textContent = '';
+      statusEl.textContent = 'Aborted — nothing sent';
+      setVoiceAbortVisible(false);
+    }
 
     function browserSpeechSupported() {
       return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
@@ -369,6 +475,7 @@
         statusEl.textContent = 'Web Speech API not available — use Safari or type below';
         return;
       }
+      voiceAborted = false;
       voiceBusy = true;
       browserAbortShortHold = false;
       browserPressStart = Date.now();
@@ -407,13 +514,23 @@
           voiceBtn.classList.remove('busy');
           voiceBtn.classList.add('recording');
           statusEl.textContent = 'Listening…';
+          setVoiceAbortVisible(true);
         };
         browserRec.onend = async () => {
           voiceBtn.classList.remove('recording', 'busy');
+          const aborted = voiceAborted;
+          voiceAborted = false;
           const text = (browserFinal || '').trim();
           browserRec = null;
           browserFinal = '';
           voiceBusy = false;
+          setVoiceAbortVisible(false);
+          if (aborted) {
+            transEl.textContent = '';
+            cmdEl.textContent = '';
+            statusEl.textContent = 'Aborted — nothing sent';
+            return;
+          }
           if (browserAbortShortHold) {
             browserAbortShortHold = false;
             return;
@@ -453,6 +570,7 @@
           'Hold at least ' + Math.ceil(MIN_HOLD_MS / 100) / 10 + 's (you held ' + (heldMs / 1000).toFixed(1) + 's)';
         voiceBusy = false;
         voiceBtn.classList.remove('busy');
+        setVoiceAbortVisible(false);
         return;
       }
       statusEl.textContent = 'Finishing…';
@@ -470,11 +588,13 @@
       if (appConfig.voiceMode === 'tap') return;
       if (appConfig.deepgramLive) {
         voiceBusy = true;
+        voiceAborted = false;
         voiceBtn.classList.add('busy');
         transEl.textContent = '';
         cmdEl.textContent = '';
         liveFinalText = '';
         liveHeldAt = Date.now();
+        setVoiceAbortVisible(true);
 
         try {
           const liveUrl = wsUrl('/live');
@@ -533,6 +653,7 @@
           liveProcessor = null;
           voiceBtn.classList.remove('recording', 'busy');
           voiceBusy = false;
+          setVoiceAbortVisible(false);
         }
         return;
       }
@@ -542,6 +663,7 @@
       }
 
       voiceBusy = true;
+      voiceAborted = false;
       const ticket = voicePrepareCancel;
       voiceBtn.classList.add('busy');
       transEl.textContent = '';
@@ -566,10 +688,12 @@
         voiceBtn.classList.remove('busy');
         voiceBtn.classList.add('recording');
         statusEl.textContent = 'Listening…';
+        setVoiceAbortVisible(true);
       } catch (err) {
         statusEl.textContent = 'Mic blocked or unavailable';
         voiceBtn.classList.remove('recording', 'busy');
         voiceBusy = false;
+        setVoiceAbortVisible(false);
       }
     }
 
@@ -585,25 +709,10 @@
         const heldMs = liveHeldAt ? Date.now() - liveHeldAt : 0;
         liveHeldAt = 0;
 
-        // Stop audio pipeline
-        try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
-        try { if (liveSource) liveSource.disconnect(); } catch (_) {}
-        liveProcessor = null;
-        liveSource = null;
-        try { if (liveAudio) await liveAudio.close(); } catch (_) {}
-        liveAudio = null;
-        if (liveStream) {
-          try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {}
-        }
-        liveStream = null;
-
-        // Close socket (server sends CloseStream)
-        if (liveWs) {
-          try { liveWs.close(); } catch (_) {}
-        }
-        liveWs = null;
+        await stopLiveDeepgramPipeline();
 
         voiceBusy = false;
+        setVoiceAbortVisible(false);
 
         if (heldMs < MIN_HOLD_MS) {
           statusEl.textContent =
@@ -631,11 +740,13 @@
         voicePrepareCancel++;
         voiceBusy = false;
         voiceBtn.classList.remove('recording', 'busy');
+        setVoiceAbortVisible(false);
         return;
       }
 
       voiceBtn.classList.remove('recording');
       statusEl.textContent = 'Transcribing…';
+      setVoiceAbortVisible(true);
 
       const rec = mediaRecorder;
       mediaRecorder = null;
@@ -654,19 +765,22 @@
         statusEl.textContent = `Hold at least ${Math.ceil(MIN_HOLD_MS / 100) / 10}s (you held ${(heldMs / 1000).toFixed(1)}s)`;
         voiceBusy = false;
         voiceBtn.classList.remove('busy');
+        setVoiceAbortVisible(false);
         return;
       }
       if (!blob.size) {
         statusEl.textContent = 'Too short — hold longer';
         voiceBusy = false;
+        setVoiceAbortVisible(false);
         return;
       }
 
       voiceBtn.classList.add('busy');
+      transcribeAbortController = new AbortController();
       try {
         const fd = new FormData();
         fd.append('audio', blob, 'clip.' + (blob.type.includes('mp4') ? 'm4a' : 'webm'));
-        const tr = await fetch('/transcribe', { method: 'POST', body: fd });
+        const tr = await fetch('/transcribe', { method: 'POST', body: fd, signal: transcribeAbortController.signal });
         let trData = {};
         try {
           trData = await tr.json();
@@ -684,10 +798,19 @@
           statusEl.textContent = 'No speech detected by transcriber' + extra;
         }
       } catch (err) {
-        statusEl.textContent = err.message || 'Transcribe failed';
+        if (err && err.name === 'AbortError') {
+          transEl.textContent = '';
+          cmdEl.textContent = '';
+          statusEl.textContent = 'Aborted — nothing sent';
+        } else {
+          statusEl.textContent = err.message || 'Transcribe failed';
+        }
+      } finally {
+        transcribeAbortController = null;
+        voiceBtn.classList.remove('busy');
+        voiceBusy = false;
+        setVoiceAbortVisible(false);
       }
-      voiceBtn.classList.remove('busy');
-      voiceBusy = false;
     }
 
     if ('PointerEvent' in window) {
