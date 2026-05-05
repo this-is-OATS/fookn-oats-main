@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "purpose": "Conservative guards parallel to spoken numerals: (1) skip numeral→digit conversion when these tokens appear in the same chunk; (2) shield conversational phrases from OATS synonym replacement.",
+    "numeralChunkBlockWords": "English words that rhyme with or are often confused with MA/OATS command tokens — if they appear inside a captured spoken-number chunk, do not convert digits (avoids greedy mis-hears).",
+    "oatsPhraseShields": "Multi-word phrases shielded with placeholders before oatsTranslate, then restored (store/record/clear/etc. in plain English)."
+  },
+  "numeralChunkBlockWords": [
+    "will", "bill", "still", "hill", "fill", "skill", "spill", "ill", "pill", "mill", "till", "frill", "grill", "dill", "quill", "thrill", "krill", "phil",
+    "pull", "bull", "wool", "fool", "fuel",
+    "bore", "core", "door", "floor", "gore", "lore", "more", "pore", "pour", "roar", "shore", "snore", "sore", "tore", "wore",
+    "dear", "fear", "gear", "hear", "near", "peer", "cheer", "sheer", "smear",
+    "gave", "cave", "pave", "rave", "wave", "shave",
+    "low", "row", "sew", "dough", "foe", "crow", "flow", "glow", "grow", "know", "mow", "owe", "show", "slow", "snow", "throw", "toe", "tow",
+    "fan", "jan", "scan", "span", "plan", "tan", "van",
+    "beau", "chateau", "plateau"
+  ],
+  "oatsPhraseShields": [
+    { "pattern": "(?:world|Olympic|state|track|land\\s+speed|criminal|medical|public|speed|school)\\s+record", "flags": "gi" },
+    { "pattern": "(?:grocery|department|convenience|corner|app|data|book|toy|music|drug|hardware|liquor|shoe|thrift|big\\s+box|online|chain)\\s+store", "flags": "gi" },
+    { "pattern": "\\b(?:for\\s+the|on|off(?:\\s+the)?)\\s+record\\b", "flags": "gi" },
+    { "pattern": "\\b(?:crystal|fairly|quite|pretty|perfectly|completely|entirely)\\s+clear\\b", "flags": "gi" },
+    { "pattern": "\\b(?:focus|age|peer|blood|ethnic|support|social|study|working)\\s+group\\b", "flags": "gi" },
+    { "pattern": "\\b(?:go|come|run|drive|walk|fly)\\s+home\\b", "flags": "gi" },
+    { "pattern": "\\b(?:work|stay|study|learn)\\s+from\\s+home\\b", "flags": "gi" },
+    { "pattern": "\\b(?:come|go|step|walk|run|pay|hold|talk|bring|take|feed|flash|push|throw|cut|date|look|give|fight|hit|kick|ring|win|blow|draw|fall|get|keep|move|set|call|carry|drop|fill|hand|lay|lead|leave|make|put|roll|send|show|sit|stand|stick|turn|wake)\\s+back\\b", "flags": "gi" },
+    { "pattern": "\\b(?:let|here\\s+we|there\\s+we|way\\s+to)\\s+go\\b", "flags": "gi" },
+    { "pattern": "\\b(?:bus|pit|rest|tram|train|full)\\s+stop\\b", "flags": "gi" },
+    { "pattern": "\\b(?:save\\s+(?:the\\s+)?date|save\\s+game|save\\s+file|save\\s+as)\\b", "flags": "gi" },
+    { "pattern": "\\b(?:zoom\\s+in|zoom\\s+out|zoom\\s+call|zoom\\s+meeting)\\b", "flags": "gi" },
+    { "pattern": "\\b(?:camera|auto|out\\s+of)\\s+focus\\b", "flags": "gi" },
+    { "pattern": "\\b(?:frying|baking|sheet|sauce)\\s+pan\\b", "flags": "gi" }
+  ]
+}

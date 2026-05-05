@@ -26,6 +26,7 @@ const multer = require('multer');
 const WebSocket = require('ws');
 const { loadSttFixes, applySttFixes } = require('./lib/stt-fixes');
 const { applySpokenNumerals } = require('./lib/spoken-numerals');
+const { shieldOatsPhrases, unshieldOatsPhrases } = require('./lib/oats-voice-guards');
 const {
     getVoiceSttBackend,
     getMicMode,
@@ -267,7 +268,14 @@ app.post('/command', (req, res) => {
     const preformatted = Boolean(req.body.preformatted);
     const afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, sttFixes);
     const afterNums = preformatted ? afterStt : applySpokenNumerals(afterStt);
-    const syntax = preformatted ? afterNums : oatsTranslate(afterNums);
+    let syntax;
+    if (preformatted) {
+        syntax = afterNums;
+    } else {
+        const shielded = shieldOatsPhrases(afterNums);
+        syntax = oatsTranslate(shielded.text);
+        syntax = unshieldOatsPhrases(syntax, shielded.slots);
+    }
 
     udpPort.send({
         address: "/cmd",
