@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>OATS MA3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 28px;
+      padding: 24px;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    h1 {
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #555;
+    }
+    #safari-warn {
+      display: none;
+      background: #3a1a00;
+      border: 1px solid #e67e22;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #e67e22;
+      text-align: center;
+      max-width: 340px;
+      line-height: 1.5;
+    }
+    #voice-btn {
+      display: none;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #1a5f3a 0%, #0f2418 68%);
+      border: 3px solid #1e6b45;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: none;
+      position: relative;
+      overflow: hidden;
+    }
+    #voice-btn::before {
+      content: "";
+      width: 84px;
+      height: 84px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239dffc6' d='M12 15a4 4 0 0 0 4-4V7a4 4 0 1 0-8 0v4a4 4 0 0 0 4 4Zm7-4a1 1 0 1 0-2 0a5 5 0 0 1-10 0a1 1 0 1 0-2 0a7 7 0 0 0 6 6.92V21H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-3.08A7 7 0 0 0 19 11Z'/%3E%3C/svg%3E");
+      opacity: 0.95;
+    }
+    #voice-btn.visible { display: flex; }
+    #voice-btn.recording {
+      background: #1a4d2e;
+      border-color: #27ae60;
+      box-shadow: 0 0 48px rgba(39, 174, 96, 0.45);
+      transform: scale(1.05);
+    }
+    #voice-btn.recording::before {
+      filter: brightness(1.2);
+    }
+    #voice-btn.busy, #voice-btn.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    #status {
+      font-size: 15px;
+      color: #888;
+      text-align: center;
+      min-height: 22px;
+      max-width: 360px;
+    }
+    #transcript {
+      font-size: 18px;
+      color: #ccc;
+      text-align: center;
+      font-style: italic;
+      min-height: 26px;
+      max-width: 360px;
+    }
+    #command-out {
+      font-size: 14px;
+      color: #27ae60;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      min-height: 20px;
+      max-width: 360px;
+      word-break: break-all;
+    }
+    #input-box {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hint {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.45;
+      text-align: center;
+    }
+    #user-input {
+      width: 100%;
+      min-height: 72px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: #111;
+      color: #eee;
+      font-size: 16px;
+      resize: vertical;
+      font-family: inherit;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+    #send-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #2a3358;
+      color: #dce2ff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #history {
+      width: 100%;
+      max-width: 360px;
+      max-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .hist-row {
+      background: #111;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #666;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .hist-row .voice { color: #aaa; }
+    .hist-row .stt { color: #6a8aad; font-family: monospace; font-size: 11px; }
+    .hist-row .cmd { color: #27ae60; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>FOOK'n OATS · MA3</h1>
+
+  <div id="safari-warn">
+    ⚠️ On iPhone, use <strong>Safari</strong> (not Chrome) so the mic can record.<br><br>
+    Copy this address into Safari:<br>
+    <strong id="page-url"></strong>
+  </div>
+
+  <button type="button" id="voice-btn" aria-label="Hold to talk"></button>
+  <div id="status">Loading…</div>
+  <div id="transcript"></div>
+  <div id="command-out"></div>
+
+  <div id="input-box">
+    <p class="hint">Voice or typed text goes directly to OATS translation (no Gemini in this page).</p>
+    <textarea id="user-input" rows="3" placeholder="Fixture 1 at full…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="text"></textarea>
+    <button type="button" id="send-btn">Send</button>
+  </div>
+
+  <div id="history"></div>
+
+  <script>
+    const voiceBtn = document.getElementById('voice-btn');
+    const statusEl = document.getElementById('status');
+    const transEl = document.getElementById('transcript');
+    const cmdEl = document.getElementById('command-out');
+    const histEl = document.getElementById('history');
+    const warnEl = document.getElementById('safari-warn');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    let appConfig = { voiceHold: false, micMode: 'none' };
+    const MIN_HOLD_MS = 900;
+    let browserRec = null;
+    let browserFinal = '';
+    let browserPressStart = 0;
+    let browserAbortShortHold = false;
+    let liveWs = null;
+    let liveFinalText = '';
+    let liveAudio = null;
+    let liveSource = null;
+    let liveProcessor = null;
+    let liveStream = null;
+    let liveHeldAt = 0;
+    let tapListening = false;
+    let tapTimer = 0;
+
+    function browserSpeechSupported() {
+      return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+    }
+
+    function downsampleBuffer(input, inRate, outRate) {
+      if (outRate >= inRate) return input;
+      const ratio = inRate / outRate;
+      const newLen = Math.round(input.length / ratio);
+      const result = new Float32Array(newLen);
+      let offsetResult = 0;
+      let offsetBuffer = 0;
+      while (offsetResult < result.length) {
+        const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+        let sum = 0;
+        let count = 0;
+        for (let i = offsetBuffer; i < nextOffsetBuffer && i < input.length; i++) {
+          sum += input[i];
+          count++;
+        }
+        result[offsetResult] = count ? sum / count : 0;
+        offsetResult++;
+        offsetBuffer = nextOffsetBuffer;
+      }
+      return result;
+    }
+
+    function floatTo16BitPCM(float32) {
+      const buf = new ArrayBuffer(float32.length * 2);
+      const view = new DataView(buf);
+      for (let i = 0; i < float32.length; i++) {
+        let s = Math.max(-1, Math.min(1, float32[i]));
+        view.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+      }
+      return buf;
+    }
+
+    function wsUrl(path) {
+      const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      return proto + '//' + window.location.host + path;
+    }
+
+    function liveShouldFeedAudio() {
+      if (!liveWs || liveWs.readyState !== 1) return false;
+      // Tap mode uses tapListening; PTT mode uses voiceBusy while deepgramLive is active.
+      if (appConfig.voiceMode === 'tap') return tapListening;
+      return voiceBusy;
+    }
+
+    async function startLiveAudio() {
+      if (!liveShouldFeedAudio()) return;
+      if (liveStream || liveAudio || liveProcessor) return;
+      liveStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      liveAudio = new (window.AudioContext || window.webkitAudioContext)();
+      liveSource = liveAudio.createMediaStreamSource(liveStream);
+      liveProcessor = liveAudio.createScriptProcessor(4096, 1, 1);
+      liveProcessor.onaudioprocess = (ev) => {
+        if (!liveShouldFeedAudio()) return;
+        const input = ev.inputBuffer.getChannelData(0);
+        const ds = downsampleBuffer(input, liveAudio.sampleRate, 16000);
+        const pcm = floatTo16BitPCM(ds);
+        try { liveWs.send(pcm); } catch (_) {}
+      };
+      liveSource.connect(liveProcessor);
+      liveProcessor.connect(liveAudio.destination);
+    }
+    let mediaStream = null;
+    let mediaRecorder = null;
+    let mediaChunks = [];
+    let voiceBusy = false;
+    let voicePrepareCancel = 0;
+    let recordStartedAt = 0;
+
+    function iosBadBrowser() {
+      const ua = navigator.userAgent;
+      const isIOS = /iPad|iPhone|iPod/.test(ua);
+      const isChrome = /CriOS/.test(ua);
+      const isFirefox = /FxiOS/.test(ua);
+      return isIOS && (isChrome || isFirefox);
+    }
+
+    function pickRecorderMime() {
+      const types = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'];
+      for (const t of types) {
+        if (MediaRecorder.isTypeSupported(t)) return t;
+      }
+      return '';
+    }
+
+    async function ensureMicStream() {
+      if (mediaStream) return mediaStream;
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      return mediaStream;
+    }
+
+    async function sendCommand(text) {
+      const t = String(text || '').trim();
+      if (!t) return false;
+
+      voiceBtn.classList.add('busy');
+      statusEl.textContent = 'Sending to MA3...';
+      try {
+        const res = await fetch('/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: t }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || res.statusText);
+
+        statusEl.textContent = 'Sent ✓';
+        if (data.stt && data.stt !== t) {
+          cmdEl.textContent = '→ ' + data.stt + ' → ' + data.command;
+        } else {
+          cmdEl.textContent = '→ ' + data.command;
+        }
+        addHistory(t, data.command, data.stt);
+        userInput.value = '';
+        return true;
+      } catch (err) {
+        statusEl.textContent = err.message || 'Send failed';
+        return false;
+      } finally {
+        voiceBtn.classList.remove('busy');
+      }
+    }
+
+    function addHistory(voice, cmd, stt) {
+      const row = document.createElement('div');
+      row.className = 'hist-row';
+      const v = document.createElement('span');
+      v.className = 'voice';
+      v.textContent = '"' + voice + '"';
+      row.appendChild(v);
+      if (stt && stt !== voice) {
+        const s = document.createElement('span');
+        s.className = 'stt';
+        s.textContent = 'STT fix: ' + stt;
+        row.appendChild(s);
+      }
+      const c = document.createElement('span');
+      c.className = 'cmd';
+      c.textContent = cmd;
+      row.appendChild(c);
+      histEl.prepend(row);
+    }
+
+    async function browserVoicePointerDown(e) {
+      if (e) e.preventDefault();
+      if (!appConfig.voiceHold || voiceBusy) return;
+      if (!browserSpeechSupported()) {
+        statusEl.textContent = 'Web Speech API not available — use Safari or type below';
+        return;
+      }
+      voiceBusy = true;
+      browserAbortShortHold = false;
+      browserPressStart = Date.now();
+      voiceBtn.classList.add('busy');
+      transEl.textContent = '';
+      cmdEl.textContent = '';
+      statusEl.textContent = 'Hold…';
+      browserFinal = '';
+      const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      try {
+        if (browserRec) {
+          try { browserRec.abort(); } catch (_) {}
+          browserRec = null;
+        }
+        browserRec = new Rec();
+        browserRec.lang = appConfig.webSpeechLang || 'en-US';
+        browserRec.interimResults = true;
+        browserRec.continuous = true;
+        browserRec.maxAlternatives = 1;
+        browserRec.onresult = (event) => {
+          let interim = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            const piece = event.results[i][0].transcript;
+            if (event.results[i].isFinal) browserFinal += piece;
+            else interim += piece;
+          }
+          transEl.textContent = (browserFinal + interim).trim();
+        };
+        browserRec.onerror = (event) => {
+          if (event.error === 'aborted') browserAbortShortHold = true;
+          if (event.error !== 'aborted' && event.error !== 'no-speech') {
+            statusEl.textContent = 'Speech: ' + (event.error || 'error');
+          }
+        };
+        browserRec.onstart = () => {
+          voiceBtn.classList.remove('busy');
+          voiceBtn.classList.add('recording');
+          statusEl.textContent = 'Listening…';
+        };
+        browserRec.onend = async () => {
+          voiceBtn.classList.remove('recording', 'busy');
+          const text = (browserFinal || '').trim();
+          browserRec = null;
+          browserFinal = '';
+          voiceBusy = false;
+          if (browserAbortShortHold) {
+            browserAbortShortHold = false;
+            return;
+          }
+          transEl.textContent = text;
+          if (text) {
+            await sendCommand(text);
+          } else {
+            statusEl.textContent = 'No speech heard — hold longer, speak clearly, or type below';
+          }
+        };
+        browserRec.start();
+      } catch (err) {
+        statusEl.textContent = err.message || 'Could not start speech recognition';
+        voiceBtn.classList.remove('recording', 'busy');
+        voiceBusy = false;
+        browserRec = null;
+      }
+    }
+
+    async function browserVoicePointerUp(e) {
+      if (e) e.preventDefault();
+      if (!appConfig.voiceHold) {
+        voiceBusy = false;
+        return;
+      }
+      const heldMs = browserPressStart ? Date.now() - browserPressStart : 0;
+      browserPressStart = 0;
+      voiceBtn.classList.remove('recording');
+      if (heldMs < MIN_HOLD_MS) {
+        browserAbortShortHold = true;
+        if (browserRec) {
+          try { browserRec.abort(); } catch (_) {}
+          browserRec = null;
+        }
+        statusEl.textContent =
+          'Hold at least ' + Math.ceil(MIN_HOLD_MS / 100) / 10 + 's (you held ' + (heldMs / 1000).toFixed(1) + 's)';
+        voiceBusy = false;
+        voiceBtn.classList.remove('busy');
+        return;
+      }
+      statusEl.textContent = 'Finishing…';
+      if (browserRec) {
+        try { browserRec.stop(); } catch (_) {}
+      } else {
+        voiceBusy = false;
+        voiceBtn.classList.remove('busy');
+      }
+    }
+
+    async function voicePointerDown(e) {
+      if (e) e.preventDefault();
+      if (!appConfig.voiceHold || voiceBusy) return;
+      if (appConfig.voiceMode === 'tap') return;
+      if (appConfig.deepgramLive) {
+        voiceBusy = true;
+        voiceBtn.classList.add('busy');
+        transEl.textContent = '';
+        cmdEl.textContent = '';
+        liveFinalText = '';
+        liveHeldAt = Date.now();
+
+        try {
+          const liveUrl = wsUrl('/live');
+          statusEl.textContent = 'Connecting live STT… ' + liveUrl;
+          liveWs = new WebSocket(liveUrl);
+          liveWs.binaryType = 'arraybuffer';
+
+          liveWs.onmessage = (ev) => {
+            let msg;
+            try { msg = JSON.parse(ev.data); } catch { return; }
+            if (msg.type === 'ready') {
+              voiceBtn.classList.remove('busy');
+              voiceBtn.classList.add('recording');
+              statusEl.textContent = 'Listening…';
+              startLiveAudio().catch((err) => {
+                statusEl.textContent = err.message || 'Mic failed';
+              });
+              return;
+            }
+            if (msg.type === 'interim') {
+              const interim = String(msg.text || '').trim();
+              transEl.textContent = (liveFinalText + ' ' + interim).trim();
+              return;
+            }
+            if (msg.type === 'final') {
+              const t = String(msg.text || '').trim();
+              if (t) liveFinalText = (liveFinalText + ' ' + t).trim();
+              transEl.textContent = liveFinalText;
+              return;
+            }
+            if (msg.type === 'error') {
+              statusEl.textContent = msg.error || 'Live STT error';
+            }
+          };
+          liveWs.onerror = () => {
+            statusEl.textContent = 'Live STT socket error (handshake failed?)';
+          };
+          liveWs.onclose = (ev) => {
+            // Safari often surfaces "unexpected server response" here without details.
+            if (!voiceBusy) return;
+            const code = ev && typeof ev.code === 'number' ? ev.code : 0;
+            const reason = ev && ev.reason ? ev.reason : '';
+            statusEl.textContent = 'Live STT closed (code ' + code + (reason ? ', ' + reason : '') + ')';
+          };
+
+          await new Promise((resolve) => { liveWs.onopen = () => resolve(); });
+        } catch (err) {
+          statusEl.textContent = err.message || 'Live STT failed to start';
+          try { if (liveWs) liveWs.close(); } catch (_) {}
+          liveWs = null;
+          if (liveStream) { try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {} }
+          liveStream = null;
+          try { if (liveAudio) liveAudio.close(); } catch (_) {}
+          liveAudio = null;
+          liveSource = null;
+          liveProcessor = null;
+          voiceBtn.classList.remove('recording', 'busy');
+          voiceBusy = false;
+        }
+        return;
+      }
+      if (appConfig.micMode === 'browser') {
+        await browserVoicePointerDown(e);
+        return;
+      }
+
+      voiceBusy = true;
+      const ticket = voicePrepareCancel;
+      voiceBtn.classList.add('busy');
+      transEl.textContent = '';
+      cmdEl.textContent = '';
+      statusEl.textContent = 'Hold…';
+
+      try {
+        const stream = await ensureMicStream();
+        if (ticket !== voicePrepareCancel) {
+          voiceBtn.classList.remove('busy', 'recording');
+          voiceBusy = false;
+          return;
+        }
+        mediaChunks = [];
+        const mime = pickRecorderMime();
+        mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = (ev) => {
+          if (ev.data && ev.data.size > 0) mediaChunks.push(ev.data);
+        };
+        mediaRecorder.start(250);
+        recordStartedAt = Date.now();
+        voiceBtn.classList.remove('busy');
+        voiceBtn.classList.add('recording');
+        statusEl.textContent = 'Listening…';
+      } catch (err) {
+        statusEl.textContent = 'Mic blocked or unavailable';
+        voiceBtn.classList.remove('recording', 'busy');
+        voiceBusy = false;
+      }
+    }
+
+    async function voicePointerUp(e) {
+      if (e) e.preventDefault();
+      if (!appConfig.voiceHold) {
+        voiceBusy = false;
+        return;
+      }
+      if (appConfig.voiceMode === 'tap') return;
+      if (appConfig.deepgramLive) {
+        voiceBtn.classList.remove('recording', 'busy');
+        const heldMs = liveHeldAt ? Date.now() - liveHeldAt : 0;
+        liveHeldAt = 0;
+
+        // Stop audio pipeline
+        try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
+        try { if (liveSource) liveSource.disconnect(); } catch (_) {}
+        liveProcessor = null;
+        liveSource = null;
+        try { if (liveAudio) await liveAudio.close(); } catch (_) {}
+        liveAudio = null;
+        if (liveStream) {
+          try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {}
+        }
+        liveStream = null;
+
+        // Close socket (server sends CloseStream)
+        if (liveWs) {
+          try { liveWs.close(); } catch (_) {}
+        }
+        liveWs = null;
+
+        voiceBusy = false;
+
+        if (heldMs < MIN_HOLD_MS) {
+          statusEl.textContent =
+            'Hold at least ' + Math.ceil(MIN_HOLD_MS / 100) / 10 + 's (you held ' + (heldMs / 1000).toFixed(1) + 's)';
+          liveFinalText = '';
+          return;
+        }
+
+        const finalText = String(liveFinalText || '').trim();
+        liveFinalText = '';
+        transEl.textContent = finalText;
+        if (finalText) {
+          statusEl.textContent = 'Sending to MA3…';
+          await sendCommand(finalText);
+        } else {
+          statusEl.textContent = 'No speech heard — hold longer, speak clearly, or type below';
+        }
+        return;
+      }
+      if (appConfig.micMode === 'browser') {
+        await browserVoicePointerUp(e);
+        return;
+      }
+      if (!mediaRecorder) {
+        voicePrepareCancel++;
+        voiceBusy = false;
+        voiceBtn.classList.remove('recording', 'busy');
+        return;
+      }
+
+      voiceBtn.classList.remove('recording');
+      statusEl.textContent = 'Transcribing…';
+
+      const rec = mediaRecorder;
+      mediaRecorder = null;
+      const done = new Promise((resolve) => { rec.onstop = () => resolve(); });
+      if (rec.state === 'recording') {
+        try { rec.requestData(); } catch (_) {}
+        rec.stop();
+      }
+      await done;
+
+      const blob = new Blob(mediaChunks, { type: rec.mimeType || 'audio/webm' });
+      mediaChunks = [];
+      const heldMs = Math.max(0, Date.now() - recordStartedAt);
+      recordStartedAt = 0;
+      if (heldMs < MIN_HOLD_MS) {
+        statusEl.textContent = `Hold at least ${Math.ceil(MIN_HOLD_MS / 100) / 10}s (you held ${(heldMs / 1000).toFixed(1)}s)`;
+        voiceBusy = false;
+        voiceBtn.classList.remove('busy');
+        return;
+      }
+      if (!blob.size) {
+        statusEl.textContent = 'Too short — hold longer';
+        voiceBusy = false;
+        return;
+      }
+
+      voiceBtn.classList.add('busy');
+      try {
+        const fd = new FormData();
+        fd.append('audio', blob, 'clip.' + (blob.type.includes('mp4') ? 'm4a' : 'webm'));
+        const tr = await fetch('/transcribe', { method: 'POST', body: fd });
+        let trData = {};
+        try {
+          trData = await tr.json();
+        } catch (_) {
+          const raw = await tr.text();
+          throw new Error(raw || tr.statusText || 'Transcribe failed');
+        }
+        if (!tr.ok) throw new Error(trData.error || tr.statusText);
+
+        const text = (trData.text || '').trim();
+        transEl.textContent = text;
+        if (text) await sendCommand(text);
+        else {
+          const extra = trData && trData.audio ? ` (${trData.audio.mime}, ${trData.audio.bytes} bytes)` : '';
+          statusEl.textContent = 'No speech detected by transcriber' + extra;
+        }
+      } catch (err) {
+        statusEl.textContent = err.message || 'Transcribe failed';
+      }
+      voiceBtn.classList.remove('busy');
+      voiceBusy = false;
+    }
+
+    if ('PointerEvent' in window) {
+      voiceBtn.addEventListener('pointerdown', voicePointerDown);
+      voiceBtn.addEventListener('pointerup', voicePointerUp);
+      voiceBtn.addEventListener('pointercancel', voicePointerUp);
+    } else {
+      voiceBtn.addEventListener('touchstart', voicePointerDown, { passive: false });
+      voiceBtn.addEventListener('touchend', voicePointerUp, { passive: false });
+      voiceBtn.addEventListener('touchcancel', voicePointerUp, { passive: false });
+      voiceBtn.addEventListener('mousedown', voicePointerDown);
+      voiceBtn.addEventListener('mouseup', voicePointerUp);
+    }
+
+    async function tapStart() {
+      if (voiceBusy) return;
+      voiceBusy = true;
+      tapListening = true;
+      voiceBtn.classList.add('busy');
+      transEl.textContent = '';
+      cmdEl.textContent = '';
+      statusEl.textContent = 'Starting…';
+      const timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(async () => {
+        if (!tapListening) return;
+        await tapStop(true);
+      }, timeoutMs);
+
+      if (appConfig.deepgramLive) {
+        liveFinalText = '';
+        try {
+          const liveUrl = wsUrl('/live');
+          statusEl.textContent = 'Connecting… ' + liveUrl;
+          liveWs = new WebSocket(liveUrl);
+          liveWs.binaryType = 'arraybuffer';
+
+          liveWs.onmessage = (ev) => {
+            let msg;
+            try { msg = JSON.parse(ev.data); } catch { return; }
+            if (msg.type === 'ready') {
+              voiceBtn.classList.remove('busy');
+              voiceBtn.classList.add('recording');
+              statusEl.textContent = 'Listening… (tap to stop)';
+              // Start audio only once the server confirms Deepgram is connected.
+              startLiveAudio().catch((err) => {
+                statusEl.textContent = err.message || 'Mic failed';
+              });
+              return;
+            }
+            if (msg.type === 'interim') {
+              const interim = String(msg.text || '').trim();
+              transEl.textContent = (liveFinalText + ' ' + interim).trim();
+              return;
+            }
+            if (msg.type === 'final') {
+              const t = String(msg.text || '').trim();
+              if (t) liveFinalText = (liveFinalText + ' ' + t).trim();
+              transEl.textContent = liveFinalText;
+              return;
+            }
+            if (msg.type === 'dg_close') {
+              statusEl.textContent = 'Deepgram closed (' + (msg.code || 0) + ') ' + (msg.reason || '');
+              return;
+            }
+            if (msg.type === 'error') {
+              statusEl.textContent = msg.error || 'Live STT error';
+            }
+          };
+          liveWs.onerror = () => { statusEl.textContent = 'Live STT socket error'; };
+          await new Promise((resolve) => { liveWs.onopen = () => resolve(); });
+        } catch (err) {
+          statusEl.textContent = err.message || 'Live STT failed to start';
+          await tapStop(false);
+        }
+        voiceBusy = false;
+        return;
+      }
+
+      if (appConfig.micMode === 'browser') {
+        await browserVoicePointerDown();
+        voiceBusy = false;
+        return;
+      }
+
+      try {
+        const stream = await ensureMicStream();
+        mediaChunks = [];
+        const mime = pickRecorderMime();
+        mediaRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = (ev) => {
+          if (ev.data && ev.data.size > 0) mediaChunks.push(ev.data);
+        };
+        mediaRecorder.start(250);
+        recordStartedAt = Date.now();
+        voiceBtn.classList.remove('busy');
+        voiceBtn.classList.add('recording');
+        statusEl.textContent = 'Listening… (tap to stop)';
+      } catch (_) {
+        statusEl.textContent = 'Mic blocked or unavailable';
+        tapListening = false;
+      }
+      voiceBusy = false;
+    }
+
+    async function tapStop(send) {
+      clearTimeout(tapTimer);
+      tapTimer = 0;
+      tapListening = false;
+      voiceBtn.classList.remove('recording', 'busy');
+
+      if (appConfig.deepgramLive) {
+        try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
+        try { if (liveSource) liveSource.disconnect(); } catch (_) {}
+        liveProcessor = null;
+        liveSource = null;
+        try { if (liveAudio) await liveAudio.close(); } catch (_) {}
+        liveAudio = null;
+        if (liveStream) { try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {} }
+        liveStream = null;
+        if (liveWs) { try { liveWs.close(); } catch (_) {} }
+        liveWs = null;
+
+        const finalText = String(liveFinalText || '').trim();
+        liveFinalText = '';
+        transEl.textContent = finalText;
+        if (send && finalText) {
+          statusEl.textContent = 'Sending to MA3…';
+          await sendCommand(finalText);
+        } else if (send) {
+          statusEl.textContent = 'No speech heard — try again';
+        }
+        return;
+      }
+
+      if (appConfig.micMode === 'browser') {
+        await browserVoicePointerUp();
+        return;
+      }
+
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        await voicePointerUp();
+      } else if (send) {
+        statusEl.textContent = 'Stopped';
+      }
+    }
+
+    voiceBtn.addEventListener('click', async (e) => {
+      if (!appConfig.voiceHold) return;
+      if (appConfig.voiceMode !== 'tap') return;
+      e.preventDefault();
+      if (!tapListening) await tapStart();
+      else await tapStop(true);
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      await sendCommand(userInput.value);
+    });
+
+    fetch('/api/config')
+      .then((r) => r.json())
+      .then((cfg) => {
+        appConfig = cfg;
+        const bad = iosBadBrowser();
+        const canRecord = typeof MediaRecorder !== 'undefined';
+
+        if (bad) {
+          warnEl.style.display = 'block';
+          document.getElementById('page-url').textContent = window.location.href;
+          voiceBtn.classList.add('disabled');
+          statusEl.textContent = 'Use Safari for the microphone, or type below';
+          return;
+        }
+
+        if (cfg.deepgramLive && cfg.voiceHold) {
+          voiceBtn.classList.add('visible');
+          statusEl.textContent = (cfg.voiceMode === 'tap')
+            ? 'Tap mic — Deepgram live (interim) (auto-timeout) or type below'
+            : 'Hold mic — Deepgram live (interim) or type below';
+        } else if (cfg.micMode === 'cloud' && cfg.voiceHold && canRecord) {
+          voiceBtn.classList.add('visible');
+          statusEl.textContent =
+            (cfg.voiceMode === 'tap')
+              ? 'Tap mic — cloud STT (' + (cfg.voiceCloudProvider || cfg.voiceProvider || 'server') + ') (auto-timeout) or type below'
+              : 'Hold mic — cloud STT (' + (cfg.voiceCloudProvider || cfg.voiceProvider || 'server') + ') or type below';
+        } else if (cfg.micMode === 'browser' && cfg.voiceHold && browserSpeechSupported()) {
+          voiceBtn.classList.add('visible');
+          statusEl.textContent = (cfg.voiceMode === 'tap')
+            ? 'Tap mic — on-device Safari speech (free) (auto-timeout) or type below'
+            : 'Hold mic — on-device Safari speech (free) or type below';
+        } else if (cfg.micMode === 'browser' && !browserSpeechSupported()) {
+          statusEl.textContent = 'No Web Speech in this browser — use Safari, add DEEPGRAM_API_KEY, or type below';
+          voiceBtn.classList.add('disabled');
+        } else if (!cfg.voiceHold) {
+          statusEl.textContent =
+            'Mic off — add DEEPGRAM_API_KEY for cloud STT, or remove STT_BROWSER=0 to allow free Safari speech';
+        } else {
+          statusEl.textContent = 'This browser cannot record — type below';
+          voiceBtn.classList.add('disabled');
+        }
+      })
+      .catch(() => {
+        statusEl.textContent = 'Could not reach server config';
+      });
+  </script>
+</body>
+</html>

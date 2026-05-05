@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "creator": "Christian Jackson (playlist summaries — technical terms only)",
+    "playlistId": "PLttyrXQ1PYZIevnit2hoc4-o5YcYvPdLz",
+    "purpose": "Glossary for voice-command post-processing, training data, and future UI hints."
+  },
+  "entries": [
+    {
+      "term": "grandMA3",
+      "category": "platform",
+      "summary": "MA Lighting control platform; successor to grandMA2 with native software and dedicated hardware.",
+      "aliases": ["MA3", "ma3", "grand ma 3", "grandma 3"]
+    },
+    {
+      "term": "grandMA2 Mode",
+      "category": "compatibility",
+      "summary": "Dedicated mode for backward compatibility so existing MA2 shows can run during transition.",
+      "aliases": ["MA2 mode", "ma2 mode"]
+    },
+    {
+      "term": "MA3 onPC",
+      "category": "software",
+      "summary": "Software-only MA3; useful for pre-programming. macOS version cannot output DMX without parameter licensing constraints discussed in MA ecosystem.",
+      "aliases": ["onPC", "on pc", "ma3 on pc"]
+    },
+    {
+      "term": "Parameter",
+      "category": "licensing",
+      "summary": "Licensed output capacity; full-size consoles discussed with very large baseline counts (e.g. marketing figures like 250k parameters at high tier).",
+      "aliases": ["parameters", "param count"]
+    },
+    {
+      "term": "Phaser",
+      "category": "effects",
+      "summary": "New multi-step effect model nested in cues; replaces purely table-based MA2 effects for many workflows.",
+      "aliases": ["phasers", "phase or"]
+    },
+    {
+      "term": "Effect line / phaser steps",
+      "category": "effects",
+      "summary": "Effect structure where individual steps can carry acceleration/deceleration and modulation concepts.",
+      "aliases": ["effect steps", "phaser line"]
+    },
+    {
+      "term": "Selection grid",
+      "category": "programming",
+      "summary": "Selection view as a coordinate grid (rows/columns) for stepping fixtures and distributing phasers spatially.",
+      "aliases": ["grid selection", "fixture grid"]
+    },
+    {
+      "term": "Fixture ID types / categories",
+      "category": "fixtures",
+      "summary": "Distinct ID classes (e.g. house lights vs video vs movers) so selections are not only generic fixture numbers.",
+      "aliases": ["fixture categories", "fixture types"]
+    },
+    {
+      "term": "GDTF",
+      "category": "fixtures",
+      "summary": "Fixture description format; MA3 imports physical, 3D, and color-space data from manufacturer GDTF.",
+      "aliases": ["g d t f", "general device type format"]
+    },
+    {
+      "term": "Scratch macros / scratch area",
+      "category": "workflow",
+      "summary": "Idea of a temporary scratch region for quick sequences/macros without cluttering permanent pools.",
+      "aliases": ["scratch sequence", "scratch pad"]
+    },
+    {
+      "term": "Dual encoders (ring + knob)",
+      "category": "hardware",
+      "summary": "Hardware layout changing attribute mapping and manipulation vs MA2.",
+      "aliases": ["encoder ring", "dual encoder"]
+    },
+    {
+      "term": "RGB faders",
+      "category": "hardware",
+      "summary": "Motorized faders with RGB feedback for color-coding playbacks/macros.",
+      "aliases": ["color faders", "lit faders"]
+    },
+    {
+      "term": "Grand Master (rotary)",
+      "category": "hardware",
+      "summary": "Grand Master implemented as rotary control rather than traditional fader on MA3 hardware.",
+      "aliases": ["grandmaster", "GM rotary"]
+    },
+    {
+      "term": "X-keys reduction",
+      "category": "hardware",
+      "summary": "Full-size MA3 hardware discussed with fewer physical X-keys vs MA2 (noted as tradeoff in coverage).",
+      "aliases": ["executor keys", "macro keys"]
+    },
+    {
+      "term": "Thermal / dust corridor",
+      "category": "hardware",
+      "summary": "Console cooling design to reduce dust and noise vs PC-style case cooling on MA2.",
+      "aliases": ["cooling corridor", "thermal design"]
+    },
+    {
+      "term": "MA2 Command Wing",
+      "category": "compatibility",
+      "summary": "Legacy wing noted as not unlocking MA3 parameters or running MA3 natively.",
+      "aliases": ["command wing", "ma2 wing"]
+    },
+    {
+      "term": "MA2 as DMX node",
+      "category": "network",
+      "summary": "MA2 hardware can act as output nodes in MA3 session but does not expand licensed parameters.",
+      "aliases": ["ma2 node", "legacy node output"]
+    },
+    {
+      "term": "MA VIZ keys",
+      "category": "visualizer",
+      "summary": "Keys/workflow tying external visualizer use with relaxed parameter-unlock friction vs older constraints.",
+      "aliases": ["viz keys", "maviz", "visualizer keys"]
+    },
+    {
+      "term": "Compact XT vs MA3 Lite",
+      "category": "hardware",
+      "summary": "XT lacks items like internal UPS, built-in keyboard, letterboxed screens, dual command displays; Lite doubles parameter tier vs XT in discussed SKUs.",
+      "aliases": ["compact xt", "ma3 lite", "lite console"]
+    },
+    {
+      "term": "Capacitive touch",
+      "category": "hardware",
+      "summary": "MA3 touchscreens are capacitive vs MA2 resistive (fingernail era).",
+      "aliases": ["touch screen", "multitouch"]
+    },
+    {
+      "term": "USB 3.0 placement",
+      "category": "hardware",
+      "summary": "USB 3 ports positioned on palm rests for reach while programming.",
+      "aliases": ["usb three", "usb ports"]
+    }
+  ]
+}

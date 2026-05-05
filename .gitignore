@@ -1,0 +1,5 @@
+node_modules/
+.env
+ma3.env
+google-service-account.json
+*-service-account.json
