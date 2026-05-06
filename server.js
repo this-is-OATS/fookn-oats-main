@@ -34,6 +34,7 @@ const {
     saveSttFixesUser,
 } = require('./lib/stt-fixes');
 const { applySpokenNumerals } = require('./lib/spoken-numerals');
+const { applyVerbalPeriodWords } = require('./lib/verbal-period');
 const { shieldOatsPhrases, unshieldOatsPhrases } = require('./lib/oats-voice-guards');
 const {
     getVoiceSttBackend,
@@ -131,11 +132,24 @@ function oatsTranslate(rawVoice) {
     // Longer phrases before shorter ones where order matters.
     return rawVoice
         .replace(/\bthrough\b/gi, "Thru")
+        .replace(/\ball fixtures\b/gi, "Fixture 1 Thru")
+
+        // Spoken plurals → singular MA terms (STT adds “s”; MA uses singular, e.g. blinds → Blind)
+        .replace(/\bblinds\b/gi, "Blind")
+        .replace(/\bfixtures\b/gi, "Fixture")
+        .replace(/\bcues\b/gi, "Cue")
+        .replace(/\bpresets\b/gi, "Preset")
+        .replace(/\bexecutors\b/gi, "Executor")
+        .replace(/\bsequences\b/gi, "Sequence")
+        .replace(/\bmacros\b/gi, "Macro")
+        .replace(/\blayouts\b/gi, "Layout")
+        .replace(/\bworlds\b/gi, "World")
+        .replace(/\bphasers\b/gi, "Phaser")
+        .replace(/\bpages\b/gi, "Page")
 
         // Selection words
         .replace(/\bgrab\b/gi, "Fixture")
         .replace(/\bselect\b/gi, "Fixture")
-        .replace(/\ball fixtures\b/gi, "Fixture 1 Thru")
         .replace(/\bgroup\b/gi, "Group")
         .replace(/\bgroups\b/gi, "Group")
 
@@ -146,7 +160,8 @@ function oatsTranslate(rawVoice) {
         .replace(/\bhalf\b/gi, "At 50")
         .replace(/\bat zero\b/gi, "At 0")
         .replace(/\bout\b/gi, "At 0")
-        .replace(/\bblind\b/gi, "At 0")
+        // Blind = MA3 Blind (programmer blind), not At 0 / Off.
+        .replace(/\bblind\b/gi, "Blind")
         .replace(/\bmake them\b/gi, "At")
         .replace(/\bput them\b/gi, "At")
         .replace(/\bset to\b/gi, "At")
@@ -343,7 +358,8 @@ app.post('/command', (req, res) => {
     if (!rawVoice) return res.status(400).json({ error: "No text provided" });
 
     const preformatted = Boolean(req.body.preformatted);
-    const afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, getSttFixesMerged());
+    let afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, getSttFixesMerged());
+    afterStt = applyVerbalPeriodWords(afterStt);
     const afterNums = preformatted ? afterStt : applySpokenNumerals(afterStt);
     let syntax;
     if (preformatted) {
@@ -622,6 +638,11 @@ server.listen(PORT, '0.0.0.0', () => {
             : '  Command beep: OFF'
     );
     console.log('  Verbose STT pipeline log: OATS_LOG_PIPELINE=1');
+    console.log(
+        String(process.env.DEEPGRAM_PUNCTUATE || '').trim() === '1'
+            ? '  Deepgram punctuate/smart_format: ON (DEEPGRAM_PUNCTUATE=1)'
+            : '  Deepgram punctuate/smart_format: OFF — say "point" or "dot" for . (set DEEPGRAM_PUNCTUATE=1 for old behavior)'
+    );
     if (voiceModeBoot !== 'ptt') {
         console.log(`  Tap auto-timeout: ${clampListenTimeoutMs()} ms (LISTEN_TIMEOUT_MS; min ${LISTEN_TIMEOUT_MIN_MS})`);
     }
