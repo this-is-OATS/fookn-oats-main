@@ -35,6 +35,7 @@ const {
 } = require('./lib/stt-fixes');
 const { applySpokenNumerals } = require('./lib/spoken-numerals');
 const { applyVerbalPeriodWords } = require('./lib/verbal-period');
+const { applyMa3ContextFixes } = require('./lib/ma3-context-fixes');
 const { shieldOatsPhrases, unshieldOatsPhrases } = require('./lib/oats-voice-guards');
 const {
     getVoiceSttBackend,
@@ -370,6 +371,7 @@ app.post('/command', (req, res) => {
     const preformatted = Boolean(req.body.preformatted);
     let afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, getSttFixesMerged());
     afterStt = applyVerbalPeriodWords(afterStt);
+    afterStt = applyMa3ContextFixes(afterStt);
     const afterNums = preformatted ? afterStt : applySpokenNumerals(afterStt);
     let syntax;
     if (preformatted) {
