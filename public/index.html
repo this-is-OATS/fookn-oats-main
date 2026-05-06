@@ -878,7 +878,9 @@
       transEl.textContent = '';
       cmdEl.textContent = '';
       statusEl.textContent = 'Starting…';
-      const timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
+      let timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
+      if (!Number.isFinite(timeoutMs) || timeoutMs < 2500) timeoutMs = 6500;
+      if (timeoutMs > 120000) timeoutMs = 120000;
       clearTimeout(tapTimer);
       tapTimer = setTimeout(async () => {
         if (!tapListening) return;

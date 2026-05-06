@@ -98,6 +98,18 @@ function ackCommandInTerminal() {
     }
 }
 
+/** Tap-mode auto-stop (ms). Env mistakes like LISTEN_TIMEOUT_MS=0750 parse as 750ms and feel “instant cut off”. */
+const LISTEN_TIMEOUT_DEFAULT_MS = 6500;
+const LISTEN_TIMEOUT_MIN_MS = 2500;
+const LISTEN_TIMEOUT_MAX_MS = 120000;
+
+function clampListenTimeoutMs() {
+    const n = Number(process.env.LISTEN_TIMEOUT_MS || LISTEN_TIMEOUT_DEFAULT_MS);
+    if (!Number.isFinite(n) || n < LISTEN_TIMEOUT_MIN_MS) return LISTEN_TIMEOUT_DEFAULT_MS;
+    if (n > LISTEN_TIMEOUT_MAX_MS) return LISTEN_TIMEOUT_MAX_MS;
+    return Math.round(n);
+}
+
 function getWifiIP() {
     const ifaces = os.networkInterfaces();
     for (const name of ['en1', 'en0', 'en2']) {
@@ -229,7 +241,7 @@ app.get('/api/config', (req, res) => {
         webSpeechLang: process.env.WEB_SPEECH_LANG || 'en-US',
         deepgramLive,
         voiceMode: voiceMode === 'ptt' ? 'ptt' : 'tap',
-        listenTimeoutMs: Number(process.env.LISTEN_TIMEOUT_MS || 6500),
+        listenTimeoutMs: clampListenTimeoutMs(),
         voiceHold: mic.mode !== 'none',
         aiEnabled: Boolean(llm),
         aiProvider: llm ? llm.provider : null,
@@ -593,6 +605,7 @@ server.listen(PORT, '0.0.0.0', () => {
         for (const msg of googleIssues) console.warn(msg);
     }
     const mic = getMicMode();
+    const voiceModeBoot = String(process.env.VOICE_MODE || 'tap').toLowerCase().trim();
     console.log("=========================================");
     console.log(`  FOOK'n OATS Bridge — Port ${PORT} (HTTPS)`);
     console.log(`  Firing at MA3: ${MA3_IP}:${MA3_PORT}`);
@@ -609,6 +622,9 @@ server.listen(PORT, '0.0.0.0', () => {
             : '  Command beep: OFF'
     );
     console.log('  Verbose STT pipeline log: OATS_LOG_PIPELINE=1');
+    if (voiceModeBoot !== 'ptt') {
+        console.log(`  Tap auto-timeout: ${clampListenTimeoutMs()} ms (LISTEN_TIMEOUT_MS; min ${LISTEN_TIMEOUT_MIN_MS})`);
+    }
     console.log(`  env file: ${envFilePath}`);
     console.log(
         mic.mode === 'cloud'
