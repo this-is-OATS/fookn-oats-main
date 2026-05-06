@@ -233,6 +233,8 @@
     let liveSource = null;
     let liveProcessor = null;
     let liveStream = null;
+    /** Mic promise started synchronously from tap/hold (iOS requires user-gesture stack). */
+    let liveMicCapturePromise = null;
     let liveHeldAt = 0;
     let tapListening = false;
     let tapTimer = 0;
@@ -247,7 +249,18 @@
       abortVoiceBtn.setAttribute('aria-hidden', on ? 'false' : 'true');
     }
 
+    async function discardLiveMicCapture() {
+      const p = liveMicCapturePromise;
+      liveMicCapturePromise = null;
+      if (!p) return;
+      try {
+        const s = await p;
+        try { s.getTracks().forEach((t) => t.stop()); } catch (_) {}
+      } catch (_) {}
+    }
+
     async function stopLiveDeepgramPipeline() {
+      await discardLiveMicCapture();
       try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
       try { if (liveSource) liveSource.disconnect(); } catch (_) {}
       liveProcessor = null;
@@ -375,8 +388,21 @@
     async function startLiveAudio() {
       if (!liveShouldFeedAudio()) return;
       if (liveStream || liveAudio || liveProcessor) return;
-      liveStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      try {
+        if (liveMicCapturePromise) {
+          liveStream = await liveMicCapturePromise;
+          liveMicCapturePromise = null;
+        } else {
+          liveStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        }
+      } catch (err) {
+        liveMicCapturePromise = null;
+        throw err;
+      }
       liveAudio = new (window.AudioContext || window.webkitAudioContext)();
+      if (liveAudio.state === 'suspended') {
+        try { await liveAudio.resume(); } catch (_) {}
+      }
       liveSource = liveAudio.createMediaStreamSource(liveStream);
       liveProcessor = liveAudio.createScriptProcessor(4096, 1, 1);
       liveProcessor.onaudioprocess = (ev) => {
@@ -597,6 +623,7 @@
         liveFinalText = '';
         liveHeldAt = Date.now();
         setVoiceAbortVisible(true);
+        liveMicCapturePromise = navigator.mediaDevices.getUserMedia({ audio: true });
 
         try {
           const liveUrl = wsUrl('/live');
@@ -653,6 +680,7 @@
           liveAudio = null;
           liveSource = null;
           liveProcessor = null;
+          await discardLiveMicCapture();
           voiceBtn.classList.remove('recording', 'busy');
           voiceBusy = false;
           setVoiceAbortVisible(false);
@@ -845,6 +873,7 @@
       if (appConfig.deepgramLive) {
         liveFinalText = '';
         setVoiceAbortVisible(true);
+        liveMicCapturePromise = navigator.mediaDevices.getUserMedia({ audio: true });
         try {
           const liveUrl = wsUrl('/live');
           statusEl.textContent = 'Connecting… ' + liveUrl;
@@ -929,16 +958,7 @@
       voiceBtn.classList.remove('recording', 'busy');
 
       if (appConfig.deepgramLive) {
-        try { if (liveProcessor) liveProcessor.disconnect(); } catch (_) {}
-        try { if (liveSource) liveSource.disconnect(); } catch (_) {}
-        liveProcessor = null;
-        liveSource = null;
-        try { if (liveAudio) await liveAudio.close(); } catch (_) {}
-        liveAudio = null;
-        if (liveStream) { try { liveStream.getTracks().forEach((t) => t.stop()); } catch (_) {} }
-        liveStream = null;
-        if (liveWs) { try { liveWs.close(); } catch (_) {} }
-        liveWs = null;
+        await stopLiveDeepgramPipeline();
 
         const finalText = String(liveFinalText || '').trim();
         liveFinalText = '';

@@ -351,6 +351,9 @@ liveWss.on('connection', (client) => {
 
     let dgKeepAlive = null;
     let ended = false;
+    const liveAudioDebug = String(process.env.DEEPGRAM_LIVE_DEBUG || '').trim() === '1';
+    let audioBytesWindow = 0;
+    let audioDebugTimer = null;
 
     dg.on('unexpected-response', (_req, res) => {
         let body = '';
@@ -467,6 +470,10 @@ liveWss.on('connection', (client) => {
             try { clearInterval(dgKeepAlive); } catch (_) {}
             dgKeepAlive = null;
         }
+        if (audioDebugTimer) {
+            try { clearInterval(audioDebugTimer); } catch (_) {}
+            audioDebugTimer = null;
+        }
         try { dg.send(JSON.stringify({ type: 'CloseStream' })); } catch (_) {}
         try { dg.close(); } catch (_) {}
     });
@@ -474,6 +481,17 @@ liveWss.on('connection', (client) => {
     client.on('message', (chunk, isBinary) => {
         if (!isBinary) return;
         if (dg.readyState !== WebSocket.OPEN) return;
+        if (liveAudioDebug) {
+            audioBytesWindow += chunk.length;
+            if (!audioDebugTimer) {
+                audioDebugTimer = setInterval(() => {
+                    try {
+                        console.log(`[live] PCM → Deepgram ~${audioBytesWindow} bytes / 3s (if 0, phone is not sending audio)`);
+                    } catch (_) {}
+                    audioBytesWindow = 0;
+                }, 3000);
+            }
+        }
         // Forward raw PCM frames
         try { dg.send(chunk); } catch (_) {}
     });
