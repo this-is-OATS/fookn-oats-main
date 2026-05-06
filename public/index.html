@@ -935,6 +935,8 @@
       let timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
       if (!Number.isFinite(timeoutMs) || timeoutMs < 250) timeoutMs = 6500;
       if (timeoutMs > 120000) timeoutMs = 120000;
+      // Deepgram live has noticeable latency; add a small buffer so short tap windows still produce a transcript.
+      const liveSendLatencyBufferMs = 900;
 
       if (appConfig.deepgramLive) {
         liveFinalText = '';
@@ -961,7 +963,7 @@
               tapTimer = setTimeout(async () => {
                 if (!tapListening) return;
                 await tapStop(true);
-              }, timeoutMs);
+              }, timeoutMs + liveSendLatencyBufferMs);
               // Start audio only once the server confirms Deepgram is connected.
               startLiveAudio().catch((err) => {
                 statusEl.textContent = err.message || 'Mic failed';
