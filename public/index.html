@@ -385,6 +385,13 @@
       return voiceBusy;
     }
 
+    /** Deepgram may only have updated the UI with interim text when user stops before is_final. */
+    function liveTranscriptForSend() {
+      const finals = String(liveFinalText || '').trim();
+      if (finals) return finals;
+      return String(transEl.textContent || '').trim();
+    }
+
     async function startLiveAudio() {
       if (!liveShouldFeedAudio()) return;
       if (liveStream || liveAudio || liveProcessor) return;
@@ -751,7 +758,7 @@
           return;
         }
 
-        const finalText = String(liveFinalText || '').trim();
+        const finalText = liveTranscriptForSend();
         liveFinalText = '';
         transEl.textContent = finalText;
         if (finalText) {
@@ -960,7 +967,7 @@
       if (appConfig.deepgramLive) {
         await stopLiveDeepgramPipeline();
 
-        const finalText = String(liveFinalText || '').trim();
+        const finalText = liveTranscriptForSend();
         liveFinalText = '';
         transEl.textContent = finalText;
         if (send && finalText) {
