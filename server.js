@@ -24,7 +24,14 @@ const osc = require('osc');
 const os = require('os');
 const multer = require('multer');
 const WebSocket = require('ws');
-const { loadSttFixes, applySttFixes } = require('./lib/stt-fixes');
+const {
+    applySttFixes,
+    loadMergedSttFixes,
+    loadSttFixesDefault,
+    loadSttFixesUser,
+    validateUserFixesList,
+    saveSttFixesUser,
+} = require('./lib/stt-fixes');
 const { applySpokenNumerals } = require('./lib/spoken-numerals');
 const { shieldOatsPhrases, unshieldOatsPhrases } = require('./lib/oats-voice-guards');
 const {
@@ -43,7 +50,19 @@ const app = express();
 const MA3_IP = "192.168.1.50";  // <-- update to your Windows PC IP
 const MA3_PORT = 8000;
 
-const sttFixes = loadSttFixes(__dirname);
+function getSttFixesMerged() {
+    return loadMergedSttFixes(__dirname);
+}
+
+function checkSettingsWrite(req, res) {
+    const key = process.env.OATS_SETTINGS_KEY && String(process.env.OATS_SETTINGS_KEY).trim();
+    if (!key) return true;
+    if (req.get('X-OATS-Settings-Key') !== key) {
+        res.status(403).json({ error: 'Set header X-OATS-Settings-Key to match OATS_SETTINGS_KEY in ma3.env' });
+        return false;
+    }
+    return true;
+}
 
 let ma3Terminology = { meta: {}, entries: [] };
 try {
@@ -109,7 +128,7 @@ function oatsTranslate(rawVoice) {
         .replace(/\bdump\b/gi, "ClearAll")
         .replace(/\bclear all\b/gi, "ClearAll")
         .replace(/\bclear me out\b/gi, "ClearAll")
-        .replace(/\bclear\b/gi, "ClearAll")
+        // Plain "clear" stays Clear (MA3 command), not ClearAll — use "clear all" / "dump" for ClearAll.
         .replace(/\bhome\b/gi, "At 0")
         .replace(/\breset\b/gi, "At 0")
         .replace(/\bblackout\b/gi, "At 0")
@@ -193,7 +212,7 @@ app.get('/api/config', (req, res) => {
         aiEnabled: Boolean(llm),
         aiProvider: llm ? llm.provider : null,
         aiModel: llm ? llm.model : null,
-        sttFixCount: sttFixes.length,
+        sttFixCount: getSttFixesMerged().length,
         terminologyCount: Array.isArray(ma3Terminology.entries) ? ma3Terminology.entries.length : 0,
     });
 });
@@ -217,6 +236,30 @@ app.post('/ai/interpret', async (req, res) => {
 
 app.get('/api/terminology', (req, res) => {
     res.json(ma3Terminology);
+});
+
+/** Voice/STT fix dictionary: built-in + editable user file (see /settings.html). */
+app.get('/api/stt-fixes', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store');
+    res.json({
+        builtIn: loadSttFixesDefault(__dirname),
+        user: loadSttFixesUser(__dirname),
+        mergedCount: getSttFixesMerged().length,
+        settingsLocked: Boolean(process.env.OATS_SETTINGS_KEY && String(process.env.OATS_SETTINGS_KEY).trim()),
+    });
+});
+
+app.put('/api/stt-fixes', (req, res) => {
+    if (!checkSettingsWrite(req, res)) return;
+    const parsed = validateUserFixesList(req.body && req.body.fixes);
+    if (!parsed.ok) return res.status(400).json({ error: parsed.error });
+    try {
+        saveSttFixesUser(__dirname, parsed.fixes);
+        res.json({ ok: true, count: parsed.fixes.length });
+    } catch (e) {
+        console.error('[stt-fixes] save failed:', e);
+        res.status(500).json({ error: e.message || 'Could not save' });
+    }
 });
 
 app.post('/transcribe', upload.single('audio'), async (req, res) => {
@@ -266,7 +309,7 @@ app.post('/command', (req, res) => {
     if (!rawVoice) return res.status(400).json({ error: "No text provided" });
 
     const preformatted = Boolean(req.body.preformatted);
-    const afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, sttFixes);
+    const afterStt = preformatted ? String(rawVoice).trim() : applySttFixes(rawVoice, getSttFixesMerged());
     const afterNums = preformatted ? afterStt : applySpokenNumerals(afterStt);
     let syntax;
     if (preformatted) {
@@ -527,7 +570,11 @@ server.listen(PORT, '0.0.0.0', () => {
     console.log(`  Firing at MA3: ${MA3_IP}:${MA3_PORT}`);
     console.log(`  WiFi: ${iface} @ ${ip}`);
     console.log(`  Open in iPhone Safari: https://${ip}:${PORT}`);
-    console.log(`  STT fixes loaded: ${sttFixes.length} | Terminology entries: ${ma3Terminology.entries?.length ?? 0}`);
+    console.log(`  Voice fix dictionary: https://${ip}:${PORT}/settings.html`);
+    console.log(`  STT fixes merged: ${getSttFixesMerged().length} | Terminology entries: ${ma3Terminology.entries?.length ?? 0}`);
+    if (process.env.OATS_SETTINGS_KEY && String(process.env.OATS_SETTINGS_KEY).trim()) {
+        console.log('  STT saves locked: use header X-OATS-Settings-Key (= OATS_SETTINGS_KEY)');
+    }
     console.log(`  env file: ${envFilePath}`);
     console.log(
         mic.mode === 'cloud'

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice fix dictionary · OATS MA3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    h2 { font-size: 17px; font-weight: 600; margin: 28px 0 12px; color: #ccc; }
+    p.note { font-size: 13px; color: #888; margin-bottom: 16px; }
+    a { color: #7b9fd4; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    button {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #2a3358;
+      color: #dce2ff;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button.secondary { background: #222; color: #aaa; border: 1px solid #444; }
+    button.danger { background: #3a1515; color: #f88; border: 1px solid #633; }
+    #status { font-size: 14px; color: #27ae60; min-height: 22px; margin-top: 12px; }
+    #status.err { color: #e74c3c; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    @media (max-width: 560px) {
+      .row { grid-template-columns: 1fr; }
+    }
+    .row input {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #111;
+      color: #eee;
+      font-size: 15px;
+      width: 100%;
+    }
+    .row .del { padding: 8px 12px; font-size: 13px; }
+    #key-field {
+      width: 100%;
+      max-width: 420px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #111;
+      color: #eee;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+    }
+    details {
+      margin-top: 24px;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #0e0e0e;
+    }
+    summary { cursor: pointer; color: #888; font-size: 14px; user-select: none; }
+    #built-in-list {
+      margin-top: 12px;
+      max-height: 240px;
+      overflow-y: auto;
+      font-size: 12px;
+      color: #777;
+      font-family: ui-monospace, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>FOOK'n OATS · MA3</h1>
+    <p class="note"><a href="/">← Back to voice</a></p>
+
+    <h2>Your voice fixes</h2>
+    <p class="note">
+      After speech-to-text, each line replaces the spoken phrase (left) with the text you want (right), before MA3 translation.
+      Longer phrases win over shorter ones. Your list overrides the same phrases in the built-in dictionary.
+    </p>
+    <p class="note" style="color:#9a7;">
+      <strong>Clear:</strong> plain <code style="color:#cb8;">clear</code> is sent as MA3 <code style="color:#cb8;">Clear</code>.
+      Say <strong>clear all</strong> or <strong>dump</strong> if you mean <code style="color:#cb8;">ClearAll</code>.
+    </p>
+
+    <div id="key-wrap" class="note" style="display:none;">
+      Saving is locked: set <code>OATS_SETTINGS_KEY</code> in ma3.env, then paste the same value here when you save.
+      <div style="margin-top:8px;">
+        <input type="password" id="key-field" placeholder="Settings key" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button type="button" id="btn-add">Add row</button>
+      <button type="button" id="btn-save">Save</button>
+      <button type="button" class="secondary" id="btn-reload">Reload from server</button>
+    </div>
+
+    <div id="user-rows"></div>
+    <div id="status"></div>
+
+    <details>
+      <summary>Built-in dictionary (read-only reference)</summary>
+      <div id="built-in-list"></div>
+    </details>
+  </div>
+
+  <script>
+    const userRowsEl = document.getElementById('user-rows');
+    const statusEl = document.getElementById('status');
+    const builtInEl = document.getElementById('built-in-list');
+    const keyWrap = document.getElementById('key-wrap');
+    const keyField = document.getElementById('key-field');
+
+    function setStatus(msg, isErr) {
+      statusEl.textContent = msg || '';
+      statusEl.classList.toggle('err', !!isErr);
+    }
+
+    function addRow(from, to) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      const inFrom = document.createElement('input');
+      inFrom.type = 'text';
+      inFrom.className = 'from';
+      inFrom.placeholder = 'Heard (e.g. fischer)';
+      inFrom.value = from ? String(from) : '';
+      const inTo = document.createElement('input');
+      inTo.type = 'text';
+      inTo.className = 'to';
+      inTo.placeholder = 'Replace with (e.g. Fixture)';
+      inTo.value = to !== undefined && to !== null ? String(to) : '';
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'danger del';
+      del.textContent = 'Remove';
+      del.addEventListener('click', () => row.remove());
+      row.appendChild(inFrom);
+      row.appendChild(inTo);
+      row.appendChild(del);
+      userRowsEl.appendChild(row);
+    }
+
+    function collectFixes() {
+      const fixes = [];
+      userRowsEl.querySelectorAll('.row').forEach((row) => {
+        const from = row.querySelector('.from').value.trim();
+        const to = row.querySelector('.to').value;
+        if (!from) return;
+        fixes.push({ from, to });
+      });
+      return fixes;
+    }
+
+    async function loadData() {
+      setStatus('');
+      const r = await fetch('/api/stt-fixes');
+      if (!r.ok) {
+        setStatus('Could not load dictionary', true);
+        return;
+      }
+      const data = await r.json();
+      keyWrap.style.display = data.settingsLocked ? 'block' : 'none';
+
+      userRowsEl.innerHTML = '';
+      (data.user || []).forEach((x) => addRow(x.from, x.to));
+      if (!data.user || data.user.length === 0) addRow('', '');
+
+      const lines = (data.builtIn || []).map((x) => JSON.stringify(x.from) + ' → ' + JSON.stringify(x.to));
+      builtInEl.textContent = lines.join('\n') || '(none)';
+    }
+
+    document.getElementById('btn-add').addEventListener('click', () => addRow('', ''));
+    document.getElementById('btn-reload').addEventListener('click', loadData);
+
+    document.getElementById('btn-save').addEventListener('click', async () => {
+      setStatus('Saving…');
+      const headers = { 'Content-Type': 'application/json' };
+      const key = keyField.value.trim();
+      if (keyWrap.style.display === 'block' && key) headers['X-OATS-Settings-Key'] = key;
+
+      const r = await fetch('/api/stt-fixes', {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({ fixes: collectFixes() }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        setStatus(data.error || r.statusText, true);
+        return;
+      }
+      setStatus('Saved (' + data.count + ' entries). Voice page will use these on the next command.');
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
