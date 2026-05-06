@@ -249,6 +249,41 @@
     /** User clicked Abort — browser Web Speech onend must not send to MA3 */
     let voiceAborted = false;
     let transcribeAbortController = null;
+    let uiFeedbackCtx = null;
+
+    /**
+     * Haptic (where supported) + short click for mic press/release.
+     * iOS Safari: no Vibration API; sound uses Web Audio (respects silent mode on some devices).
+     */
+    function micPressFeedback(phase) {
+      try {
+        if (navigator.vibrate) {
+          if (phase === 'start') navigator.vibrate(14);
+          else navigator.vibrate([12, 38, 14]);
+        }
+      } catch (_) {}
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        if (!uiFeedbackCtx) uiFeedbackCtx = new Ctx();
+        const ctx = uiFeedbackCtx;
+        if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.connect(g);
+        g.connect(ctx.destination);
+        const now = ctx.currentTime;
+        const freq = phase === 'start' ? 940 : 560;
+        osc.frequency.setValueAtTime(freq, now);
+        osc.type = 'triangle';
+        const peak = phase === 'start' ? 0.72 : 0.88;
+        g.gain.setValueAtTime(0.0001, now);
+        g.gain.exponentialRampToValueAtTime(peak, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+        osc.start(now);
+        osc.stop(now + 0.105);
+      } catch (_) {}
+    }
 
     function setVoiceAbortVisible(on) {
       if (!abortVoiceBtn) return;
@@ -629,6 +664,7 @@
       if (e) e.preventDefault();
       if (!appConfig.voiceHold || voiceBusy) return;
       if (appConfig.voiceMode === 'tap') return;
+      micPressFeedback('start');
       if (appConfig.deepgramLive) {
         voiceBusy = true;
         voiceAborted = false;
@@ -749,6 +785,7 @@
         return;
       }
       if (appConfig.voiceMode === 'tap') return;
+      micPressFeedback('stop');
       if (appConfig.deepgramLive) {
         voiceBtn.classList.remove('recording', 'busy');
         const heldMs = liveHeldAt ? Date.now() - liveHeldAt : 0;
@@ -1007,6 +1044,8 @@
       if (!appConfig.voiceHold) return;
       if (appConfig.voiceMode !== 'tap') return;
       e.preventDefault();
+      if (!tapListening) micPressFeedback('start');
+      else micPressFeedback('stop');
       if (!tapListening) await tapStart();
       else await tapStop(true);
     });
