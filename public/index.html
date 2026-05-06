@@ -681,11 +681,13 @@
           statusEl.textContent = 'Connecting live STT… ' + liveUrl;
           liveWs = new WebSocket(liveUrl);
           liveWs.binaryType = 'arraybuffer';
+          let liveReady = false;
 
           liveWs.onmessage = (ev) => {
             let msg;
             try { msg = JSON.parse(ev.data); } catch { return; }
             if (msg.type === 'ready') {
+              liveReady = true;
               voiceBtn.classList.remove('busy');
               voiceBtn.classList.add('recording');
               statusEl.textContent = 'Listening…';
@@ -710,7 +712,7 @@
             }
           };
           liveWs.onerror = () => {
-            statusEl.textContent = 'Live STT socket error (handshake failed?)';
+            if (!liveReady) statusEl.textContent = 'Live STT socket error (handshake failed?)';
           };
           liveWs.onclose = (ev) => {
             // Safari often surfaces "unexpected server response" here without details.
@@ -933,16 +935,12 @@
       let timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
       if (!Number.isFinite(timeoutMs) || timeoutMs < 250) timeoutMs = 6500;
       if (timeoutMs > 120000) timeoutMs = 120000;
-      clearTimeout(tapTimer);
-      tapTimer = setTimeout(async () => {
-        if (!tapListening) return;
-        await tapStop(true);
-      }, timeoutMs);
 
       if (appConfig.deepgramLive) {
         liveFinalText = '';
         setVoiceAbortVisible(true);
         liveMicCapturePromise = navigator.mediaDevices.getUserMedia({ audio: true });
+        let liveReady = false;
         try {
           const liveUrl = wsUrl('/live');
           statusEl.textContent = 'Connecting… ' + liveUrl;
@@ -953,10 +951,17 @@
             let msg;
             try { msg = JSON.parse(ev.data); } catch { return; }
             if (msg.type === 'ready') {
+              liveReady = true;
               voiceBtn.classList.remove('busy');
               voiceBtn.classList.add('recording');
               statusEl.textContent = 'Listening… (tap to stop)';
               setVoiceAbortVisible(true);
+              // Start the auto-timeout ONLY once we are actually listening.
+              clearTimeout(tapTimer);
+              tapTimer = setTimeout(async () => {
+                if (!tapListening) return;
+                await tapStop(true);
+              }, timeoutMs);
               // Start audio only once the server confirms Deepgram is connected.
               startLiveAudio().catch((err) => {
                 statusEl.textContent = err.message || 'Mic failed';
@@ -982,7 +987,10 @@
               statusEl.textContent = msg.error || 'Live STT error';
             }
           };
-          liveWs.onerror = () => { statusEl.textContent = 'Live STT socket error'; };
+          liveWs.onerror = () => {
+            // Safari can fire onerror alongside onclose; only surface if we never reached ready.
+            if (!liveReady) statusEl.textContent = 'Live STT socket error (retry)';
+          };
           await new Promise((resolve) => { liveWs.onopen = () => resolve(); });
         } catch (err) {
           statusEl.textContent = err.message || 'Live STT failed to start';
@@ -997,6 +1005,13 @@
         voiceBusy = false;
         return;
       }
+
+      // Non-live tap mode: start timeout immediately (we are already recording locally).
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(async () => {
+        if (!tapListening) return;
+        await tapStop(true);
+      }, timeoutMs);
 
       try {
         const stream = await ensureMicStream();
