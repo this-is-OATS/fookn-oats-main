@@ -24,6 +24,7 @@ const osc = require('osc');
 const os = require('os');
 const multer = require('multer');
 const WebSocket = require('ws');
+const { execFile } = require('child_process');
 const {
     applySttFixes,
     loadMergedSttFixes,
@@ -79,6 +80,24 @@ const upload = multer({
 });
 
 // Auto-detect WiFi IP (en1 on Mac Mini), skip ghost 169.254 addresses
+function shouldCommandBeep() {
+    const v = String(process.env.OATS_COMMAND_BEEP ?? '1').trim().toLowerCase();
+    return v !== '0' && v !== 'false' && v !== 'off' && v !== 'no';
+}
+
+/** Bell + short macOS sound when the phone sends /command (disable: OATS_COMMAND_BEEP=0). */
+function ackCommandInTerminal() {
+    if (!shouldCommandBeep()) return;
+    try {
+        process.stdout.write('\x07');
+    } catch (_) {}
+    if (process.platform === 'darwin') {
+        const skip = String(process.env.OATS_COMMAND_AFPLAY ?? '1').trim() === '0';
+        if (skip) return;
+        execFile('afplay', ['-v', '0.22', '/System/Library/Sounds/Pop.aiff'], { windowsHide: true }, () => {});
+    }
+}
+
 function getWifiIP() {
     const ifaces = os.networkInterfaces();
     for (const name of ['en1', 'en0', 'en2']) {
@@ -167,6 +186,9 @@ function oatsTranslate(rawVoice) {
         .replace(/\bfrost\b/gi, "Attribute \"Frost\"")
         .replace(/\bstrobe\b/gi, "Attribute \"Shutter\"")
         .replace(/\bshutter\b/gi, "Attribute \"Shutter\"")
+
+        // Deepgram smart_format often adds a sentence period — MA Clear must not include it.
+        .replace(/\bclear\.(?=\s|$)/gi, 'Clear')
 
         // Cleanup
         .replace(/\s{2,}/g, " ")
@@ -325,11 +347,17 @@ app.post('/command', (req, res) => {
         args: [{ type: "s", value: syntax }]
     });
 
-    console.log(
-        preformatted
-            ? `[CMD] LLM/direct → "${syntax}"`
-            : `[OATS] "${rawVoice}" | stt → "${afterStt}" | nums → "${afterNums}" | ma3 → "${syntax}"`
-    );
+    ackCommandInTerminal();
+    const rawTrim = String(rawVoice).trim();
+    const logPipe = String(process.env.OATS_LOG_PIPELINE || '').trim() === '1';
+    console.log(`[phone] ${rawTrim}`);
+    if (preformatted) {
+        console.log(`[ma3]   ${syntax}`);
+    } else if (logPipe) {
+        console.log(`[pipe]  stt "${afterStt}" | nums "${afterNums}" | → "${syntax}"`);
+    } else {
+        console.log(`[ma3]   ${syntax}`);
+    }
     res.json({ status: "sent", command: syntax, stt: afterNums, sttRaw: afterStt, raw: rawVoice, preformatted });
 });
 
@@ -575,6 +603,12 @@ server.listen(PORT, '0.0.0.0', () => {
     if (process.env.OATS_SETTINGS_KEY && String(process.env.OATS_SETTINGS_KEY).trim()) {
         console.log('  STT saves locked: use header X-OATS-Settings-Key (= OATS_SETTINGS_KEY)');
     }
+    console.log(
+        shouldCommandBeep()
+            ? '  Command beep: ON (OATS_COMMAND_BEEP=0 to mute; OATS_COMMAND_AFPLAY=0 for bell only)'
+            : '  Command beep: OFF'
+    );
+    console.log('  Verbose STT pipeline log: OATS_LOG_PIPELINE=1');
     console.log(`  env file: ${envFilePath}`);
     console.log(
         mic.mode === 'cloud'
