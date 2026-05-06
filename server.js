@@ -101,7 +101,8 @@ function ackCommandInTerminal() {
 
 /** Tap-mode auto-stop (ms). Env mistakes like LISTEN_TIMEOUT_MS=0750 parse as 750ms and feel “instant cut off”. */
 const LISTEN_TIMEOUT_DEFAULT_MS = 6500;
-const LISTEN_TIMEOUT_MIN_MS = 2500;
+// Allow very short tap windows if desired (e.g. 750ms).
+const LISTEN_TIMEOUT_MIN_MS = 250;
 const LISTEN_TIMEOUT_MAX_MS = 120000;
 
 function clampListenTimeoutMs() {

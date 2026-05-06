@@ -796,6 +796,15 @@
         voiceBusy = false;
         setVoiceAbortVisible(false);
 
+        if (voiceAborted) {
+          voiceAborted = false;
+          liveFinalText = '';
+          transEl.textContent = '';
+          cmdEl.textContent = '';
+          statusEl.textContent = 'Aborted — nothing sent';
+          return;
+        }
+
         if (heldMs < MIN_HOLD_MS) {
           statusEl.textContent =
             'Hold at least ' + Math.ceil(MIN_HOLD_MS / 100) / 10 + 's (you held ' + (heldMs / 1000).toFixed(1) + 's)';
@@ -874,7 +883,12 @@
 
         const text = (trData.text || '').trim();
         transEl.textContent = text;
-        if (text) await sendCommand(text);
+        if (voiceAborted) {
+          voiceAborted = false;
+          transEl.textContent = '';
+          cmdEl.textContent = '';
+          statusEl.textContent = 'Aborted — nothing sent';
+        } else if (text) await sendCommand(text);
         else {
           const extra = trData && trData.audio ? ` (${trData.audio.mime}, ${trData.audio.bytes} bytes)` : '';
           statusEl.textContent = 'No speech detected by transcriber' + extra;
@@ -909,6 +923,7 @@
 
     async function tapStart() {
       if (voiceBusy) return;
+      voiceAborted = false;
       voiceBusy = true;
       tapListening = true;
       voiceBtn.classList.add('busy');
@@ -916,7 +931,7 @@
       cmdEl.textContent = '';
       statusEl.textContent = 'Starting…';
       let timeoutMs = Number(appConfig.listenTimeoutMs || 6500);
-      if (!Number.isFinite(timeoutMs) || timeoutMs < 2500) timeoutMs = 6500;
+      if (!Number.isFinite(timeoutMs) || timeoutMs < 250) timeoutMs = 6500;
       if (timeoutMs > 120000) timeoutMs = 120000;
       clearTimeout(tapTimer);
       tapTimer = setTimeout(async () => {
@@ -1014,6 +1029,16 @@
       if (appConfig.deepgramLive) {
         await stopLiveDeepgramPipeline();
 
+        if (voiceAborted) {
+          voiceAborted = false;
+          liveFinalText = '';
+          transEl.textContent = '';
+          cmdEl.textContent = '';
+          statusEl.textContent = 'Aborted — nothing sent';
+          setVoiceAbortVisible(false);
+          return;
+        }
+
         const finalText = liveTranscriptForSend();
         liveFinalText = '';
         transEl.textContent = finalText;
@@ -1049,6 +1074,14 @@
       if (!tapListening) await tapStart();
       else await tapStop(true);
     });
+
+    if (abortVoiceBtn) {
+      abortVoiceBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        abortVoiceSession();
+      });
+    }
 
     sendBtn.addEventListener('click', async () => {
       await sendCommand(userInput.value);
