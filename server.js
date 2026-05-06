@@ -113,7 +113,16 @@ function clampListenTimeoutMs() {
 }
 
 function getWifiIP() {
-    const ifaces = os.networkInterfaces();
+    let ifaces;
+    try {
+        ifaces = os.networkInterfaces();
+    } catch (e) {
+        // Rare: Node can throw from uv_interface_addresses; never crash the server on startup.
+        try {
+            console.warn('[net] networkInterfaces() failed:', e?.message || e);
+        } catch (_) {}
+        return { ip: '0.0.0.0', iface: 'unknown' };
+    }
     for (const name of ['en1', 'en0', 'en2']) {
         const iface = ifaces[name];
         if (iface) {
