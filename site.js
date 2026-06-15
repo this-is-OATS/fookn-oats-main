@@ -1,19 +1,20 @@
 // ============================================================
 // FOOK'N OATS — SITE CONTENT
 // Edit this file to update your site. Then hit Deploy in Cowork.
+// v1.0.0 · 2026.06.15
 // ============================================================
 
 const SITE = {
   title: "FOOK'N OATS",
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
-    text: "ACTIVATE COMMS - LETS CHAT!",
+    text: "LET'S TALK →",
     color: "#0069ff",
     textColor: "#ffffff"
   },
   ticker: {
     enabled: true,
-    text: "FOOK'N OATS • LIVE SHOWS • STAY TUNED"
+    text: "FOOK'N OATS • LIGHTING · CAD · LED · CREW • AVAILABLE TO TRAVEL"
   },
   nav: [
     { id: "home",     label: "HOME" },
@@ -29,17 +30,17 @@ const SITE = {
     { icon: "◈", label: "CAD & Drafting",       tagline: "Precision drafts. Light plots. Venue drawings.",         desc: "Vectorworks and AutoCAD drafting for lighting plots, rigging designs, stage layouts, and venue paperwork. Remote-deliverable. Turn around in days, not weeks." },
     { icon: "⚡", label: "Master Electrician",   tagline: "On-site crew chief. Lighting supervision.",             desc: "Experienced Master Electrician and Lighting Crew Chief available for tours, installs, and one-offs. Brings leadership, problem-solving, and a full toolkit to any rig." },
     { icon: "▦", label: "LED Wall Tech",         tagline: "Pixel-perfect builds. LED wall systems.",               desc: "LED wall construction, configuration, and in-show technician services. From spec to strike. Novastar, Brompton, ROE, and custom panels." },
-    { icon: "◎", label: "Consulting & Quotes",  tagline: "Scoping, budgeting, and production advice.",            desc: "Not sure what you need? Start here. Project scoping, vendor recommendations, budget reviews, and production planning without the agency markup." },
+    { icon: "◎", label: "Consulting & Quotes",  tagline: "Not sure what you need? Start here.",            desc: "Project scoping, vendor recommendations, budget reviews, and production planning — without the agency markup." },
     { icon: "⚙", label: "Maker-Lab",            tagline: "Fabrication. Prototyping. Hands-on builds.",            desc: "In-house maker lab for custom fabrication, prototyping, and production builds. Laser CNC, 3D printing, embroidery, and modular bench systems — from concept to physical product." },
-    { icon: "◇", label: "Design Network",        tagline: "Lighting production. Crew connections. Talent.",        desc: "A curated network of lighting production professionals, super-techs, and crew. LxProd coordination, talent sourcing, and the Crewfam ecosystem — connecting the right people to the right gigs." }
+    { icon: "◇", label: "Design Network",        tagline: "Need crew? I know who's good.",        desc: "Years on the road means a deep contact list of lighting techs and crew. If I can't take your gig, I can point you to someone who can." }
   ],
   brands: [
     { icon: "✦", label: "Revelator Illuminae",  tagline: "Lighting design. Visuals. Previz.",                    desc: "The creative lighting arm. Original lighting design, visuals programming, and previsualization services." },
-    { icon: "♫", label: "Sleepwell Sweetheart", tagline: "Legacy band. EDM remixes. 20-year arc.",               desc: "The original band project — spanning two decades of music, from its legacy era through EDM remixes and the upcoming 20-year reunion event." },
-    { icon: "⬡", label: "AI Oatmeal",           tagline: "Meme engine. AI content. Storyboards.",               desc: "The AI-powered creative pipeline — meme generation, AI-assisted content creation, and storyboard development." },
-    { icon: "◌", label: "Ghosted Oats",          tagline: "Raw aesthetic. Personal reflections.",                 desc: "The unfiltered identity — raw aesthetic explorations and personal reflections. No polish, no brand guidelines. Just truth." },
-    { icon: "₿", label: "Cryptos4Oats",          tagline: "Market cycles. WatersAbove. XRP strategy.",           desc: "Crypto analysis, market cycle research, and decentralized finance exploration." },
-    { icon: "☆", label: "ƒ//ing::st△r",         tagline: "DJ persona. Neon fever-dream. EDM community.",        desc: "The DJ identity — neon fever-dream concepts and the EDM Oatmeal community." }
+    { icon: "♫", label: "Sleepwell Sweetheart", tagline: "The band that started it all. 20 years on.",               desc: "Two decades of music, from the early catalog to new EDM remixes and a 20-year reunion show." },
+    { icon: "⬡", label: "AI Oatmeal",           tagline: "Where the memes and AI experiments live.",               desc: "AI-assisted content, memes, and storyboards. More playground than product." },
+    { icon: "◌", label: "Ghosted Oats",          tagline: "The unpolished stuff. No brand rules.",                 desc: "Sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan." },
+    { icon: "₿", label: "Cryptos4Oats",          tagline: "Market notes from a touring tech.",           desc: "Personal crypto and market-cycle notes — a side interest, shared openly. Not financial advice." },
+    { icon: "☆", label: "ƒ//ing::st△r",         tagline: "The DJ side. Loud, neon, built for the floor.",        desc: "EDM sets, neon visuals, and the EDM Oatmeal crew." }
   ],
   stories: [
     { icon: "✦", label: "Pretty Lights Tour",   tagline: "Hampton · St. Augustine · Red Rocks · Vegas",         desc: "The Pretty Lights run — from Hampton to St. Augustine, the birthday show at Red Rocks, Halloween in Las Vegas." },
@@ -54,14 +55,14 @@ const SITE = {
   ],
   about: {
     headline: "The Human Behind the Rig.",
-    subheadline: "Lighting professional, CAD drafter, LED builder, production problem-solver, DJ, maker, and crypto researcher. Based wherever the gig is. Available to travel.",
-    body: "The $500/day era is over. This is what professional services actually look like — clear scope, accurate pricing, and deliverables that hold up.",
+    subheadline: "Lighting professional, CAD drafter, LED builder, and production problem-solver. Also a DJ and maker. Based wherever the gig is. Available to travel.",
+    body: "Clear scope, accurate pricing, and work that holds up. No agency markup, no buried line items, no surprises. You deal with the person doing the job.",
     tree: [
-      { label: "Higher Self",              desc: "The guiding principle behind every decision and creative output." },
-      { label: "Wisdom Share",             desc: "Knowledge passed forward — lessons from the road, the rig, and the grind." },
-      { label: "Writing / Living Journal", desc: "Ongoing documentation of the journey. Words that track the evolution." },
-      { label: "Cycles, Energetics, Mirrors", desc: "Patterns recognized. Energy understood. Reflections honored." },
-      { label: "2023-2025 Transformation Era", desc: "The pivot years — where everything restructured and a new chapter began." }
+      { label: "How I Work",               desc: "Show up prepared, communicate straight, and leave the rig better than I found it." },
+      { label: "On the Road",              desc: "Lessons from the road, the rig, and the grind — passed forward to the next tech." },
+      { label: "Field Notes",              desc: "Ongoing notes on the work, the gear, and what I'm building next." },
+      { label: "The Side Projects",        desc: "Music, art, builds, and memes — the creative stuff that keeps it interesting." },
+      { label: "2023–2025",                desc: "The years it all came together into one operation under one name." }
     ]
   },
   shows: Array.from({length: 17}, (_, i) => {

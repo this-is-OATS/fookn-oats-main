@@ -37,6 +37,7 @@
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
     #nav-top{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.04)}
     #nav-logo{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.15em;color:var(--gold);cursor:pointer}
+    #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,0.28)}
     #photos-btn{background:none;border:1px solid rgba(255,180,0,0.35);color:var(--gold);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:3px 10px}
     #nav-tabs{display:flex;align-items:center;gap:18px;height:32px;padding:0 20px;overflow-x:auto}
     .nav-tab{background:none;border:none;color:rgba(255,255,255,0.45);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:0;white-space:nowrap;flex-shrink:0;transition:color .2s}
@@ -187,7 +188,10 @@
 <!-- NAV -->
 <div id="nav-wrap">
   <div id="nav-top">
-    <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
+      <span id="nav-version">v1.0.0 · 2026.06.15</span>
+    </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
   <div id="nav-tabs"></div>
@@ -207,33 +211,33 @@ const DEPARTMENTS = [
   { id:"cad",       label:"CAD & Drafting",      icon:"◈", tagline:"Precision drafts. Light plots. Venue drawings.",         desc:"Vectorworks and AutoCAD drafting for lighting plots, rigging designs, stage layouts, and venue paperwork. Remote-deliverable. Turn around in days, not weeks.",                                                                                                         bullets:["Lighting plots (full-detail)","Rigging & truss layouts","Venue/stage ground plans","As-builts & documentation"],                     cta:"Request a Draft",   keywords:["cad","draft","plot","drawing","vectorworks","autocad","layout","lighting plot","venue","plan"] },
   { id:"gaffer",    label:"Master Electrician",  icon:"⚡", tagline:"On-site crew chief. Lighting supervision.",             desc:"Experienced Master Electrician and Lighting Crew Chief available for tours, installs, and one-offs. Brings leadership, problem-solving, and a full toolkit to any rig.",                                                                                                  bullets:["Tour & one-off ME/crew chief","Lighting installs & load-ins","Troubleshooting & maintenance","Crew coordination"],                     cta:"Check Availability",keywords:["gaffer","electrician","crew","chief","me","touring","tour","load","rig","supervise","lighting crew"] },
   { id:"led",       label:"LED Wall Tech",        icon:"▦", tagline:"Pixel-perfect builds. LED wall systems.",               desc:"LED wall construction, configuration, and in-show technician services. From spec to strike. Novastar, Brompton, ROE, and custom panels.",                                                                                                                             bullets:["LED wall build & config","In-show pixel tech","Processor programming","Panel inventory & maintenance"],                               cta:"Talk LED",          keywords:["led","pixel","wall","screen","novastar","brompton","roe","display","video wall","pixel tech"] },
-  { id:"consult",   label:"Consulting & Quotes",  icon:"◎", tagline:"Scoping, budgeting, and production advice.",            desc:"Not sure what you need yet? Start here. Project scoping, vendor recommendations, budget reviews, and production planning without the agency markup.",                                                                                                              bullets:["Project scoping calls","Budget & vendor review","RFP support","Production planning"],                                                  cta:"Book a Consult",    keywords:["consult","quote","scope","budget","plan","advice","help","not sure","recommend","rfp"] },
+  { id:"consult",   label:"Consulting & Quotes",  icon:"◎", tagline:"Not sure what you need yet? Start here.",            desc:"Project scoping, vendor recommendations, budget reviews, and production planning — without the agency markup. Tell me the gig and I'll tell you what it actually takes.",                                                                                                              bullets:["Project scoping calls","Budget & vendor review","RFP support","Production planning"],                                                  cta:"Book a Consult",    keywords:["consult","quote","scope","budget","plan","advice","help","not sure","recommend","rfp"] },
   { id:"makerlab",  label:"Maker-Lab",            icon:"⚙", tagline:"Fabrication. Prototyping. Hands-on builds.",            desc:"In-house maker lab for custom fabrication, prototyping, and production builds. Laser CNC, 3D printing, embroidery, and modular bench systems — from concept to physical product.",                                                                                bullets:["Laser CNC & cutting","3D printing & prototyping","Custom fabrication","Modular bench systems"],                                       cta:"Start a Build",     keywords:["maker","fabricat","prototype","build","laser","cnc","3d print","embroidery","workshop","physical"] },
-  { id:"designnet", label:"Design Network",       icon:"◇", tagline:"Lighting production. Crew connections. Talent.",        desc:"A curated network of lighting production professionals, super-techs, and crew. LxProd coordination, talent sourcing, and the Crewfam ecosystem — connecting the right people to the right gigs.",                                                                    bullets:["Gig-to-crew matching","LxProd coordination","Talent sourcing","Crewfam ecosystem"],                                                    cta:"Join the Network",  keywords:["network","crew","talent","lxprod","crewfam","gig","match","production network","design network"] },
+  { id:"designnet", label:"Design Network",       icon:"◇", tagline:"Need crew? I know who's good.",        desc:"Years on the road means a deep contact list of lighting techs, super-techs, and crew. If I can't take your gig, I can point you to someone who can. Real people, vouched for.",                                                                    bullets:["Crew & tech referrals","Production coordination","Talent sourcing","People I'd vouch for"],                                                    cta:"Join the Network",  keywords:["network","crew","talent","lxprod","crewfam","gig","match","production network","design network"] },
 ];
 
 const BRANDS = [
   { id:"revelator",  label:"Revelator Illuminae",  icon:"✦", tagline:"The creative lighting arm.",               desc:"Original lighting design, visuals programming, and previsualization services. Go4oats.vizzies — where the art of light meets live production.",                                             bullets:["Original lighting design","Visuals programming","Previsualization services","Go4oats.vizzies"] },
-  { id:"sleepwell",  label:"Sleepwell Sweetheart", icon:"♪", tagline:"Legacy band. EDM remixes. 20-year arc.",  desc:"The original band project — spanning two decades of music, from its legacy era through EDM remixes and the upcoming 20-year reunion event. A vinyl project is in the works.",             bullets:["EDM remix collection","Legacy catalog","20-year reunion event","Vinyl project in development"] },
-  { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"AI-powered creative pipeline.",            desc:"Meme generation, AI-assisted content creation, and storyboard development. Where machine learning meets the Oats aesthetic.",                                                            bullets:["AI content generation","Meme pipeline","Storyboard development","Machine learning workflows"] },
-  { id:"ghosted",    label:"Ghosted Oats",         icon:"◌", tagline:"Raw. Unfiltered. No brand guidelines.",    desc:"The unfiltered identity — raw aesthetic explorations and personal reflections. No polish, no brand guidelines. Just truth in visual form.",                                               bullets:["Raw aesthetic explorations","Personal reflections","Visual storytelling","Unfiltered documentation"] },
-  { id:"crypto",     label:"Cryptos4Oats",         icon:"₿", tagline:"Market thoughts. Decentralized futures.",  desc:"Crypto market analysis, decentralized crew union concepts, and a community marketplace for creators, makers, and crew. Transparently matching techs with gigs.",                       bullets:["Crypto market thoughts","Decentralized crew union","Community marketplace","Transparent gig matching"] },
-  { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"DJ persona. Neon fever-dream. EDM community.", desc:"The DJ identity — neon fever-dream concepts and the EDM Oatmeal community. Where electronic music meets visual art meets live performance chaos.",                                   bullets:["DJ persona & performances","The EDM Oatmeal community","Neon visual concepts","Live performance chaos"] },
+  { id:"sleepwell",  label:"Sleepwell Sweetheart", icon:"♪", tagline:"The band that started it all. 20 years on.",  desc:"The original band — two decades of music, from the early catalog to new EDM remixes and a 20-year reunion show. A vinyl project is in the works.",             bullets:["Legacy catalog","EDM remixes","20-year reunion show","Vinyl in development"] },
+  { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"Where the memes and AI experiments live.",            desc:"AI-assisted content, memes, and storyboards — the Oats aesthetic run through whatever tools are fun this week. More playground than product.",                                                            bullets:["Memes & AI content","Storyboards","Creative experiments","The Oats aesthetic"] },
+  { id:"ghosted",    label:"Ghosted Oats",         icon:"◌", tagline:"The unpolished stuff. No brand rules.",    desc:"Where the rough work lives — sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan. Just what I actually make.",                                               bullets:["Rough experiments","Personal shots","Visual notebook","No filter"] },
+  { id:"crypto",     label:"Cryptos4Oats",         icon:"₿", tagline:"Market notes from a touring tech who reads charts.",  desc:"Personal crypto and market-cycle notes — a side interest, shared openly. Not advice, just what I'm watching and why.",                       bullets:["Market-cycle notes","XRP & macro watching","Research links","Honest, not financial advice"] },
+  { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"The DJ side. Loud, neon, built for the floor.", desc:"My DJ identity — EDM sets, neon visuals, and the EDM Oatmeal crew. The part of all this that just wants to make a room move.",                                   bullets:["DJ sets & performances","EDM Oatmeal community","Neon visual concepts","Made for the dancefloor"] },
 ];
 
 const SECTIONS = [
-  { id:"services", label:"Services",    icon:"⚡", tagline:"Production departments. Lighting, CAD, LED, fabrication, crew networking.",    desc:"Six production departments under one roof — CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and a lighting crew Design Network." },
-  { id:"brands",   label:"Brands",      icon:"✦", tagline:"Six creative identities — from lighting art to crypto to DJ sets.",             desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — each with its own voice, aesthetic, and purpose." },
-  { id:"studio",   label:"Studio",      icon:"◈", tagline:"Music production, livestreaming, and the Bobeng Builds workshop.",              desc:"The MIDI Music Machine, Mac Mini Deck, iPad Surface, full livestream setup, and the Bobeng Builds fabrication workshop — all under one roof." },
+  { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"What I actually do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Real services, clear pricing." },
+  { id:"brands",   label:"Brands",      icon:"✦", tagline:"The side projects — lighting art, music, memes, and DJ sets.",             desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — the creative stuff I make when I'm not on a gig." },
+  { id:"studio",   label:"Studio",      icon:"◈", tagline:"Music production, livestreaming, and the Bobeng Builds workshop.",              desc:"MIDI machine, Mac Mini deck, iPad surface, a full livestream rig, and the Bobeng Builds workshop — where the music and builds happen." },
   { id:"stories",  label:"Stories",     icon:"◎", tagline:"Pretty Lights tours, Electric Forest, desert road trips.",                      desc:"From Pretty Lights runs at Hampton and Red Rocks, to wrong-way Ubers at Electric Forest, to desert resets at Joshua Tree and the Integratron." },
   { id:"edm",      label:"EDM Oatmeal", icon:"⊕", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM.",                           desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse." },
-  { id:"connect",  label:"Connect",     icon:"◆", tagline:"Social networks, media archive, and future structures.",                        desc:"The Will-Oats Universe spans multiple platforms and identities. Here's where to find everything." },
-  { id:"about",    label:"About",       icon:"◇", tagline:"The Will-Oats Tree. Higher self. Transformation era.",                          desc:"The origin story, the Will-Oats Tree philosophy, and the transformation era. Where higher-self thinking meets hands-on production work." },
+  { id:"connect",  label:"Connect",     icon:"◆", tagline:"Where to find me and the projects.",                        desc:"Socials, channels, email, and a booking link. All the ways to reach out." },
+  { id:"about",    label:"About",       icon:"◇", tagline:"The human behind the rig.",                          desc:"Who I am, what I've worked on, and how I run a job. The short version of a long road." },
 ];
 
 const AI_KEYWORDS = [
   ...DEPARTMENTS.map(d => ({ id:d.id, type:"dept", keywords:d.keywords, label:d.label, tagline:d.tagline })),
-  { id:"brands",  type:"section", keywords:["brand","revelator","sleepwell","ai oatmeal","ghosted","crypto","falling star","dj","music","identity"], label:"Brands",      tagline:"Six creative identities under the Will-Oats umbrella." },
+  { id:"brands",  type:"section", keywords:["brand","revelator","sleepwell","ai oatmeal","ghosted","crypto","falling star","dj","music","identity"], label:"Brands",      tagline:"The side projects — lighting art, music, memes, DJ sets." },
   { id:"studio",  type:"section", keywords:["studio","midi","livestream","bobeng","production","mix","dj set"],                                        label:"Studio",      tagline:"Music production, livestreaming, and the Bobeng Builds workshop." },
   { id:"stories", type:"section", keywords:["story","stories","tour","pretty lights","electric forest","red rocks","joshua tree","festival","road"],   label:"Stories",     tagline:"Pretty Lights tours, Electric Forest, desert road trips." },
   { id:"edm",     type:"section", keywords:["edm","oatmeal","feed","scanner","hashtag","community","electronic","news"],                               label:"EDM Oatmeal", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM." },
@@ -384,7 +388,7 @@ function handleAI(inputId, repliesId) {
     var route = routeQuery(q);
     var msg = route
       ? "Got it. Based on what you're describing, the right place is \"" + route.label + "\" — " + route.tagline + " Let me point you there."
-      : "Tell me a bit more about what you're looking for — services, brands, music, stories, or something else in the Will-Oats Universe?";
+      : "Tell me a bit more about what you're looking for — services, brands, music, stories, or something else?";
     aiReplies.push({q, msg, route});
     renderView(currentView);
   }, 700 + Math.random()*400);
@@ -420,11 +424,11 @@ function card(item, onclick) {
 
 function renderAIBox(inputId, repliesId, placeholder, btnLabel) {
   var box = el("div","ai-box");
-  box.innerHTML = '<div class="ai-label">◆ AI INQUIRY ROUTER</div><div class="ai-sublabel">'+(placeholder||"Tell me what you're looking for — services, brands, music, stories — and I'll route you to the right place.")+'</div>';
+  box.innerHTML = '<div class="ai-label">◆ AI INQUIRY ROUTER</div><div class="ai-sublabel">'+(placeholder||"Tell me what you're looking for — services, brands, music, stories — and I'll point you to the right place.")+'</div>';
   var row = el("div","ai-row");
   var inp = el("input"); inp.type="text"; inp.id=inputId; inp.className="ai-input"; inp.placeholder=placeholder||"e.g. 'I need a lighting plot' or 'tell me about the DJ brand'";
   inp.onkeydown = function(e){ if(e.key==="Enter") handleAI(inputId,repliesId); };
-  var btn = el("button","ai-btn"); btn.textContent = aiTyping ? "..." : (btnLabel||"ASK THE WILL-OATS UNIVERSE");
+  var btn = el("button","ai-btn"); btn.textContent = aiTyping ? "..." : (btnLabel||"ASK OATS");
   if(aiTyping) btn.disabled = true;
   btn.onclick = function(){ handleAI(inputId,repliesId); };
   row.appendChild(inp); row.appendChild(btn);
@@ -434,7 +438,7 @@ function renderAIBox(inputId, repliesId, placeholder, btnLabel) {
   slice.forEach(function(r) {
     var qDiv = el("div","ai-q","→ "+r.q); replyList.appendChild(qDiv);
     var rep = el("div","ai-reply");
-    rep.innerHTML = '<span class="ai-reply-label">◆ WILL-OATS AI →</span>'+r.msg;
+    rep.innerHTML = '<span class="ai-reply-label">◆ OATS →</span>'+r.msg;
     if (r.route) {
       var rb = el("button","ai-route-btn","OPEN "+r.route.label.toUpperCase()+" →");
       rb.onclick = function(){ routeClick(r.route); };
@@ -523,7 +527,7 @@ function detailPage(item, backDest, showForm) {
     frag.appendChild(cbox);
   } else {
     var bnote = el("div","brand-note");
-    bnote.innerHTML = '<div class="brand-note-label">THIS BRAND IS PART OF THE EXPANDING WILL-OATS UNIVERSE</div><div class="brand-note-text">Content, releases, and collaborations are in active development.</div>';
+    bnote.innerHTML = '<div class="brand-note-label">A FOOK\'N OATS SIDE PROJECT</div><div class="brand-note-text">Still building this one out — releases and collabs in progress.</div>';
     frag.appendChild(bnote);
   }
   var wrap = el("div","detail-wrap");
@@ -539,10 +543,10 @@ function renderView(view) {
 
   // HOME
   if (view === "home") {
-    var eyebrow = el("div","home-eyebrow","Services · Brands · Studio · Stories · Connect");
+    var eyebrow = el("div","home-eyebrow","Lighting · CAD · LED · Crew · Made on the road");
     var title = el("h1","home-title","FOOK'N<br/><span style='color:var(--gold)'>OATS</span>");
     title.innerHTML = "FOOK'N<br/><span style='color:var(--gold)'>OATS</span>";
-    var desc = el("p","home-desc","The Will-Oats Universe — production services, creative brands, music, touring stories, and everything in between. One ecosystem. Multiple identities.");
+    var desc = el("p","home-desc","Touring lighting professional for hire — CAD, master electrician, LED walls, and crew. Plus the music, art, and side projects that come from a life on the road. Not a cookie-cutter shop. One person who shows up and gets it done.");
     var btns = el("div","home-btns");
     var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
     var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
@@ -552,7 +556,7 @@ function renderView(view) {
 
     app.appendChild(renderAIBox("ai-input-home","ai-replies-home",null,null));
 
-    var ulbl = el("div","universe-label","THE WILL-OATS UNIVERSE");
+    var ulbl = el("div","universe-label","EXPLORE THE OATS WORLD");
     var grid = el("div","card-grid");
     SECTIONS.forEach(function(s) {
       grid.appendChild(card(s, function(){ showView("section:"+s.id); }));
@@ -575,7 +579,7 @@ function renderView(view) {
     app.appendChild(backBtn("home"));
     app.appendChild(el("div","sec-tag","SERVICES"));
     app.appendChild(el("h2","sec-title","Production Departments"));
-    app.appendChild(el("p","sec-desc","Six production departments under one roof — CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and a lighting crew Design Network."));
+    app.appendChild(el("p","sec-desc","What I do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Clear scope, clear pricing."));
     app.appendChild(el("div","universe-label","DEPARTMENTS / SERVICES"));
     var grid = el("div","card-grid-sm");
     DEPARTMENTS.forEach(function(d) {
@@ -615,7 +619,7 @@ function renderView(view) {
   if (view === "section:studio") {
     app.appendChild(detailPage({
       icon:"◈", label:"Studio",
-      desc:"Music production, DJ sets, livestreaming, and the Bobeng Builds workshop. Multiple stations, one creative ecosystem. The MIDI Music Machine, Mac Mini Deck, iPad Surface, full livestream setup — all under one roof. DJay Pro running on Mac Mini — the live remixing station for sets, practice sessions, and livestream DJ segments.",
+      desc:"Where the music and builds happen. Music production, DJ sets, livestreaming, and the Bobeng Builds workshop — all in one room. MIDI machine, Mac Mini running DJay Pro for live sets and practice, iPad surface, and a full stream rig.",
       bullets:["MIDI Music Machine","Mac Mini Deck / DJay Pro","Full livestream setup","Bobeng Builds fabrication workshop"]
     }, "home", false));
     return;
@@ -625,8 +629,8 @@ function renderView(view) {
   if (view === "section:stories") {
     app.appendChild(detailPage({
       icon:"◎", label:"Road Stories",
-      desc:"Tour memories, festival chaos, and off-the-clock adventures. The stories that shaped the work.",
-      bullets:["Pretty Lights — Hampton, St. Augustine, Red Rocks birthday show, Halloween in Las Vegas","Electric Forest — the infamous wrong-way Uber story and the Beam Team scooter era","Desert resets — Joshua Tree, the Integratron sound bath, Palm Desert explorations","The ongoing Nature/Earth arc connecting land to self"]
+      desc:"Tour memories, festival chaos, and the off-the-clock stuff. The stories behind the work — and a decent argument for why I do it.",
+      bullets:["Pretty Lights — Hampton, St. Augustine, the Red Rocks birthday show, Halloween in Vegas","Electric Forest — the infamous wrong-way Uber and the Beam Team scooter era","Desert resets — Joshua Tree, the Integratron, Palm Desert","More road stories than I can fit here"]
     }, "home", false));
     return;
   }
@@ -635,8 +639,8 @@ function renderView(view) {
   if (view === "section:edm") {
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",
-      desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse.",
-      bullets:["Live EDM news feed","Ground crew scanner","Hashtag & event tracking","Scan → Store → Stream pipeline","The Oats — main feed","Go4Oats Show — long-form content"]
+      desc:"A live feed for the EDM and touring world — news, on-the-ground updates, and the people in it. Built by crew, for crew.",
+      bullets:["EDM & touring news","Ground crew updates","Event tracking","Follow @theoats","Go4Oats Show on YouTube"]
     }, "home", false));
     return;
   }
@@ -645,8 +649,8 @@ function renderView(view) {
   if (view === "section:connect") {
     app.appendChild(detailPage({
       icon:"◆", label:"Connect",
-      desc:"The Will-Oats Universe spans multiple platforms and identities. Here's where to find everything — social networks, media archive, community, and future structures.",
-      bullets:["Instagram: @theoats — The Oats main feed","Instagram / Threads: @sleepwellsweetheart — band + music","YouTube: Go4Oats Show — long-form content","YouTube: A.I. Oatmeal — AI content","Community marketplace (in development)","Decentralized crew union (in development)"]
+      desc:"All the places to find me and the projects. Reach out for work, follow along, or just say what's up.",
+      bullets:["Instagram: @theoats — main feed","Instagram / Threads: @sleepwellsweetheart — band + music","YouTube: Go4Oats Show — long-form","YouTube: A.I. Oatmeal — AI content","Email: fookn.oats.enterprises@gmail.com","Book a call — link below"]
     }, "home", false));
     return;
   }
@@ -656,13 +660,13 @@ function renderView(view) {
     var wrap = el("div","");
     wrap.style.maxWidth = "620px";
     wrap.appendChild(backBtn("home"));
-    wrap.appendChild(el("div","sec-tag","ABOUT / THE WILL-OATS TREE"));
+    wrap.appendChild(el("div","sec-tag","ABOUT"));
     var h2 = el("h2","sec-title"); h2.innerHTML = "The Human Behind<br>the Rig."; wrap.appendChild(h2);
     wrap.appendChild(el("p","",SITE.about.subheadline));
     wrap.style.cssText = "max-width:620px";
     var p1 = el("p"); p1.style.cssText="color:rgba(255,255,255,.6);font-size:15px;line-height:1.85;margin-bottom:18px"; p1.textContent=SITE.about.subheadline; wrap.appendChild(p1);
     var p2 = el("p"); p2.style.cssText="color:rgba(255,255,255,.5);font-size:14px;line-height:1.85;margin-bottom:18px"; p2.textContent="When I bill for a technician, their rate, lodging, and per diem are all covered — because that's how you build a crew that comes back. Specialized work gets a service line item. Nothing gets buried. The budget always makes sense."; wrap.appendChild(p2);
-    var p3 = el("p"); p3.style.cssText="color:rgba(255,255,255,.4);font-size:14px;line-height:1.85;margin-bottom:36px"; p3.textContent="The Will-Oats Tree. Higher self. Transformation era. Where production work meets creative identity meets personal evolution."; wrap.appendChild(p3);
+    var p3 = el("p"); p3.style.cssText="color:rgba(255,255,255,.4);font-size:14px;line-height:1.85;margin-bottom:36px"; p3.textContent="Lighting pays the bills; the music, the builds, and the art are why I keep going. Same person behind all of it — that's the whole pitch."; wrap.appendChild(p3);
 
     var aiSm = el("div",""); aiSm.style.cssText="border:1px solid rgba(255,180,0,.2);padding:22px;background:rgba(255,180,0,.02);margin-bottom:28px";
     var ail = el("div","",""); ail.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:14px"; ail.textContent="◆ ASK ME ANYTHING"; aiSm.appendChild(ail);
@@ -676,7 +680,7 @@ function renderView(view) {
     aiReplies.slice(-2).forEach(function(r) {
       var qDiv = el("div","ai-q","→ "+r.q); aboutReplies.appendChild(qDiv);
       var rep = el("div","ai-reply");
-      rep.innerHTML = '<span class="ai-reply-label">◆ WILL-OATS AI →</span>'+r.msg;
+      rep.innerHTML = '<span class="ai-reply-label">◆ OATS →</span>'+r.msg;
       if (r.route) { var rb=el("button","ai-route-btn","OPEN "+r.route.label.toUpperCase()+" →"); rb.onclick=function(){routeClick(r.route);}; rep.appendChild(rb); }
       aboutReplies.appendChild(rep);
     });
