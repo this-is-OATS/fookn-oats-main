@@ -1,7 +1,7 @@
 // ============================================================
 // FOOK'N OATS — SITE CONTENT
 // Edit this file to update your site. Then hit Deploy in Cowork.
-// v1.0.0 · 2026.06.15
+// v1.0.1 · 2026.06.15
 // ============================================================
 
 const SITE = {
@@ -54,9 +54,9 @@ const SITE = {
     { platform: "YouTube",            handle: "A.I. Oatmeal",        icon: "⬡", desc: "A.I. Oatmeal Channel — AI content", url: "https://youtube.com/@aioatmeal" }
   ],
   about: {
-    headline: "The Human Behind the Rig.",
-    subheadline: "Lighting professional, CAD drafter, LED builder, and production problem-solver. Also a DJ and maker. Based wherever the gig is. Available to travel.",
-    body: "Clear scope, accurate pricing, and work that holds up. No agency markup, no buried line items, no surprises. You deal with the person doing the job.",
+    headline: "Built on the Road.",
+    subheadline: "Shows, songs, builds, and side quests. One life, not a list of departments.",
+    body: "Fook'n Oats is the map of the work and the ideas, not a polished sales pitch.",
     tree: [
       { label: "How I Work",               desc: "Show up prepared, communicate straight, and leave the rig better than I found it." },
       { label: "On the Road",              desc: "Lessons from the road, the rig, and the grind — passed forward to the next tech." },

@@ -190,7 +190,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.0.0 · 2026.06.15</span>
+      <span id="nav-version">v1.0.1 · 2026.06.15</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -232,7 +232,7 @@ const SECTIONS = [
   { id:"stories",  label:"Stories",     icon:"◎", tagline:"Pretty Lights tours, Electric Forest, desert road trips.",                      desc:"From Pretty Lights runs at Hampton and Red Rocks, to wrong-way Ubers at Electric Forest, to desert resets at Joshua Tree and the Integratron." },
   { id:"edm",      label:"EDM Oatmeal", icon:"⊕", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM.",                           desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse." },
   { id:"connect",  label:"Connect",     icon:"◆", tagline:"Where to find me and the projects.",                        desc:"Socials, channels, email, and a booking link. All the ways to reach out." },
-  { id:"about",    label:"About",       icon:"◇", tagline:"The human behind the rig.",                          desc:"Who I am, what I've worked on, and how I run a job. The short version of a long road." },
+  { id:"about",    label:"About",       icon:"◇", tagline:"Built on the road.",                                desc:"How the shows, songs, builds, and side quests became Fook'n Oats." },
 ];
 
 const AI_KEYWORDS = [
@@ -661,12 +661,11 @@ function renderView(view) {
     wrap.style.maxWidth = "620px";
     wrap.appendChild(backBtn("home"));
     wrap.appendChild(el("div","sec-tag","ABOUT"));
-    var h2 = el("h2","sec-title"); h2.innerHTML = "The Human Behind<br>the Rig."; wrap.appendChild(h2);
-    wrap.appendChild(el("p","",SITE.about.subheadline));
+    var h2 = el("h2","sec-title"); h2.innerHTML = "Built on<br>the Road."; wrap.appendChild(h2);
     wrap.style.cssText = "max-width:620px";
-    var p1 = el("p"); p1.style.cssText="color:rgba(255,255,255,.6);font-size:15px;line-height:1.85;margin-bottom:18px"; p1.textContent=SITE.about.subheadline; wrap.appendChild(p1);
-    var p2 = el("p"); p2.style.cssText="color:rgba(255,255,255,.5);font-size:14px;line-height:1.85;margin-bottom:18px"; p2.textContent="When I bill for a technician, their rate, lodging, and per diem are all covered — because that's how you build a crew that comes back. Specialized work gets a service line item. Nothing gets buried. The budget always makes sense."; wrap.appendChild(p2);
-    var p3 = el("p"); p3.style.cssText="color:rgba(255,255,255,.4);font-size:14px;line-height:1.85;margin-bottom:36px"; p3.textContent="Lighting pays the bills; the music, the builds, and the art are why I keep going. Same person behind all of it — that's the whole pitch."; wrap.appendChild(p3);
+    var p1 = el("p"); p1.style.cssText="color:rgba(255,255,255,.72);font-size:17px;line-height:1.75;margin-bottom:20px"; p1.textContent="Fook'n Oats wasn't invented in a branding meeting. It grew out of loading docks, overnight drives, impossible show notes, half-finished songs, and the habit of building whatever I couldn't find."; wrap.appendChild(p1);
+    var p2 = el("p"); p2.style.cssText="color:rgba(255,255,255,.56);font-size:15px;line-height:1.85;margin-bottom:20px"; p2.textContent="Touring production is the backbone: lighting, CAD, LED, crews, and solving the problem in front of me. Around that lives the rest of it — music, hardware, art, experiments, and ideas that refuse to stay in one lane."; wrap.appendChild(p2);
+    var p3 = el("p"); p3.style.cssText="color:rgba(255,255,255,.43);font-size:15px;line-height:1.85;margin-bottom:36px"; p3.textContent="I'm Johnny Bobeng. Most people call me Oats. I follow good work, strange ideas, and the people worth building with. This site is the map, not the sales pitch."; wrap.appendChild(p3);
 
     var aiSm = el("div",""); aiSm.style.cssText="border:1px solid rgba(255,180,0,.2);padding:22px;background:rgba(255,180,0,.02);margin-bottom:28px";
     var ail = el("div","",""); ail.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:14px"; ail.textContent="◆ ASK ME ANYTHING"; aiSm.appendChild(ail);
