@@ -1,7 +1,7 @@
 // ============================================================
 // FOOK'N OATS — SITE CONTENT
 // Edit this file to update your site. Then hit Deploy in Cowork.
-// v1.0.1 · 2026.06.15
+// v1.0.2 · 2026.06.16
 // ============================================================
 
 const SITE = {
