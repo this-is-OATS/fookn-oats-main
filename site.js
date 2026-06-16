@@ -57,10 +57,10 @@ const SITE = {
     headline: "Built on the Road.",
     subheadline: "Twenty years of shows, songs, overnight drives, and building whatever wasn't already on the shelf.",
     paragraphs: [
-      "I'm Johnny Bobeng III. Limited ones call me Oats. Crewfam calls me BOBENG. Fook'n Oats grew out of loading docks, overnight drives, half-finished songs in green rooms, and the habit of building whatever wasn't already on the shelf.",
-      "Touring production is the backbone — lighting design, CAD drafting, LED wall builds, master electrician work. Big festival runs, theater dates, long hauls. Wiring stages and troubleshooting rigs until the problem is gone. The technical and the creative are the same job. You don't get to separate them.",
-      "After 2025 — a year with five funerals in it — I stopped doing what was inefficient. Five-week tours mean five weeks of catch-up when you land, and nobody shows up for that part. I'm building toward remote CAD drafting, corporate AV systems, and the Maker-Lab in Kenosha. Things that compound instead of drain.",
-      "Around all of it lives the rest: Sleepwell Sweetheart (20 years of music), Revelator Illuminae (creative lighting arm), Falling Star (DJ), AI Oatmeal, and everything else that refuses to fit a clean category. This site is the map. Not a polished deck. Just what I'm actually building and why."
+      "Johnny Bobeng III — lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production across festival stages, theater runs, and corporate events.",
+      "The work is technical and creative in equal measure. Vectorworks plots, grandMA programming, LED wall builds, master electrician on call. If the rig needs to be right by showtime, that's the job.",
+      "Fook'n Oats Enterprises is the umbrella — services, creative projects, and systems under one name. Current focus: remote CAD drafting, corporate AV deployments, and the Maker-Lab in Kenosha.",
+      "On the creative side: Sleepwell Sweetheart (20 years of music), Revelator Illuminae (lighting design and previz), Falling Star (DJ), and AI Oatmeal. This site maps the full operation."
     ],
     tree: [
       { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
