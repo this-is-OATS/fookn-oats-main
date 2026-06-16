@@ -229,7 +229,7 @@ const SECTIONS = [
   { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"What I actually do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Real services, clear pricing." },
   { id:"brands",   label:"Brands",      icon:"✦", tagline:"The side projects — lighting art, music, memes, and DJ sets.",             desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — the creative stuff I make when I'm not on a gig." },
   { id:"studio",   label:"Studio",      icon:"◈", tagline:"Music production, livestreaming, and the Bobeng Builds workshop.",              desc:"MIDI machine, Mac Mini deck, iPad surface, a full livestream rig, and the Bobeng Builds workshop — where the music and builds happen." },
-  { id:"stories",  label:"Stories",     icon:"◎", tagline:"Pretty Lights tours, Electric Forest, desert road trips.",                      desc:"From Pretty Lights runs at Hampton and Red Rocks, to wrong-way Ubers at Electric Forest, to desert resets at Joshua Tree and the Integratron." },
+  { id:"stories",  label:"Stories",     icon:"◎", tagline:"Festival runs, long nights, desert resets.",                                    desc:"Wrong-way Ubers at Electric Forest, desert resets at Joshua Tree, and a lot of road in between." },
   { id:"edm",      label:"EDM Oatmeal", icon:"⊕", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM.",                           desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse." },
   { id:"connect",  label:"Connect",     icon:"◆", tagline:"Where to find me and the projects.",                        desc:"Socials, channels, email, and a booking link. All the ways to reach out." },
   { id:"about",    label:"About",       icon:"◇", tagline:"Built on the road.",                                desc:"How the shows, songs, builds, and side quests became Fook'n Oats." },
@@ -619,8 +619,8 @@ function renderView(view) {
   if (view === "section:studio") {
     app.appendChild(detailPage({
       icon:"◈", label:"Studio",
-      desc:"Where the music and builds happen. Music production, DJ sets, livestreaming, and the Bobeng Builds workshop — all in one room. MIDI machine, Mac Mini running DJay Pro for live sets and practice, iPad surface, and a full stream rig.",
-      bullets:["MIDI Music Machine","Mac Mini Deck / DJay Pro","Full livestream setup","Bobeng Builds fabrication workshop"]
+      desc:"Where the music and builds happen. Production, DJ sets, livestreaming, and the Bobeng Builds workshop — all in one room.",
+      bullets:["MIDI machine","Mac Mini / DJay Pro","Full livestream rig","Bobeng Builds workshop"]
     }, "home", false));
     return;
   }
@@ -629,8 +629,8 @@ function renderView(view) {
   if (view === "section:stories") {
     app.appendChild(detailPage({
       icon:"◎", label:"Road Stories",
-      desc:"Tour memories, festival chaos, and the off-the-clock stuff. The stories behind the work — and a decent argument for why I do it.",
-      bullets:["Pretty Lights — Hampton, St. Augustine, the Red Rocks birthday show, Halloween in Vegas","Electric Forest — the infamous wrong-way Uber and the Beam Team scooter era","Desert resets — Joshua Tree, the Integratron, Palm Desert","More road stories than I can fit here"]
+      desc:"Road stories, festival chaos, and the off-the-clock stuff. The part of the work you don't put on a resume.",
+      bullets:["Tour runs — theaters, Red Rocks, Halloween in Vegas","Electric Forest — the wrong-way Uber and the scooter era","Desert resets — Joshua Tree, the Integratron, Palm Desert","More road than fits here"]
     }, "home", false));
     return;
   }
@@ -639,8 +639,8 @@ function renderView(view) {
   if (view === "section:edm") {
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",
-      desc:"A live feed for the EDM and touring world — news, on-the-ground updates, and the people in it. Built by crew, for crew.",
-      bullets:["EDM & touring news","Ground crew updates","Event tracking","Follow @theoats","Go4Oats Show on YouTube"]
+      desc:"Live feed for the EDM and touring world. News, ground crew updates, and the people in it. Built by crew, for crew.",
+      bullets:["EDM & touring news","Ground crew updates","Event tracking","@theoats on Instagram","Go4Oats Show on YouTube"]
     }, "home", false));
     return;
   }

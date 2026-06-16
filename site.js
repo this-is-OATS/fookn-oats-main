@@ -43,9 +43,9 @@ const SITE = {
     { icon: "☆", label: "ƒ//ing::st△r",         tagline: "The DJ side. Loud, neon, built for the floor.",        desc: "EDM sets, neon visuals, and the EDM Oatmeal crew." }
   ],
   stories: [
-    { icon: "✦", label: "Pretty Lights Tour",   tagline: "Hampton · St. Augustine · Red Rocks · Vegas",         desc: "The Pretty Lights run — from Hampton to St. Augustine, the birthday show at Red Rocks, Halloween in Las Vegas." },
-    { icon: "⚡", label: "Electric Forest",       tagline: "Wrong-way Ubers and Beam Team scooters.",             desc: "Electric Forest memories — the infamous wrong-way Uber story and the Beam Team scooter era." },
-    { icon: "◎", label: "Road Trips + Camping",  tagline: "Joshua Tree · Integratron · Palm Desert",             desc: "Off-the-clock adventures — Joshua Tree desert trips, the Integratron sound bath experience, Palm Desert explorations." }
+    { icon: "✦", label: "Tour Runs",             tagline: "Theaters · Red Rocks · Vegas",                        desc: "The long ones — East Coast theaters, a birthday show at altitude, Halloween in Vegas. The kind that become stories." },
+    { icon: "⚡", label: "Electric Forest",       tagline: "Wrong-way Ubers and the scooter era.",                desc: "Electric Forest — the wrong-way Uber, the Beam Team scooters, and the kind of chaos only a forest can produce." },
+    { icon: "◎", label: "Desert Resets",          tagline: "Joshua Tree · Integratron · Palm Desert",             desc: "Off the clock and out of range — Joshua Tree, the Integratron sound bath, Palm Desert." }
   ],
   social: [
     { platform: "Instagram",          handle: "@theoats",            icon: "◆", desc: "The Oats — main feed",              url: "https://instagram.com/theoats" },
@@ -58,7 +58,7 @@ const SITE = {
     subheadline: "Twenty years of shows, songs, overnight drives, and building whatever wasn't already on the shelf.",
     paragraphs: [
       "I'm Johnny Bobeng III. Limited ones call me Oats. Crewfam calls me BOBENG. Fook'n Oats grew out of loading docks, overnight drives, half-finished songs in green rooms, and the habit of building whatever wasn't already on the shelf.",
-      "Touring production is the backbone — lighting design, CAD drafting, LED wall builds, master electrician work. Pretty Lights at Red Rocks and Hampton. Electric Forest. Wiring stages and troubleshooting rigs until the problem is gone. On a real gig, the technical and the creative are the same thing. You don't get to choose just one.",
+      "Touring production is the backbone — lighting design, CAD drafting, LED wall builds, master electrician work. Big festival runs, theater dates, long hauls. Wiring stages and troubleshooting rigs until the problem is gone. The technical and the creative are the same job. You don't get to separate them.",
       "After 2025 — a year with five funerals in it — I stopped doing what was inefficient. Five-week tours mean five weeks of catch-up when you land, and nobody shows up for that part. I'm building toward remote CAD drafting, corporate AV systems, and the Maker-Lab in Kenosha. Things that compound instead of drain.",
       "Around all of it lives the rest: Sleepwell Sweetheart (20 years of music), Revelator Illuminae (creative lighting arm), Falling Star (DJ), AI Oatmeal, and everything else that refuses to fit a clean category. This site is the map. Not a polished deck. Just what I'm actually building and why."
     ],
@@ -67,7 +67,7 @@ const SITE = {
       { label: "The Tech",      desc: "Vectorworks. grandMA2/3. Novastar, Brompton, ROE. Twenty years of solving problems at 2 AM in dark rooms." },
       { label: "Creative Side", desc: "Revelator Illuminae for design. Sleepwell Sweetheart for music. Falling Star for DJ sets. AI Oatmeal for everything in between." },
       { label: "Building Now",  desc: "Remote CAD drafting. Corporate AV deployments. The Maker-Lab in Kenosha. Systems that work without five-week tours." },
-      { label: "Road Stories",  desc: "Pretty Lights at Red Rocks. Electric Forest. The Integratron sound bath. Twenty years of them." }
+      { label: "Road Stories",  desc: "Big festival runs. Electric Forest. The Integratron. A lot of road in between." }
     ]
   },
   shows: Array.from({length: 17}, (_, i) => {
