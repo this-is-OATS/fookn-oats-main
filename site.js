@@ -40,7 +40,7 @@ const SITE = {
     { icon: "⬡", label: "AI Oatmeal",           tagline: "Content, experiments, and an active coding division.",   desc: "AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline." },
     { icon: "◌", label: "Ghosted Oats",          tagline: "The unpolished stuff. No brand rules.",                 desc: "Sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan." },
     { icon: "₿", label: "Cryptos4Oats",          tagline: "Market notes from a touring tech.",           desc: "Personal crypto and market-cycle notes — a side interest, shared openly. Not financial advice." },
-    { icon: "☆", label: "ƒ//ing::st△r",         tagline: "The DJ side. Loud, neon, built for the floor.",        desc: "EDM sets, neon visuals, and the EDM Oatmeal crew." }
+    { icon: "☆", label: "ƒ//ing::st△r",         tagline: "Electronic producer and composer. Built for the floor.", desc: "Original electronic production and composition — neon visuals, the EDM Oatmeal crew, and the sets that make a room move." }
   ],
   stories: [
     { icon: "✦", label: "Tour Runs",             tagline: "Theaters · Red Rocks · Vegas",                        desc: "The long ones — East Coast theaters, a birthday show at altitude, Halloween in Vegas. The kind that become stories." },
@@ -60,7 +60,7 @@ const SITE = {
       "Johnny Bobeng III — lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production across festival stages, theater runs, and corporate events. Based in the Chicago–Milwaukee corridor, available to travel.",
       "The work is technical and creative in equal measure. Vectorworks and AutoCAD for plots and documentation. grandMA2/3 for programming. Novastar, Brompton, and ROE for LED builds. Master electrician on call for load-ins, installs, and one-offs. If the rig needs to be right by showtime, that's the job — and it always needs to be right by showtime.",
       "Fook'n Oats Enterprises is the umbrella — services, creative projects, and operational systems under one name. Current focus: remote CAD drafting, corporate AV deployments, and the Maker-Lab in Kenosha — laser CNC, 3D printing, embroidery, vinyl cutting, and custom fabrication from concept to physical product.",
-      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, reunion show in development), Revelator Illuminae (lighting design and previsualization), Falling Star (DJ sets and EDM visuals), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
+      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, reunion show in development), Revelator Illuminae (lighting design and previsualization), Falling Star (electronic production and composition), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
     ],
     tree: [
       { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
