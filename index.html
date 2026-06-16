@@ -247,6 +247,9 @@ const AI_KEYWORDS = [
 // ── STATE ─────────────────────────────────────────────────────────────────────
 var currentView = "home";
 var aiReplies = [];
+// ── VERSION BADGE (single source: SITE.version in site.js) ───────────────────
+try { if (window.SITE && SITE.version) document.getElementById("nav-version").textContent = SITE.version; } catch(e) {}
+
 var aiTyping = false;
 var lbIndex = 0;
 var formName = "", formEmail = "", formPhone = "", formDetail = "";
