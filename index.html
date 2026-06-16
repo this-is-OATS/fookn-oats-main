@@ -546,7 +546,7 @@ function renderView(view) {
     var eyebrow = el("div","home-eyebrow","Lighting · CAD · LED · Crew · Made on the road");
     var title = el("h1","home-title","FOOK'N<br/><span style='color:var(--gold)'>OATS</span>");
     title.innerHTML = "FOOK'N<br/><span style='color:var(--gold)'>OATS</span>";
-    var desc = el("p","home-desc","Touring lighting professional for hire — CAD, master electrician, LED walls, and crew. Plus the music, art, and side projects that come from a life on the road. Not a cookie-cutter shop. One person who shows up and gets it done.");
+    var desc = el("p","home-desc","Lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years of touring production — Pretty Lights, Electric Forest, Red Rocks, loading docks at 2 AM. Now building systems that compound: remote Vectorworks drafting, corporate AV deployments, and the Maker-Lab in Kenosha. One person. Full toolkit. No agency in the middle.");
     var btns = el("div","home-btns");
     var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
     var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
@@ -663,9 +663,15 @@ function renderView(view) {
     wrap.appendChild(el("div","sec-tag","ABOUT"));
     var h2 = el("h2","sec-title"); h2.innerHTML = "Built on<br>the Road."; wrap.appendChild(h2);
     wrap.style.cssText = "max-width:620px";
-    var p1 = el("p"); p1.style.cssText="color:rgba(255,255,255,.72);font-size:17px;line-height:1.75;margin-bottom:20px"; p1.textContent="Fook'n Oats wasn't invented in a branding meeting. It grew out of loading docks, overnight drives, impossible show notes, half-finished songs, and the habit of building whatever I couldn't find."; wrap.appendChild(p1);
-    var p2 = el("p"); p2.style.cssText="color:rgba(255,255,255,.56);font-size:15px;line-height:1.85;margin-bottom:20px"; p2.textContent="Touring production is the backbone: lighting, CAD, LED, crews, and solving the problem in front of me. Around that lives the rest of it — music, hardware, art, experiments, and ideas that refuse to stay in one lane."; wrap.appendChild(p2);
-    var p3 = el("p"); p3.style.cssText="color:rgba(255,255,255,.43);font-size:15px;line-height:1.85;margin-bottom:36px"; p3.textContent="I'm Johnny Bobeng. Most people call me Oats. I follow good work, strange ideas, and the people worth building with. This site is the map, not the sales pitch."; wrap.appendChild(p3);
+    var paraStyles = [
+      "color:rgba(255,255,255,.72);font-size:17px;line-height:1.75;margin-bottom:20px",
+      "color:rgba(255,255,255,.60);font-size:15px;line-height:1.85;margin-bottom:20px",
+      "color:rgba(255,255,255,.50);font-size:15px;line-height:1.85;margin-bottom:20px",
+      "color:rgba(255,255,255,.43);font-size:15px;line-height:1.85;margin-bottom:36px"
+    ];
+    (SITE.about.paragraphs || []).forEach(function(text, i) {
+      var p = el("p"); p.style.cssText = paraStyles[Math.min(i, paraStyles.length - 1)]; p.textContent = text; wrap.appendChild(p);
+    });
 
     var aiSm = el("div",""); aiSm.style.cssText="border:1px solid rgba(255,180,0,.2);padding:22px;background:rgba(255,180,0,.02);margin-bottom:28px";
     var ail = el("div","",""); ail.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:14px"; ail.textContent="◆ ASK ME ANYTHING"; aiSm.appendChild(ail);

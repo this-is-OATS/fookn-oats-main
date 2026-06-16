@@ -55,14 +55,19 @@ const SITE = {
   ],
   about: {
     headline: "Built on the Road.",
-    subheadline: "Shows, songs, builds, and side quests. One life, not a list of departments.",
-    body: "Fook'n Oats is the map of the work and the ideas, not a polished sales pitch.",
+    subheadline: "Twenty years of shows, songs, overnight drives, and building whatever wasn't already on the shelf.",
+    paragraphs: [
+      "I'm Johnny Bobeng III. Most people call me Oats. Fook'n Oats grew out of loading docks, overnight drives, half-finished songs in green rooms, and the habit of building whatever wasn't already on the shelf.",
+      "Touring production is the backbone — lighting design, CAD drafting, LED wall builds, master electrician work. Pretty Lights at Red Rocks and Hampton. Electric Forest. Wiring stages and troubleshooting rigs until the problem is gone. On a real gig, the technical and the creative are the same thing. You don't get to choose just one.",
+      "After 2025 — a year with five funerals in it — I stopped doing what was inefficient. Five-week tours mean five weeks of catch-up when you land, and nobody shows up for that part. I'm building toward remote CAD drafting, corporate AV systems, and the Maker-Lab in Kenosha. Things that compound instead of drain.",
+      "Around all of it lives the rest: Sleepwell Sweetheart (20 years of music), Revelator Illuminae (creative lighting arm), Falling Star (DJ), AI Oatmeal, and everything else that refuses to fit a clean category. This site is the map. Not a polished deck. Just what I'm actually building and why."
+    ],
     tree: [
-      { label: "How I Work",               desc: "Show up prepared, communicate straight, and leave the rig better than I found it." },
-      { label: "On the Road",              desc: "Lessons from the road, the rig, and the grind — passed forward to the next tech." },
-      { label: "Field Notes",              desc: "Ongoing notes on the work, the gear, and what I'm building next." },
-      { label: "The Side Projects",        desc: "Music, art, builds, and memes — the creative stuff that keeps it interesting." },
-      { label: "2023–2025",                desc: "The years it all came together into one operation under one name." }
+      { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
+      { label: "The Tech",      desc: "Vectorworks. grandMA2/3. Novastar, Brompton, ROE. Twenty years of solving problems at 2 AM in dark rooms." },
+      { label: "Creative Side", desc: "Revelator Illuminae for design. Sleepwell Sweetheart for music. Falling Star for DJ sets. AI Oatmeal for everything in between." },
+      { label: "Building Now",  desc: "Remote CAD drafting. Corporate AV deployments. The Maker-Lab in Kenosha. Systems that work without five-week tours." },
+      { label: "Road Stories",  desc: "Pretty Lights at Red Rocks. Electric Forest. The Integratron sound bath. Twenty years of them." }
     ]
   },
   shows: Array.from({length: 17}, (_, i) => {
