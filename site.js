@@ -57,7 +57,7 @@ const SITE = {
     headline: "Built on the Road.",
     subheadline: "Twenty years of shows, songs, overnight drives, and building whatever wasn't already on the shelf.",
     paragraphs: [
-      "I'm Johnny Bobeng III. Most people call me Oats. Fook'n Oats grew out of loading docks, overnight drives, half-finished songs in green rooms, and the habit of building whatever wasn't already on the shelf.",
+      "I'm Johnny Bobeng III. Limited ones call me Oats. Crewfam calls me BOBENG. Fook'n Oats grew out of loading docks, overnight drives, half-finished songs in green rooms, and the habit of building whatever wasn't already on the shelf.",
       "Touring production is the backbone — lighting design, CAD drafting, LED wall builds, master electrician work. Pretty Lights at Red Rocks and Hampton. Electric Forest. Wiring stages and troubleshooting rigs until the problem is gone. On a real gig, the technical and the creative are the same thing. You don't get to choose just one.",
       "After 2025 — a year with five funerals in it — I stopped doing what was inefficient. Five-week tours mean five weeks of catch-up when you land, and nobody shows up for that part. I'm building toward remote CAD drafting, corporate AV systems, and the Maker-Lab in Kenosha. Things that compound instead of drain.",
       "Around all of it lives the rest: Sleepwell Sweetheart (20 years of music), Revelator Illuminae (creative lighting arm), Falling Star (DJ), AI Oatmeal, and everything else that refuses to fit a clean category. This site is the map. Not a polished deck. Just what I'm actually building and why."
