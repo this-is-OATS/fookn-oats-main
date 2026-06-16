@@ -6,7 +6,8 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v1.0.6 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v1.0.7 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg" },  // EDM OATS — live embed in EDM section
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
     text: "LET'S TALK →",
