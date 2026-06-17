@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.5.0 · 2026.06.16</span>
+      <span id="nav-version">v1.5.1 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -534,8 +534,8 @@ function detailPage(item, backDest, showForm) {
   if (item.link) {
     var lb = el("a");
     lb.href = item.link; lb.target="_blank"; lb.rel="noopener";
-    lb.style.cssText="display:inline-flex;align-items:center;gap:10px;margin:26px 0 4px;padding:14px 22px;border-radius:10px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;animation:oatsPulse 1.8s ease-in-out infinite;transition:transform .15s";
-    lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:14px'>\u2197</span>";
+    lb.style.cssText="display:inline-flex;align-items:center;gap:12px;margin:-24px 0 4px;padding:17px 26px;border-radius:12px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:14.4px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;animation:oatsPulse 1.8s ease-in-out infinite;transition:transform .15s";
+    lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:17px'>\u2197</span>";
     lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.animationPlayState="paused"; };
     lb.onmouseleave=function(){ this.style.transform="none"; this.style.animationPlayState="running"; };
     frag.appendChild(lb);
