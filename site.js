@@ -6,7 +6,7 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v1.9.4 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v1.9.5 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", apiKey: "AIzaSyA-pvAN9TrgWuxnv3AWTEEq9e4ARg6ZzEc", fallbackVideoId: "_xyCffufcbs" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
@@ -38,7 +38,7 @@ const SITE = {
   ],
   brands: [
     { icon: "✦", label: "Revelator Illuminae",  tagline: "Lighting design. Visuals. Previz.",                    desc: "The creative lighting arm. Original lighting design, visuals programming, and previsualization services." },
-    { icon: "♫", label: "Sleepwell Sweetheart", tagline: "The band. Twenty years of catalog.",                        desc: "Two decades of music. The early catalog, new EDM remixes, and a reunion show actively in development." },
+    { icon: "♫", label: "Sleepwell Sweetheart", tagline: "The band. Twenty years of catalog.",                        desc: "Two decades of music. The early catalog and new EDM remixes. Special events in mind." },
     { icon: "⬡", label: "AI Oatmeal",           tagline: "Content, experiments, and an active coding division.",   desc: "AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline." },
     { icon: "◌", label: "Ghosted Oats",          tagline: "The unpolished stuff. No brand rules.",                 desc: "Sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan." },
     { icon: "₿", label: "Cryptos4Oats",          tagline: "Market notes from a touring tech.",           desc: "Personal crypto and market-cycle notes — a side interest, shared openly. Not financial advice." },
@@ -62,7 +62,7 @@ const SITE = {
       "Johnny Bobeng III — lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production across festival stages, theater runs, and corporate events. Based in the Chicago–Milwaukee corridor, available to travel.",
       "The work is technical and creative in equal measure. Vectorworks for plots, documentation, and previsualization. grandMA2/3 for programming. Novastar, Brompton, and ROE for LED builds. Master electrician on call for load-ins, installs, and one-offs. If the rig needs to be right by showtime, that's the job — and it always needs to be right by showtime.",
       "Fook'n Oats Enterprises is the umbrella — services, creative projects, and operational systems under one name. Current focus: remote CAD drafting, corporate AV deployments, and the Maker-Lab in Kenosha — 3D printing, embroidery, vinyl cutting, and custom fabrication from concept to physical product.",
-      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, reunion show in development), Revelator Illuminae (lighting design and previsualization), Falling Star (electronic production and composition), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
+      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, special events in mind), Revelator Illuminae (lighting design and previsualization), Falling Star (electronic production and composition), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
     ],
     tree: [
       { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
