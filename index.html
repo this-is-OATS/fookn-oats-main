@@ -5,9 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
   <title>FOOK'N OATS</title>
+  <meta name="description" content="FOOK'N OATS — touring lighting professional for hire. CAD, master electrician, LED walls, crew. Plus music, art, and EDM. Available to travel."/>
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="FOOK'N OATS"/>
+  <meta property="og:title" content="FOOK'N OATS — Lighting · CAD · LED · Crew"/>
+  <meta property="og:description" content="Touring lighting professional for hire. Plus music, art, and the EDM Oatmeal feed. Available to travel."/>
+  <meta property="og:url" content="https://fookn-oats.enterprises/"/>
+  <meta property="og:image" content="https://fookn-oats.enterprises/og.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="FOOK'N OATS — Lighting · CAD · LED · Crew"/>
+  <meta name="twitter:description" content="Touring lighting professional for hire. Plus music, art, and the EDM Oatmeal feed."/>
+  <meta name="twitter:image" content="https://fookn-oats.enterprises/og.png"/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
+    @keyframes oatsPulse{0%,100%{box-shadow:0 8px 30px rgba(255,180,0,.22),0 0 0 0 rgba(255,180,0,.5)}50%{box-shadow:0 8px 34px rgba(255,180,0,.45),0 0 0 10px rgba(255,180,0,0)}}
     :root{
       --gold:#ffb400;
       --bg:#090909;
@@ -190,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.4.1 · 2026.06.16</span>
+      <span id="nav-version">v1.5.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -519,10 +534,10 @@ function detailPage(item, backDest, showForm) {
   if (item.link) {
     var lb = el("a");
     lb.href = item.link; lb.target="_blank"; lb.rel="noopener";
-    lb.style.cssText="display:inline-flex;align-items:center;gap:10px;margin:26px 0 4px;padding:14px 22px;border-radius:10px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 30px rgba(255,180,0,.22);transition:transform .15s, box-shadow .15s";
+    lb.style.cssText="display:inline-flex;align-items:center;gap:10px;margin:26px 0 4px;padding:14px 22px;border-radius:10px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;animation:oatsPulse 1.8s ease-in-out infinite;transition:transform .15s";
     lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:14px'>\u2197</span>";
-    lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.boxShadow="0 12px 38px rgba(255,180,0,.34)"; };
-    lb.onmouseleave=function(){ this.style.transform="none"; this.style.boxShadow="0 8px 30px rgba(255,180,0,.22)"; };
+    lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.animationPlayState="paused"; };
+    lb.onmouseleave=function(){ this.style.transform="none"; this.style.animationPlayState="running"; };
     frag.appendChild(lb);
   }
   if (showForm) {
