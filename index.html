@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://www.youtube.com" crossorigin/>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin/>
+  <link rel="preconnect" href="https://i.ytimg.com"/>
+  <link rel="preconnect" href="https://googleads.g.doubleclick.net"/>
+  <link rel="dns-prefetch" href="https://www.youtube.com"/>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
@@ -205,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.9.2 · 2026.06.16</span>
+      <span id="nav-version">v1.9.3 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -666,7 +671,7 @@ function renderView(view) {
   if (view === "section:edm") {
     // ── EDM OATS player: manual LIVE override, else newest EMBEDDABLE upload ──
     // ── EDM player: YouTube Data API — live check, else playlist grid ──
-    var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:1040px;margin:0 auto 8px";
+    var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:832px;margin:0 auto 8px";
     var liveTag = el("div"); liveTag.id="edm-tag"; liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:var(--gold)";
     liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
     liveWrap.appendChild(liveTag);
@@ -685,7 +690,7 @@ function renderView(view) {
       stage.style.boxShadow="0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (live?", 0 0 40px rgba(255,59,59,.18)":"");
       var ifr=document.createElement("iframe");
       var host = live ? "https://www.youtube.com" : "https://www.youtube-nocookie.com";
-      ifr.src=host+"/embed/"+id+"?autoplay=1&playsinline=1&rel=0&modestbranding=1&color=white&iv_load_policy=3";
+      ifr.src=host+"/embed/"+id+"?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd720";
       ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
       ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       ifr.setAttribute("allowfullscreen",""); ifr.title="EDM OATS"; stage.appendChild(ifr);
@@ -718,9 +723,10 @@ function renderView(view) {
 
     function renderLive(id){
       liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS";
-      posterInStage(id, true, "JOIN LIVE \u2014 WITH SOUND");   // click-to-start = clean buffer, no autoplay race
-      liveNote.innerHTML = noteHtml("Streaming now. ");
+      // remove grid first so the live video does not compete for bandwidth, then autoplay
       if(grid.parentNode){ grid.parentNode.removeChild(grid); } if(gridLabel.parentNode){ gridLabel.parentNode.removeChild(gridLabel); }
+      playInStage(id, true);
+      liveNote.innerHTML = noteHtml("Streaming now \u2014 tap to unmute. ");
     }
     function renderPlaylist(items){
       liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
