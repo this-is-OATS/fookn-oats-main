@@ -190,7 +190,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.2.1 · 2026.06.16</span>
+      <span id="nav-version">v1.2.2 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -640,14 +640,17 @@ function renderView(view) {
 
   // SECTION: EDM
   if (view === "section:edm") {
-    // ── EDM OATS player: newest EMBEDDABLE video (some uploads are private/embed-off) ──
+    // ── EDM OATS player: manual LIVE override, else newest EMBEDDABLE upload ──
+    var liveId = (SITE.youtube && SITE.youtube.liveVideoId) ? SITE.youtube.liveVideoId : "";
     var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:760px;margin:0 auto 8px";
-    var liveTag = el("div"); liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--gold);margin:0 0 10px;text-transform:uppercase"; liveTag.textContent="\u25C9 EDM OATS \u2014 LIVE & LATEST";
+    var liveTag = el("div"); liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.18em;margin:0 0 10px;text-transform:uppercase";
+    if (liveId) { liveTag.style.color="#ff3b3b"; liveTag.innerHTML="\u25CF LIVE NOW \u2014 EDM OATS"; }
+    else { liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST"; }
     liveWrap.appendChild(liveTag);
-    var frameBox = el("div"); frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border:1px solid rgba(255,180,0,.25);background:#000;overflow:hidden";
+    var frameBox = el("div"); frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border:1px solid " + (liveId?"rgba(255,59,59,.55)":"rgba(255,180,0,.25)") + ";background:#000;overflow:hidden";
     var ytIframe = document.createElement("iframe");
     ytIframe.id = "edm-yt-frame";
-    ytIframe.src = "https://www.youtube.com/embed/" + (SITE.youtube.fallbackVideoId || "_xyCffufcbs");
+    ytIframe.src = "https://www.youtube.com/embed/" + (liveId || SITE.youtube.fallbackVideoId || "_xyCffufcbs") + (liveId?"?autoplay=1":"");
     ytIframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0";
     ytIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     ytIframe.setAttribute("allowfullscreen","");
@@ -655,14 +658,14 @@ function renderView(view) {
     ytIframe.title = "EDM OATS video";
     frameBox.appendChild(ytIframe); liveWrap.appendChild(frameBox);
     var liveNote = el("div"); liveNote.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin:10px 0 4px;line-height:1.7";
-    liveNote.innerHTML = "Newest video above \u2014 live stream plays here when EDM OATS is on air. " +
+    liveNote.innerHTML = (liveId ? "Streaming now. " : "Newest video above \u2014 live stream pins here when EDM OATS goes on air. ") +
       "<a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "/live' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Watch live \u2197</a>" +
       " \u00b7 <a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "?sub_confirmation=1' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Subscribe \u2197</a>";
     liveWrap.appendChild(liveNote);
     app.appendChild(liveWrap);
 
-    // Pull recent video ids from channel RSS, then pick the newest that is actually EMBEDDABLE (oEmbed 200). Fallback stays otherwise.
-    (function(){
+    // Auto-pull newest EMBEDDABLE upload from RSS — ONLY when no manual live override is set.
+    if (!liveId) (function(){
       var feed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + SITE.youtube.channelId;
       fetch("https://r.jina.ai/" + feed).then(function(r){return r.text();}).then(function(t){
         var ids=[], re=/watch\?v=([A-Za-z0-9_-]{11})/g, m;
