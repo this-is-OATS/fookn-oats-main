@@ -190,7 +190,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.2.2 · 2026.06.16</span>
+      <span id="nav-version">v1.3.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -750,11 +750,32 @@ function renderView(view) {
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ── HASH ROUTING ──────────────────────────────────────────────────────────────
+// view "section:edm" -> "#edm", "dept:cad" -> "#cad", "brand:revelator" -> "#revelator", "home" -> ""
+function viewToHash(view){
+  if(!view || view==="home") return "";
+  return "#" + view.replace(/^(section:|dept:|brand:)/,"");
+}
+function hashToView(hash){
+  var h=(hash||"").replace(/^#/,"").toLowerCase();
+  if(!h) return "home";
+  var depts=["cad","gaffer","led","consult","makerlab","designnet"];
+  var brands=["revelator","sleepwell","aioatmeal","ghosted","crypto","fallingstar"];
+  var sections=["services","brands","studio","stories","edm","about","connect"];
+  if(depts.indexOf(h)>=0) return "dept:"+h;
+  if(brands.indexOf(h)>=0) return "brand:"+h;
+  if(sections.indexOf(h)>=0) return "section:"+h;
+  return "home";
+}
+var _routing=true;
 function showView(view) {
   currentView = view;
   renderView(view);
   window.scrollTo(0,0);
+  if(_routing){ var nh=viewToHash(view); if((location.hash||"")!==nh){ try{ history.pushState(null,"",nh||location.pathname); }catch(e){ location.hash=nh; } } }
 }
+window.addEventListener("hashchange", function(){ _routing=false; showView(hashToView(location.hash)); _routing=true; });
+window.addEventListener("popstate", function(){ _routing=false; showView(hashToView(location.hash)); _routing=true; });
 
 // ── CALENDLY ─────────────────────────────────────────────────────────────────
 window.addEventListener("load", function() {
@@ -770,7 +791,7 @@ window.addEventListener("load", function() {
 });
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
-showView("home");
+showView(hashToView(location.hash));
 </script>
 </body>
 </html>
