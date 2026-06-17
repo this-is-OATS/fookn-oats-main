@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.9.0 · 2026.06.16</span>
+      <span id="nav-version">v1.9.1 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -723,8 +723,9 @@ function renderView(view) {
     }
     function renderPlaylist(items){
       liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
-      var first = items && items.length ? items[0] : {id:(SITE.youtube.fallbackVideoId||"_xyCffufcbs"),title:""};
-      posterInStage(first.id, false, "PLAY \u2014 WITH SOUND");
+      // Offline always headlines the featured video (Ferry Corsten Chicago = fallbackVideoId)
+      var featured = SITE.youtube.fallbackVideoId || "_xyCffufcbs";
+      posterInStage(featured, false, "PLAY \u2014 WITH SOUND");
       grid.innerHTML="";
       (items||[]).forEach(function(v){ addThumb(v.id, v.title); });
       if(!grid.parentNode){ liveWrap.insertBefore(gridLabel, liveNote); liveWrap.insertBefore(grid, liveNote); }
