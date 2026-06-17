@@ -6,7 +6,7 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v1.9.7 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v2.0.0 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", apiKey: "AIzaSyA-pvAN9TrgWuxnv3AWTEEq9e4ARg6ZzEc", fallbackVideoId: "_xyCffufcbs" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
@@ -62,12 +62,12 @@ const SITE = {
       "Johnny Oats — lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production across festival stages, theater runs, and corporate events. Based in the Chicago–Milwaukee corridor, available to travel.",
       "The work is technical and creative in equal measure. Vectorworks for plots, documentation, and previsualization. grandMA2/3 for programming. Novastar, Brompton, and ROE for LED builds. Master electrician on call for load-ins, installs, and one-offs. If the rig needs to be right by showtime, that's the job — and it always needs to be right by showtime.",
       "Fook'n Oats Enterprises is the umbrella — services, creative projects, and operational systems under one name. Current focus: remote CAD drafting, corporate AV deployments, and the Maker-Lab in Kenosha — 3D printing, embroidery, vinyl cutting, and custom fabrication from concept to physical product.",
-      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, special events in mind), Revelator Illuminae (lighting design and previsualization), Falling Star (electronic production and composition), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
+      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, special events in mind), Revelator Illuminae (lighting design and previsualization), Falling Star (the record label and recording studio team), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
     ],
     tree: [
       { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
       { label: "The Tech",      desc: "Vectorworks. grandMA2/3. Novastar, Brompton, ROE. Twenty years of solving problems at 2 AM in dark rooms." },
-      { label: "Creative Side", desc: "Revelator Illuminae for design. Sleepwell Sweetheart for music. Falling Star for electronic production. AI Oatmeal for everything in between." },
+      { label: "Creative Side", desc: "Revelator Illuminae for design. Sleepwell Sweetheart for music. Falling Star for the label and recording studio. AI Oatmeal for everything in between." },
       { label: "Building Now",  desc: "Remote CAD drafting. Corporate AV deployments. The Maker-Lab in Kenosha. Systems that work without five-week tours." },
       { label: "Road Stories",  desc: "Big festival runs. Electric Forest. The Integratron. A lot of road in between." }
     ]

@@ -210,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.9.7 · 2026.06.16</span>
+      <span id="nav-version">v2.0.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -242,13 +242,13 @@ const BRANDS = [
   { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"Content, experiments, and an active coding division.", desc:"AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline.",             bullets:["AI content & memes","Storyboards & creative work","Coding & development division","Automations and web builds"], link:"https://oats-apps-hub.vercel.app", linkLabel:"OPEN THE OATS APPS HUB" },
   { id:"ghosted",    label:"Ghosted Oats",         icon:"◌", tagline:"The unpolished stuff. No brand rules.",    desc:"Where the rough work lives — sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan. Just what I actually make.",                                               bullets:["Rough experiments","Personal shots","Visual notebook","No filter"] },
   { id:"crypto",     label:"Cryptos4Oats",         icon:"₿", tagline:"Market notes from a touring tech who reads charts.",  desc:"Personal crypto and market-cycle notes — a side interest, shared openly. Not advice, just what I'm watching and why.",                       bullets:["Market-cycle notes","XRP & macro watching","Research links","Honest, not financial advice"] },
-  { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"Electronic producer and composer. Built for the floor.", desc:"Original electronic production and composition — neon visuals, the EDM Oatmeal crew, and the sets that make a room move.",                           bullets:["Original electronic production","Composition & sound design","Neon visual concepts","EDM Oatmeal community"] },
+  { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"The record label and recording studio team.", desc:"The label and studio side of the operation \u2014 artist development, recording, production, and release. A home for original music and the artists behind it.",                           bullets:["Record label","Recording studio team","Production & artist development","Releases & catalog"] },
 ];
 
 const SECTIONS = [
   { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"What I actually do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Real services, clear pricing." },
   { id:"brands",   label:"Brands",      icon:"✦", tagline:"The side projects — lighting art, music, memes, and electronic production.",  desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — the creative stuff I make when I'm not on a gig." },
-  { id:"studio",   label:"Studio",      icon:"◈", tagline:"Music production, livestreaming, and the build workshop.",              desc:"MIDI machine, Mac Mini deck, iPad surface, a full livestream rig, and the build workshop — where the music and builds happen." },
+  { id:"studio",   label:"Studio",      icon:"◈", tagline:"Mobile studio solutions \u2014 audio & video capture, anywhere.",              desc:"A portable production rig that comes to you. Multi-cam video, livestreaming, and audio capture for shows, sessions, events, and content \u2014 set up on location." },
   { id:"stories",  label:"Stories",     icon:"◎", tagline:"Festival runs, long nights, desert resets.",                                    desc:"Wrong-way Ubers at Electric Forest, desert resets at Joshua Tree, and a lot of road in between." },
   { id:"edm",      label:"EDM Oatmeal", icon:"⊕", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM.",                           desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse." },
   { id:"connect",  label:"Connect",     icon:"◆", tagline:"Where to find me and the projects.",                        desc:"Socials, channels, email, and a booking link. All the ways to reach out." },
@@ -258,7 +258,7 @@ const SECTIONS = [
 const AI_KEYWORDS = [
   ...DEPARTMENTS.map(d => ({ id:d.id, type:"dept", keywords:d.keywords, label:d.label, tagline:d.tagline })),
   { id:"brands",  type:"section", keywords:["brand","revelator","sleepwell","ai oatmeal","ghosted","crypto","falling star","dj","music","identity"], label:"Brands",      tagline:"The side projects — lighting art, music, memes, DJ sets." },
-  { id:"studio",  type:"section", keywords:["studio","midi","livestream","bobeng","production","mix","dj set"],                                        label:"Studio",      tagline:"Music production, livestreaming, and the build workshop." },
+  { id:"studio",  type:"section", keywords:["studio","mobile","livestream","capture","audio","video","record","production","stream","multicam"],                                        label:"Studio",      tagline:"Mobile studio solutions \u2014 audio & video capture, anywhere." },
   { id:"stories", type:"section", keywords:["story","stories","tour","pretty lights","electric forest","red rocks","joshua tree","festival","road"],   label:"Stories",     tagline:"Pretty Lights tours, Electric Forest, desert road trips." },
   { id:"edm",     type:"section", keywords:["edm","oatmeal","feed","scanner","hashtag","community","electronic","news"],                               label:"EDM Oatmeal", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM." },
   { id:"connect", type:"section", keywords:["connect","social","instagram","contact","follow","link","find"],                                           label:"Connect",     tagline:"Social networks, media archive, and future structures." },
@@ -651,8 +651,8 @@ function renderView(view) {
   if (view === "section:studio") {
     app.appendChild(detailPage({
       icon:"◈", label:"Studio",
-      desc:"Where the music and builds happen. Production, DJ sets, livestreaming, and the build workshop — all in one room.",
-      bullets:["MIDI machine","Mac Mini / DJay Pro","Full livestream rig","Build workshop"]
+      desc:"Mobile studio solutions \u2014 audio and video capture that travels. Multi-cam video, livestreaming, and recording for shows, sessions, events, and content, set up wherever the work is. Studio-quality, on location.",
+      bullets:["Mobile multi-cam video capture","On-location audio recording","Livestream production","Event & session coverage","Content capture for the brands"]
     }, "home", false));
     return;
   }
