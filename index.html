@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.8.1 · 2026.06.16</span>
+      <span id="nav-version">v1.8.2 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -738,21 +738,11 @@ function renderView(view) {
       if(autoplay) playInStage(stage, id); else posterInto(stage, id, "#ff3b3b", "JOIN LIVE \u2014 WITH SOUND");
     }
 
-    // DEFAULT: playlist landing. Then auto-detect live and let it take over.
+    // DEFAULT: playlist landing. Live only via manual liveVideoId (auto-detect removed — it grabbed YouTube recommendations).
     if (manualLive) {
-      showLive(manualLive, false);   // manual override (works for unlisted)
+      showLive(manualLive, false);   // set SITE.youtube.liveVideoId to YOUR stream id when live (works for unlisted)
     } else {
       showPlaylist();
-      // Auto-detect a PUBLIC live stream on the channel; if found, take over automatically.
-      (function(){
-        var liveUrl="https://www.youtube.com/channel/"+SITE.youtube.channelId+"/live";
-        fetch("https://r.jina.ai/"+liveUrl).then(function(r){return r.text();}).then(function(t){
-          // Only treat as live if the page clearly indicates a live broadcast in progress
-          var isLive = /isLiveNow"?\s*[:=]\s*true/i.test(t) || /\bLIVE\b\s*(now|stream)/i.test(t) || /watching now/i.test(t);
-          var m = t.match(/watch\?v=([A-Za-z0-9_-]{11})/);
-          if(isLive && m){ showLive(m[1], true); }
-        }).catch(function(){});
-      })();
     }
     app.appendChild(liveWrap);
 
