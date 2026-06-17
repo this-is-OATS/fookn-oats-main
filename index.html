@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.6.1 · 2026.06.16</span>
+      <span id="nav-version">v1.6.2 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -667,7 +667,7 @@ function renderView(view) {
     // ── EDM OATS player: manual LIVE override, else newest EMBEDDABLE upload ──
     var liveId = (SITE.youtube && SITE.youtube.liveVideoId) ? SITE.youtube.liveVideoId : "";
     var playId = liveId || SITE.youtube.fallbackVideoId || "_xyCffufcbs";
-    // THEATER iframe: full-width, autoplay muted (tap to unmute). Simple iframe, no API.
+    // CLICK-TO-PLAY with full sound: no autoplay (browsers mute autoplay). One click = sound on (user gesture).
     var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:1040px;margin:0 auto 8px";
     var liveTag = el("div"); liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;display:flex;align-items:center;gap:8px";
     if (liveId) { liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS"; }
@@ -676,19 +676,38 @@ function renderView(view) {
 
     var frameBox = el("div");
     frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (liveId?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (liveId?", 0 0 40px rgba(255,59,59,.18)":"");
-    var ytIframe = document.createElement("iframe");
-    ytIframe.id = "edm-yt-frame";
-    var p = "rel=0&modestbranding=1&playsinline=1&color=white&iv_load_policy=3&vq=hd1080";
-    ytIframe.src = "https://www.youtube-nocookie.com/embed/" + playId + "?" + p + (liveId ? "&autoplay=1&mute=1" : "");
-    ytIframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0";
-    ytIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    ytIframe.setAttribute("allowfullscreen","");
-    ytIframe.title = "EDM OATS";
-    frameBox.appendChild(ytIframe);
+
+    // poster + play overlay
+    var poster = el("div"); poster.id="edm-poster";
+    poster.style.cssText="position:absolute;inset:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden";
+    var pImg = document.createElement("img");
+    pImg.src = "https://i.ytimg.com/vi/"+playId+"/maxresdefault.jpg";
+    pImg.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover";
+    pImg.onerror = function(){ if(this.src.indexOf("maxres")>-1){ this.src="https://i.ytimg.com/vi/"+playId+"/sddefault.jpg"; } else if(this.src.indexOf("sddefault")>-1){ this.src="https://i.ytimg.com/vi/"+playId+"/hqdefault.jpg"; } };
+    poster.appendChild(pImg);
+    var shade=el("div"); shade.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.55))"; poster.appendChild(shade);
+    var btnColor = liveId ? "#ff3b3b" : "var(--gold)";
+    var glow = liveId ? "rgba(255,59,59,.55)" : "rgba(255,180,0,.5)";
+    var pbtn=el("div"); pbtn.style.cssText="position:relative;width:88px;height:88px;border-radius:50%;background:"+btnColor+";display:flex;align-items:center;justify-content:center;box-shadow:0 0 36px "+glow+";transition:transform .15s";
+    pbtn.innerHTML="<span style='color:"+(liveId?"#fff":"#0a0a0a")+";font-size:36px;margin-left:6px'>\u25B6</span>";
+    poster.appendChild(pbtn);
+    var plabel=el("div"); plabel.style.cssText="position:relative;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#fff;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.7)"; plabel.textContent = liveId ? "JOIN LIVE \u2014 WITH SOUND" : "PLAY \u2014 WITH SOUND"; poster.appendChild(plabel);
+    poster.onmouseenter=function(){ pbtn.style.transform="scale(1.08)"; };
+    poster.onmouseleave=function(){ pbtn.style.transform="scale(1)"; };
+    poster.onclick=function(){
+      var ifr=document.createElement("iframe");
+      ifr.src="https://www.youtube-nocookie.com/embed/"+playId+"?autoplay=1&playsinline=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd1080";
+      ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
+      ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      ifr.setAttribute("allowfullscreen",""); ifr.title="EDM OATS";
+      frameBox.appendChild(ifr);
+      if(poster.parentNode) poster.parentNode.removeChild(poster);
+    };
+    frameBox.appendChild(poster);
     liveWrap.appendChild(frameBox);
 
     var liveNote = el("div"); liveNote.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.45);margin:14px 0 4px;line-height:1.7;letter-spacing:.04em";
-    liveNote.innerHTML = (liveId ? "Streaming now \u2014 tap the player to unmute. " : "Latest from EDM OATS \u2014 live stream pins here when on air. ") +
+    liveNote.innerHTML = (liveId ? "Click once to join the stream with full audio. " : "Click to play the latest \u2014 live stream pins here when on air. ") +
       "<a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "/live' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Watch on YouTube \u2197</a>" +
       " \u00b7 <a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "?sub_confirmation=1' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Subscribe \u2197</a>";
     liveWrap.appendChild(liveNote);
