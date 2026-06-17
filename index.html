@@ -210,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.9.6 · 2026.06.16</span>
+      <span id="nav-version">v1.9.7 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -709,8 +709,9 @@ function renderView(view) {
       stage.innerHTML="";
       stage.style.boxShadow="0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (live?", 0 0 40px rgba(255,59,59,.18)":"");
       var poster=el("div"); poster.style.cssText="position:absolute;inset:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden";
-      var im=document.createElement("img"); im.src="https://i.ytimg.com/vi/"+id+"/maxresdefault.jpg"; im.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover";
-      im.onerror=function(){ if(this.src.indexOf("maxres")>-1)this.src="https://i.ytimg.com/vi/"+id+"/sddefault.jpg"; else if(this.src.indexOf("sddefault")>-1)this.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; };
+      var im=document.createElement("img"); im.src="https://i.ytimg.com/vi/"+id+"/sddefault.jpg"; im.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover";
+      im.onerror=function(){ if(this.src.indexOf("sddefault")>-1)this.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; else if(this.src.indexOf("hqdefault")>-1)this.src="https://i.ytimg.com/vi/"+id+"/mqdefault.jpg"; };
+      im.onload=function(){ if(this.naturalWidth<=120 && this.src.indexOf("hqdefault")<0){ this.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; } };
       poster.appendChild(im);
       var sh=el("div"); sh.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.55))"; poster.appendChild(sh);
       var acc=live?"#ff3b3b":"var(--gold)";
