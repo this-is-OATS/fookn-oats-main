@@ -190,7 +190,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.3.1 · 2026.06.16</span>
+      <span id="nav-version">v1.3.2 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -650,15 +650,33 @@ function renderView(view) {
     var frameBox = el("div"); frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border:1px solid " + (liveId?"rgba(255,59,59,.55)":"rgba(255,180,0,.25)") + ";background:#000;overflow:hidden";
     var ytIframe = document.createElement("iframe");
     ytIframe.id = "edm-yt-frame";
-    ytIframe.src = "https://www.youtube.com/embed/" + (liveId || SITE.youtube.fallbackVideoId || "_xyCffufcbs") + (liveId?"?autoplay=1&mute=1&playsinline=1&rel=0":"?rel=0");
     ytIframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0";
     ytIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     ytIframe.setAttribute("allowfullscreen","");
     ytIframe.setAttribute("loading","lazy");
     ytIframe.title = "EDM OATS video";
-    frameBox.appendChild(ytIframe); liveWrap.appendChild(frameBox);
+
+    if (liveId) {
+      // Don't load the stream yet — show a click-to-join overlay so the click starts it WITH sound.
+      ytIframe.src = "about:blank";
+      frameBox.appendChild(ytIframe);
+      var poster = el("div"); poster.id="edm-join";
+      poster.style.cssText = "position:absolute;inset:0;cursor:pointer;background:#000 url('https://i.ytimg.com/vi/"+liveId+"/hqdefault.jpg') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center";
+      poster.innerHTML = "<div style=\"position:absolute;inset:0;background:rgba(0,0,0,.45)\"></div>" +
+        "<div style=\"position:relative;width:74px;height:74px;border-radius:50%;background:#ff3b3b;display:flex;align-items:center;justify-content:center;box-shadow:0 0 28px rgba(255,59,59,.5)\"><span style=\"color:#fff;font-size:30px;margin-left:5px\">\u25B6</span></div>" +
+        "<div style=\"position:relative;margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:#fff;text-transform:uppercase\">JOIN LIVE \u2014 WITH SOUND</div>";
+      poster.onclick = function(){
+        ytIframe.src = "https://www.youtube.com/embed/" + liveId + "?autoplay=1&playsinline=1&rel=0";
+        poster.parentNode.removeChild(poster);
+      };
+      frameBox.appendChild(poster);
+    } else {
+      ytIframe.src = "https://www.youtube.com/embed/" + (SITE.youtube.fallbackVideoId || "_xyCffufcbs") + "?rel=0";
+      frameBox.appendChild(ytIframe);
+    }
+    liveWrap.appendChild(frameBox);
     var liveNote = el("div"); liveNote.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin:10px 0 4px;line-height:1.7";
-    liveNote.innerHTML = (liveId ? "Streaming now \u2014 tap the player to unmute. " : "Newest video above \u2014 live stream pins here when EDM OATS goes on air. ") +
+    liveNote.innerHTML = (liveId ? "Click to join the stream with audio. " : "Newest video above \u2014 live stream pins here when EDM OATS goes on air. ") +
       "<a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "/live' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Watch live \u2197</a>" +
       " \u00b7 <a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "?sub_confirmation=1' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Subscribe \u2197</a>";
     liveWrap.appendChild(liveNote);
