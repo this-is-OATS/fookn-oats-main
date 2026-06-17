@@ -190,7 +190,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.4.0 · 2026.06.16</span>
+      <span id="nav-version">v1.4.1 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -219,7 +219,7 @@ const DEPARTMENTS = [
 const BRANDS = [
   { id:"revelator",  label:"Revelator Illuminae",  icon:"✦", tagline:"The creative lighting arm.",               desc:"Original lighting design, visuals programming, and previsualization services. Go4oats.vizzies — where the art of light meets live production.",                                             bullets:["Original lighting design","Visuals programming","Previsualization services","Go4oats.vizzies"] },
   { id:"sleepwell",  label:"Sleepwell Sweetheart", icon:"♪", tagline:"The band. Twenty years of catalog.",          desc:"Two decades of music — the early catalog, new EDM remixes, and a reunion show actively in development.",                                                         bullets:["Legacy catalog","EDM remixes","Reunion show in development","Active releases"] },
-  { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"Content, experiments, and an active coding division.", desc:"AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline.",             bullets:["AI content & memes","Storyboards & creative work","Coding & development division","Automations and web builds"] },
+  { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"Content, experiments, and an active coding division.", desc:"AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline.",             bullets:["AI content & memes","Storyboards & creative work","Coding & development division","Automations and web builds"], link:"https://oats-apps-hub.vercel.app", linkLabel:"OPEN THE OATS APPS HUB" },
   { id:"ghosted",    label:"Ghosted Oats",         icon:"◌", tagline:"The unpolished stuff. No brand rules.",    desc:"Where the rough work lives — sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan. Just what I actually make.",                                               bullets:["Rough experiments","Personal shots","Visual notebook","No filter"] },
   { id:"crypto",     label:"Cryptos4Oats",         icon:"₿", tagline:"Market notes from a touring tech who reads charts.",  desc:"Personal crypto and market-cycle notes — a side interest, shared openly. Not advice, just what I'm watching and why.",                       bullets:["Market-cycle notes","XRP & macro watching","Research links","Honest, not financial advice"] },
   { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"Electronic producer and composer. Built for the floor.", desc:"Original electronic production and composition — neon visuals, the EDM Oatmeal crew, and the sets that make a room move.",                           bullets:["Original electronic production","Composition & sound design","Neon visual concepts","EDM Oatmeal community"] },
@@ -516,6 +516,15 @@ function detailPage(item, backDest, showForm) {
   var desc = el("p","detail-desc",item.desc);
   frag.appendChild(icon); frag.appendChild(title); frag.appendChild(sub); frag.appendChild(desc);
   if (item.bullets) frag.appendChild(bullets(item.bullets));
+  if (item.link) {
+    var lb = el("a");
+    lb.href = item.link; lb.target="_blank"; lb.rel="noopener";
+    lb.style.cssText="display:inline-flex;align-items:center;gap:10px;margin:26px 0 4px;padding:14px 22px;border-radius:10px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 30px rgba(255,180,0,.22);transition:transform .15s, box-shadow .15s";
+    lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:14px'>\u2197</span>";
+    lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.boxShadow="0 12px 38px rgba(255,180,0,.34)"; };
+    lb.onmouseleave=function(){ this.style.transform="none"; this.style.boxShadow="0 8px 30px rgba(255,180,0,.22)"; };
+    frag.appendChild(lb);
+  }
   if (showForm) {
     var ibox = el("div","inquiry-box");
     var ilabel = el("div","inquiry-label","INQUIRY FORM — "+(item.cta||"CONTACT").toUpperCase());
