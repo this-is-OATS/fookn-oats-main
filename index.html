@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.8.0 · 2026.06.16</span>
+      <span id="nav-version">v1.8.1 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -754,24 +754,7 @@ function renderView(view) {
         }).catch(function(){});
       })();
     }
-
-    // Auto-pull newest EMBEDDABLE upload from RSS — ONLY when no manual live override is set.
-    if (!liveId) (function(){
-      var feed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + SITE.youtube.channelId;
-      fetch("https://r.jina.ai/" + feed).then(function(r){return r.text();}).then(function(t){
-        var ids=[], re=/watch\?v=([A-Za-z0-9_-]{11})/g, m;
-        while((m=re.exec(t))!==null){ if(ids.indexOf(m[1])<0) ids.push(m[1]); }
-        if(!ids.length) return;
-        (function tryNext(k){
-          if(k>=ids.length) return;
-          fetch("https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v="+ids[k])
-            .then(function(r){
-              if(r.ok){ var f=document.getElementById("edm-yt-frame"); var w="https://www.youtube.com/embed/"+ids[k]; if(f&&f.src!==w) f.src=w; }
-              else tryNext(k+1);
-            }).catch(function(){ tryNext(k+1); });
-        })(0);
-      }).catch(function(){});
-    })();
+    app.appendChild(liveWrap);
 
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",
