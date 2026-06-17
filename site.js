@@ -6,8 +6,8 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v1.1.3 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
-  youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", fallbackVideoId: "_xyCffufcbs" },  // EDM OATS — newest video auto-pulled from RSS; fallback if fetch fails
+  version: "v1.2.0 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", fallbackVideoId: "_xyCffufcbs", liveVideoId: "" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
     text: "LET'S TALK →",
