@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.5.1 · 2026.06.16</span>
+      <span id="nav-version">v1.6.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -534,7 +534,7 @@ function detailPage(item, backDest, showForm) {
   if (item.link) {
     var lb = el("a");
     lb.href = item.link; lb.target="_blank"; lb.rel="noopener";
-    lb.style.cssText="display:inline-flex;align-items:center;gap:12px;margin:-24px 0 4px;padding:17px 26px;border-radius:12px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:14.4px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;animation:oatsPulse 1.8s ease-in-out infinite;transition:transform .15s";
+    lb.style.cssText="display:inline-flex;align-items:center;gap:12px;margin:-49px 0 4px;padding:17px 26px;border-radius:12px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:14.4px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;animation:oatsPulse 1.8s ease-in-out infinite;transition:transform .15s";
     lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:17px'>\u2197</span>";
     lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.animationPlayState="paused"; };
     lb.onmouseleave=function(){ this.style.transform="none"; this.style.animationPlayState="running"; };
@@ -669,34 +669,46 @@ function renderView(view) {
     var playId = liveId || SITE.youtube.fallbackVideoId || "_xyCffufcbs";
     var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:860px;margin:0 auto 8px";
     var liveTag = el("div"); liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;display:flex;align-items:center;gap:8px";
-    if (liveId) { liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block;animation:none'></span> LIVE NOW \u2014 EDM OATS"; }
+    if (liveId) { liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS"; }
     else { liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST"; }
     liveWrap.appendChild(liveTag);
 
-    // 16:9 frame, rounded, soft frame glow
     var frameBox = el("div");
     frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (liveId?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (liveId?", 0 0 40px rgba(255,59,59,.18)":"");
 
-    var ytIframe = document.createElement("iframe");
-    ytIframe.id = "edm-yt-frame";
-    ytIframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0";
-    ytIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    ytIframe.setAttribute("allowfullscreen","");
-    ytIframe.setAttribute("loading","lazy");
-    ytIframe.title = "EDM OATS video";
-    // HD-friendly params: hide chrome, no related-channel videos, inline on mobile
-    var baseParams = "rel=0&modestbranding=1&playsinline=1&color=white&iv_load_policy=3&vq=hd1080";
+    // YouTube IFrame Player API mounts into this div
+    var ytHost = el("div"); ytHost.id = "edm-yt-host"; ytHost.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%";
+    frameBox.appendChild(ytHost);
 
-    function loadPlayer(withSound){
-      ytIframe.src = "https://www.youtube.com/embed/" + playId + "?" + baseParams + (withSound?"&autoplay=1":"");
+    // Loader: inject the API once, then build the player
+    window.__edmPlayer = null;
+    function buildEdmPlayer(autoplayWithSound){
+      window.__edmPlayer = new YT.Player("edm-yt-host", {
+        videoId: playId,
+        host: "https://www.youtube-nocookie.com",
+        playerVars: { rel:0, modestbranding:1, playsinline:1, color:"white", iv_load_policy:3, autoplay: autoplayWithSound?1:0, mute:0 },
+        events: {
+          onReady: function(e){
+            try { e.target.setPlaybackQuality("hd1080"); } catch(err){}
+            if (autoplayWithSound){ try{ e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); }catch(err){} }
+          }
+        }
+      });
+    }
+    function ensureYT(cb){
+      if (window.YT && window.YT.Player){ cb(); return; }
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function(){ if(prev) try{prev();}catch(e){} cb(); };
+      if (!document.getElementById("yt-iframe-api")){
+        var tag=document.createElement("script"); tag.id="yt-iframe-api"; tag.src="https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+      }
     }
 
     if (liveId) {
-      ytIframe.src = "about:blank";
-      frameBox.appendChild(ytIframe);
+      // Click-to-join overlay over the poster; click builds the API player WITH sound (user gesture)
       var poster = el("div"); poster.id="edm-join";
-      poster.style.cssText="position:absolute;inset:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden";
-      // hi-res thumbnail with graceful fallback maxres -> sd -> hq
+      poster.style.cssText="position:absolute;inset:0;z-index:2;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden";
       var pImg = document.createElement("img");
       pImg.src = "https://i.ytimg.com/vi/"+playId+"/maxresdefault.jpg";
       pImg.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover";
@@ -709,11 +721,11 @@ function renderView(view) {
       var plabel=el("div"); plabel.style.cssText="position:relative;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#fff;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.6)"; plabel.textContent="JOIN LIVE \u2014 WITH SOUND"; poster.appendChild(plabel);
       poster.onmouseenter=function(){ pbtn.style.transform="scale(1.08)"; };
       poster.onmouseleave=function(){ pbtn.style.transform="scale(1)"; };
-      poster.onclick=function(){ loadPlayer(true); if(poster.parentNode) poster.parentNode.removeChild(poster); };
+      poster.onclick=function(){ if(poster.parentNode) poster.parentNode.removeChild(poster); ensureYT(function(){ buildEdmPlayer(true); }); };
       frameBox.appendChild(poster);
     } else {
-      loadPlayer(false);
-      frameBox.appendChild(ytIframe);
+      // Latest video: build the API player (no autoplay)
+      ensureYT(function(){ buildEdmPlayer(false); });
     }
     liveWrap.appendChild(frameBox);
 
