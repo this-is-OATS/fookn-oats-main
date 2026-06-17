@@ -6,7 +6,7 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v1.6.0 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v1.6.1 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", fallbackVideoId: "_xyCffufcbs", liveVideoId: "RW5b2193SlQ" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
