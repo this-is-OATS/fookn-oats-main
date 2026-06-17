@@ -205,7 +205,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v1.8.2 · 2026.06.16</span>
+      <span id="nav-version">v1.8.3 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -665,85 +665,24 @@ function renderView(view) {
   // SECTION: EDM
   if (view === "section:edm") {
     // ── EDM OATS player: manual LIVE override, else newest EMBEDDABLE upload ──
-    var manualLive = (SITE.youtube && SITE.youtube.liveVideoId) ? SITE.youtube.liveVideoId : "";
+    // ── YouTube native live embed (v1.0.7 approach — YouTube auto-shows live or channel; no detection, no randos) ──
     var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:1040px;margin:0 auto 8px";
-    var liveTag = el("div"); liveTag.id="edm-tag"; liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;display:flex;align-items:center;gap:8px";
+    var liveTag = el("div"); liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--gold);margin:0 0 12px;text-transform:uppercase"; liveTag.textContent="\u25C9 EDM OATS \u2014 LIVE / LATEST";
     liveWrap.appendChild(liveTag);
-    function setTag(live){
-      if(live){ liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS"; }
-      else { liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 VIDEOS"; }
-    }
-
-    function playInStage(box, id){
-      box.innerHTML="";
-      var ifr=document.createElement("iframe");
-      ifr.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&playsinline=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd1080";
-      ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
-      ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      ifr.setAttribute("allowfullscreen",""); ifr.title="EDM OATS"; box.appendChild(ifr);
-    }
-    function posterInto(box, id, accent, label){
-      box.innerHTML="";
-      var poster=el("div"); poster.style.cssText="position:absolute;inset:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden";
-      var im=document.createElement("img"); im.src="https://i.ytimg.com/vi/"+id+"/maxresdefault.jpg";
-      im.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover";
-      im.onerror=function(){ if(this.src.indexOf("maxres")>-1)this.src="https://i.ytimg.com/vi/"+id+"/sddefault.jpg"; else if(this.src.indexOf("sddefault")>-1)this.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; };
-      poster.appendChild(im);
-      var sh=el("div"); sh.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.55))"; poster.appendChild(sh);
-      var b=el("div"); b.style.cssText="position:relative;width:88px;height:88px;border-radius:50%;background:"+accent+";display:flex;align-items:center;justify-content:center;box-shadow:0 0 36px "+(accent==="#ff3b3b"?"rgba(255,59,59,.55)":"rgba(255,180,0,.5)")+";transition:transform .15s";
-      b.innerHTML="<span style='color:"+(accent==="#ff3b3b"?"#fff":"#0a0a0a")+";font-size:36px;margin-left:6px'>\u25B6</span>"; poster.appendChild(b);
-      if(label){ var l=el("div"); l.style.cssText="position:relative;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#fff;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.7)"; l.textContent=label; poster.appendChild(l); }
-      poster.onmouseenter=function(){ b.style.transform="scale(1.08)"; }; poster.onmouseleave=function(){ b.style.transform="scale(1)"; };
-      poster.onclick=function(){ playInStage(box, id); };
-      box.appendChild(poster);
-    }
-    function frameGlow(live){ return "0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (live?", 0 0 40px rgba(255,59,59,.18)":""); }
-
-    var stage = el("div"); stage.id="edm-stage";
-    stage.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:"+frameGlow(false);
-    liveWrap.appendChild(stage);
-
-    var gridLabel = el("div"); gridLabel.id="edm-grid-label"; gridLabel.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.4);margin:18px 0 10px;text-transform:uppercase"; gridLabel.textContent="RECENT UPLOADS";
-    var grid = el("div"); grid.id="edm-grid"; grid.style.cssText="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px";
-    function addThumb(id){
-      var t=el("div"); t.style.cssText="position:relative;padding-bottom:56.25%;height:0;border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,180,0,.18)";
-      var im=document.createElement("img"); im.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; im.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"; t.appendChild(im);
-      var pl=el("div"); pl.style.cssText="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);transition:background .15s"; pl.innerHTML="<span style='color:#fff;font-size:22px;text-shadow:0 2px 6px rgba(0,0,0,.7)'>\u25B6</span>"; t.appendChild(pl);
-      t.onmouseenter=function(){ pl.style.background="rgba(0,0,0,.35)"; }; t.onmouseleave=function(){ pl.style.background="rgba(0,0,0,.15)"; };
-      t.onclick=function(){ playInStage(stage, id); window.scrollTo({top:liveWrap.offsetTop-90,behavior:"smooth"}); };
-      grid.appendChild(t);
-    }
-
-    var fb = SITE.youtube.fallbackVideoId || "_xyCffufcbs";
-
-    function showPlaylist(){
-      setTag(false);
-      stage.style.boxShadow=frameGlow(false);
-      posterInto(stage, fb, "var(--gold)", "PLAY \u2014 WITH SOUND");
-      if(!document.getElementById("edm-grid")){ liveWrap.appendChild(gridLabel); liveWrap.appendChild(grid); }
-      gridLabel.style.display=""; grid.style.display="";
-      // populate recent uploads (embeddable only)
-      var feed="https://www.youtube.com/feeds/videos.xml?channel_id="+SITE.youtube.channelId;
-      fetch("https://r.jina.ai/"+feed).then(function(r){return r.text();}).then(function(t){
-        var ids=[], re=/watch\?v=([A-Za-z0-9_-]{11})/g, m; while((m=re.exec(t))!==null){ if(ids.indexOf(m[1])<0) ids.push(m[1]); }
-        if(!ids.length){ grid.innerHTML=""; addThumb(fb); return; }
-        var done=0,res=[],n=Math.min(ids.length,8);
-        ids.slice(0,8).forEach(function(id,idx){ fetch("https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v="+id).then(function(r){ if(r.ok)res[idx]=id; }).catch(function(){}).then(function(){ if(++done===n){ var ok=res.filter(Boolean); if(!ok.length)ok=[fb]; grid.innerHTML=""; ok.forEach(addThumb); } }); });
-      }).catch(function(){ grid.innerHTML=""; addThumb(fb); });
-    }
-    function showLive(id, autoplay){
-      setTag(true);
-      stage.style.boxShadow=frameGlow(true);
-      gridLabel.style.display="none"; if(document.getElementById("edm-grid")) grid.style.display="none";
-      if(autoplay) playInStage(stage, id); else posterInto(stage, id, "#ff3b3b", "JOIN LIVE \u2014 WITH SOUND");
-    }
-
-    // DEFAULT: playlist landing. Live only via manual liveVideoId (auto-detect removed — it grabbed YouTube recommendations).
-    if (manualLive) {
-      showLive(manualLive, false);   // set SITE.youtube.liveVideoId to YOUR stream id when live (works for unlisted)
-    } else {
-      showPlaylist();
-    }
+    var frameBox = el("div"); frameBox.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,180,0,.28)";
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube.com/embed/live_stream?channel=" + SITE.youtube.channelId + "&autoplay=0&rel=0&modestbranding=1&playsinline=1";
+    iframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.setAttribute("allowfullscreen","");
+    iframe.setAttribute("loading","lazy");
+    iframe.title = "EDM OATS live stream";
+    frameBox.appendChild(iframe); liveWrap.appendChild(frameBox);
+    var liveNote = el("div"); liveNote.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.45);margin:14px 0 4px;line-height:1.7;letter-spacing:.04em";
+    liveNote.innerHTML = "Live when streaming \u2014 otherwise showing the channel. " +
+      "<a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "/videos' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Latest videos \u2197</a>" +
+      " \u00b7 <a href='https://www.youtube.com/channel/" + SITE.youtube.channelId + "?sub_confirmation=1' target='_blank' rel='noopener' style='color:var(--gold);text-decoration:none'>Subscribe \u2197</a>";
+    liveWrap.appendChild(liveNote);
     app.appendChild(liveWrap);
 
     app.appendChild(detailPage({
