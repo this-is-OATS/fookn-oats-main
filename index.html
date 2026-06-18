@@ -210,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.0.0 · 2026.06.16</span>
+      <span id="nav-version">v2.1.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -756,23 +756,28 @@ function renderView(view) {
     // Seed instantly with fallback poster so it's never blank while the API responds
     posterInStage(SITE.youtube.fallbackVideoId||"_xyCffufcbs", false, "PLAY \u2014 WITH SOUND");
 
-    (function(){
-      var K=SITE.youtube.apiKey, CID=SITE.youtube.channelId;
-      if(!K){ return; }
-      // 1) live check
+    var K=SITE.youtube.apiKey, CID=SITE.youtube.channelId;
+    function loadPlaylist(){
+      if(!K) return;
+      fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU"+CID.slice(2)+"&maxResults=12&key="+K)
+        .then(function(r){return r.json();}).then(function(p){
+          var items=(p.items||[]).map(function(it){ return {id:it.snippet.resourceId.videoId, title:it.snippet.title}; });
+          renderPlaylist(items);
+        }).catch(function(){});
+    }
+    function publicLiveCheck(){
+      if(!K){ loadPlaylist(); return; }
       fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId="+CID+"&eventType=live&type=video&maxResults=1&key="+K)
         .then(function(r){return r.json();}).then(function(d){
-          if(d && d.items && d.items.length && d.items[0].id && d.items[0].id.videoId){
-            renderLive(d.items[0].id.videoId); return;
-          }
-          // 2) not live -> uploads playlist
-          return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU"+CID.slice(2)+"&maxResults=12&key="+K)
-            .then(function(r){return r.json();}).then(function(p){
-              var items=(p.items||[]).map(function(it){ return {id:it.snippet.resourceId.videoId, title:it.snippet.title}; });
-              renderPlaylist(items);
-            });
-        }).catch(function(){ /* leave seeded poster */ });
-    })();
+          if(d && d.items && d.items.length && d.items[0].id && d.items[0].id.videoId){ renderLive(d.items[0].id.videoId); }
+          else { loadPlaylist(); }
+        }).catch(function(){ loadPlaylist(); });
+    }
+    // 1) MANUAL live override via live.json (works for UNLISTED). Empty -> public auto-detect -> playlist.
+    fetch("./live.json?t="+Date.now()).then(function(r){return r.json();}).then(function(L){
+      if(L && L.liveVideoId){ renderLive(L.liveVideoId); }
+      else { publicLiveCheck(); }
+    }).catch(function(){ publicLiveCheck(); });
 
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>LIVE CONTROL — EDM OATS</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#090909;color:#e0e0e0;font-family:'IBM Plex Mono',monospace;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{width:100%;max-width:520px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,180,0,0.2);border-radius:12px;padding:32px 28px}
+    h1{font-size:14px;letter-spacing:4px;text-transform:uppercase;color:#ffb400;margin-bottom:8px}
+    .subtitle{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:28px;letter-spacing:1px}
+    label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:18px 0 8px}
+    input[type="password"],input[type="text"]{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-family:inherit;font-size:14px;padding:12px 14px}
+    input:focus{outline:none;border-color:rgba(255,180,0,0.5)}
+    .token-note{font-size:10px;color:rgba(255,255,255,0.3);margin-top:6px}
+    .row{display:flex;gap:10px;margin-top:24px}
+    .btn{flex:1;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px;cursor:pointer}
+    .btn-live{background:#ff3b3b;color:#fff}
+    .btn-live:hover{background:#ff5555}
+    .btn-off{background:rgba(255,255,255,0.08);color:#e0e0e0;border:1px solid rgba(255,255,255,0.15)}
+    .btn-off:hover{background:rgba(255,255,255,0.14)}
+    .btn:disabled{opacity:0.4;cursor:not-allowed}
+    .status{margin-top:20px;font-size:12px;padding:12px 14px;border-radius:8px;display:none}
+    .status.loading{display:block;background:rgba(255,180,0,0.08);color:#ffb400}
+    .status.ok{display:block;background:rgba(60,200,120,0.1);color:#5cd68a}
+    .status.err{display:block;background:rgba(255,80,80,0.1);color:#ff6b6b}
+    .state{margin-top:18px;font-size:12px;padding:10px 14px;border-radius:8px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08)}
+    .state b{color:#ffb400}
+    .hint{font-size:10px;color:rgba(255,255,255,0.3);margin-top:8px;line-height:1.6}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>EDM OATS &mdash; Live Control</h1>
+    <div class="subtitle">Flip the #edm player to your live stream (works for UNLISTED)</div>
+    <div class="state" id="state">Loading current state&hellip;</div>
+    <label for="ghtoken">GitHub Token</label>
+    <input type="password" id="ghtoken" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off"/>
+    <p class="token-note">this-is-OATS token with repo Contents write access</p>
+    <label for="vid">Live video ID or URL</label>
+    <input type="text" id="vid" placeholder="paste the YouTube live link or 11-char ID"/>
+    <p class="hint">Paste the full link (youtube.com/live/XXXX, watch?v=XXXX, or youtu.be/XXXX) &mdash; I'll grab the ID. Leave blank + GO OFFLINE to return to the playlist.</p>
+    <div class="row">
+      <button class="btn btn-live" id="liveBtn" onclick="goLive()">&#9679; GO LIVE</button>
+      <button class="btn btn-off" id="offBtn" onclick="goOffline()">GO OFFLINE</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+  <script>
+    var REPO='this-is-OATS/fookn-oats-main', FILE='live.json', BRANCH='main';
+    var API='https://api.github.com/repos/'+REPO+'/contents/'+FILE;
+    var statusEl=document.getElementById('status'), stateEl=document.getElementById('state');
+    function setStatus(t,c){ statusEl.textContent=t; statusEl.className='status '+(c||''); }
+    function tok(){ return document.getElementById('ghtoken').value.trim(); }
+    function extractId(v){ v=(v||'').trim(); if(!v) return '';
+      var m=v.match(/(?:live\/|watch\?v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
+      if(m) return m[1]; if(/^[A-Za-z0-9_-]{11}$/.test(v)) return v; return v; }
+    fetch('/live.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+      if(d && d.liveVideoId){ stateEl.innerHTML='Currently: <b>LIVE</b> &mdash; video '+d.liveVideoId; document.getElementById('vid').value=d.liveVideoId; }
+      else { stateEl.innerHTML='Currently: <b>OFFLINE</b> (showing playlist)'; }
+    }).catch(function(){ stateEl.textContent='Could not read current state'; });
+    function save(liveVideoId, btn){
+      var token=tok(); if(!token){ setStatus('Enter your GitHub token first','err'); return; }
+      btn.disabled=true; setStatus('Fetching file...','loading');
+      fetch(API+'?ref='+BRANCH,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}})
+        .then(function(r){return r.json();}).then(function(meta){
+          var content=JSON.stringify({liveVideoId:liveVideoId, updatedAt:new Date().toISOString()},null,2);
+          var encoded=btoa(unescape(encodeURIComponent(content)));
+          setStatus('Pushing to GitHub...','loading');
+          return fetch(API,{method:'PUT',headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+            body:JSON.stringify({message:liveVideoId?('Go LIVE: '+liveVideoId):'Go offline (playlist)', content:encoded, sha:meta.sha, branch:BRANCH})});
+        })
+        .then(function(r){ if(!r.ok) throw new Error('GitHub API error: '+r.status); return r.json(); })
+        .then(function(){ setStatus(liveVideoId?('LIVE set to '+liveVideoId+' - on site in a few seconds.'):'Offline - playlist restored.','ok');
+          stateEl.innerHTML='Currently: <b>'+(liveVideoId?'LIVE':'OFFLINE')+'</b>'+(liveVideoId?' &mdash; video '+liveVideoId:' (showing playlist)'); })
+        .catch(function(e){ setStatus(e.message,'err'); })
+        .finally(function(){ btn.disabled=false; });
+    }
+    function goLive(){ var id=extractId(document.getElementById('vid').value); if(!id){ setStatus('Paste a live link or video ID','err'); return;} save(id, document.getElementById('liveBtn')); }
+    function goOffline(){ save('', document.getElementById('offBtn')); }
+  </script>
+</body>
+</html>

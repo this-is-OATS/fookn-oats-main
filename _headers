@@ -5,7 +5,7 @@
   Cache-Control: public, max-age=0, must-revalidate
 /site.js
   Cache-Control: public, max-age=0, must-revalidate
-/ticker.json
+/live.json
   Cache-Control: public, max-age=0, must-revalidate
 
 # Images: safe to cache hard (filenames are stable)
