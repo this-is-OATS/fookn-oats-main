@@ -9,7 +9,7 @@ export default function handler(req, res) {
     response_type: "code",
     access_type: "offline",
     prompt: "consent",
-    scope: "https://www.googleapis.com/auth/youtube.readonly"
+    scope: "https://www.googleapis.com/auth/youtube.force-ssl"
   });
   res.writeHead(302, { Location: "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString() });
   res.end();

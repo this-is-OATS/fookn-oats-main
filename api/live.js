@@ -35,13 +35,27 @@ export default async function handler(req, res) {
       ids = (lj.items||[]).map(i=>i.id);
     }
     if (ids.length) {
-      const vr = await fetch("https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails,snippet&id="+ids.join(","), { headers:auth });
+      const vr = await fetch("https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails,snippet,status&id="+ids.join(","), { headers:auth });
       const vj = await vr.json();
       for (const it of (vj.items||[])) {
         const d = it.liveStreamingDetails||{};
         const sn = it.snippet||{};
         const isLive = (sn.liveBroadcastContent==="live") || (d.actualStartTime && !d.actualEndTime);
-        if (isLive) { out.live=true; out.videoId=it.id; break; }
+        if (isLive) {
+          out.live=true; out.videoId=it.id;
+          // Best-effort: force embedding ON (YouTube sometimes auto-disables it, e.g. music claims)
+          try {
+            if (it.status && it.status.embeddable === false) {
+              await fetch("https://www.googleapis.com/youtube/v3/videos?part=status,snippet", {
+                method:"PUT", headers:{ ...auth, "Content-Type":"application/json" },
+                body: JSON.stringify({ id: it.id,
+                  snippet:{ title: sn.title, categoryId: sn.categoryId, description: sn.description||"" },
+                  status:{ ...it.status, embeddable:true } })
+              });
+            }
+          } catch(e){}
+          break;
+        }
       }
     }
     _cache = { at:now, data:out };
