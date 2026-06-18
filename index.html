@@ -210,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.3.1 · 2026.06.16</span>
+      <span id="nav-version">v2.3.2 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -690,21 +690,23 @@ function renderView(view) {
       stage.style.boxShadow="0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (live?", 0 0 40px rgba(255,59,59,.18)":"");
       var ifr=document.createElement("iframe");
       var host = live ? "https://www.youtube.com" : "https://www.youtube-nocookie.com";
-      ifr.src=host+"/embed/"+id+"?autoplay=1&"+(live?"mute=1&":"")+"playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd720&enablejsapi=1";
+      // ALWAYS autoplay muted so iOS starts on a single tap; overlay lets user unmute (one more tap)
+      ifr.src=host+"/embed/"+id+"?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd720&enablejsapi=1";
       ifr.id="edm-live-ifr";
       ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
       ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       ifr.setAttribute("allowfullscreen",""); ifr.title="EDM OATS"; stage.appendChild(ifr);
-      if(live){
-        // UNMUTE banner on top — big tap target; on tap, unmute via API AND tell user to use player bar
-        var unmute=el("div"); unmute.id="edm-unmute";
-        unmute.style.cssText="position:absolute;top:0;left:0;right:0;z-index:5;cursor:pointer;background:linear-gradient(180deg,rgba(255,59,59,.96),rgba(255,59,59,.0));padding:14px 16px 28px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:700;color:#fff;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.4)";
-        unmute.innerHTML="<span style='font-size:18px'>\uD83D\uDD0A</span> TAP FOR SOUND";
-        function ytCmd(fn,arg){ try{ ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:fn,args:arg!==undefined?[arg]:[]}),"*"); }catch(e){} }
-        unmute.onclick=function(){ ytCmd("unMute"); ytCmd("setVolume",100); ytCmd("playVideo"); if(unmute.parentNode) unmute.parentNode.removeChild(unmute); };
-        stage.appendChild(unmute);
-      }
+      // TAP FOR SOUND overlay — shown for BOTH live and playlist videos
+      var unmute=el("div"); unmute.id="edm-unmute";
+      var bg = live ? "rgba(255,59,59,.96)" : "rgba(255,180,0,.96)";
+      var fg = live ? "#fff" : "#0a0a0a";
+      unmute.style.cssText="position:absolute;top:0;left:0;right:0;z-index:5;cursor:pointer;background:linear-gradient(180deg,"+bg+",rgba(0,0,0,0));padding:14px 16px 28px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:700;color:"+fg+";text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.25)";
+      unmute.innerHTML="<span style='font-size:18px'>\uD83D\uDD0A</span> TAP FOR SOUND";
+      function ytCmd(fn,arg){ try{ ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:fn,args:arg!==undefined?[arg]:[]}),"*"); }catch(e){} }
+      unmute.onclick=function(){ ytCmd("unMute"); ytCmd("setVolume",100); ytCmd("playVideo"); if(unmute.parentNode) unmute.parentNode.removeChild(unmute); };
+      stage.appendChild(unmute);
     }
+
     function posterInStage(id, live, label){
       stage.innerHTML="";
       stage.style.boxShadow="0 18px 60px rgba(0,0,0,.6), 0 0 0 1px " + (live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)") + (live?", 0 0 40px rgba(255,59,59,.18)":"");
@@ -741,13 +743,13 @@ function renderView(view) {
     }
     function renderPlaylist(items){
       liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
-      // Offline always headlines the featured video (Ferry Corsten Chicago = fallbackVideoId)
+      // Offline headlines the featured video (Ferry Corsten) — autoplay MUTED on load + TAP FOR SOUND overlay (same as live)
       var featured = SITE.youtube.fallbackVideoId || "_xyCffufcbs";
-      posterInStage(featured, false, "PLAY \u2014 WITH SOUND");
+      playInStage(featured, false);
       grid.innerHTML="";
       (items||[]).forEach(function(v){ addThumb(v.id, v.title); });
       if(!grid.parentNode){ liveWrap.insertBefore(gridLabel, liveNote); liveWrap.insertBefore(grid, liveNote); }
-      liveNote.innerHTML = noteHtml("Pick a video \u2014 plays with sound. ");
+      liveNote.innerHTML = noteHtml("Tap for sound. Pick any video below. ");
     }
 
     liveWrap.appendChild(liveNote);
