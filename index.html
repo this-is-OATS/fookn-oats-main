@@ -210,7 +210,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.1.1 · 2026.06.16</span>
+      <span id="nav-version">v2.2.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -773,11 +773,15 @@ function renderView(view) {
           else { loadPlaylist(); }
         }).catch(function(){ loadPlaylist(); });
     }
-    // 1) MANUAL live override via live.json (works for UNLISTED). Empty -> public auto-detect -> playlist.
-    fetch("./live.json?t="+Date.now()).then(function(r){return r.json();}).then(function(L){
-      if(L && L.liveVideoId){ renderLive(L.liveVideoId); }
-      else { publicLiveCheck(); }
-    }).catch(function(){ publicLiveCheck(); });
+    // Detection chain: 1) /api/live (OAuth, sees UNLISTED, fully auto) 2) live.json manual 3) public search 4) playlist
+    function liveJsonCheck(){
+      fetch("./live.json?t="+Date.now()).then(function(r){return r.json();}).then(function(L){
+        if(L && L.liveVideoId){ renderLive(L.liveVideoId); } else { publicLiveCheck(); }
+      }).catch(function(){ publicLiveCheck(); });
+    }
+    fetch("/api/live").then(function(r){return r.json();}).then(function(a){
+      if(a && a.live && a.videoId){ renderLive(a.videoId); } else { liveJsonCheck(); }
+    }).catch(function(){ liveJsonCheck(); });
 
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",
