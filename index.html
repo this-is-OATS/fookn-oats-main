@@ -69,7 +69,8 @@
     /* ── BACK BUTTON ── */
     @keyframes back-pulse{0%,100%{opacity:1;text-shadow:0 0 8px #ffb400,0 0 20px #ffb400,0 0 40px rgba(255,180,0,.6)}50%{opacity:.6;text-shadow:0 0 4px #ffb400,0 0 10px rgba(255,180,0,.4)}}
     @keyframes back-border-pulse{0%,100%{box-shadow:0 0 8px rgba(255,180,0,.8),0 0 20px rgba(255,180,0,.4),inset 0 0 8px rgba(255,180,0,.1);border-color:#ffb400}50%{box-shadow:0 0 4px rgba(255,180,0,.4),0 0 10px rgba(255,180,0,.2),inset 0 0 4px rgba(255,180,0,.05);border-color:rgba(255,180,0,.6)}}
-    .back-btn{background:none;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:11px;cursor:pointer;padding:8px 16px;margin-bottom:32px;letter-spacing:.15em;display:flex;align-items:center;gap:8px;animation:back-border-pulse 1.8s ease-in-out infinite;transition:all .15s}
+    .back-btn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:120;background:rgba(9,9,9,.92);backdrop-filter:blur(8px);border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:11px;cursor:pointer;padding:10px 22px;letter-spacing:.15em;display:flex;align-items:center;gap:8px;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.5);animation:back-border-pulse 1.8s ease-in-out infinite;transition:all .15s}
+    .back-btn:hover{transform:translateX(-50%) scale(1.04)}
     .back-btn span{animation:back-pulse 1.8s ease-in-out infinite}
     .back-btn:hover{animation:none!important;box-shadow:0 0 16px rgba(255,180,0,1),0 0 40px rgba(255,180,0,.6),inset 0 0 12px rgba(255,180,0,.2)!important;border-color:#ffb400!important;background:rgba(255,180,0,.08)!important}
     .back-btn:hover span{animation:none!important;text-shadow:0 0 12px #ffb400,0 0 30px #ffb400,0 0 60px rgba(255,180,0,.8)!important}
@@ -210,7 +211,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.3.3 · 2026.06.16</span>
+      <span id="nav-version">v2.3.4 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
