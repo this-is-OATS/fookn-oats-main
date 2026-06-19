@@ -211,7 +211,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.3.5 · 2026.06.16</span>
+      <span id="nav-version">v2.3.6 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -700,11 +700,13 @@ function renderView(view) {
       if(live){
         // Embedding can lag a few seconds when a stream just goes live -> iframe may show "unavailable".
         // Reload it a couple times so it recovers without the user manually refreshing.
-        var _r=0; var _iv=setInterval(function(){
-          _r++;
-          if(_r>3 || !document.getElementById("edm-live-ifr")){ clearInterval(_iv); return; }
-          var f=document.getElementById("edm-live-ifr"); if(f){ var sUrl=f.src; f.src=sUrl; }
-        }, 3500);
+        window.__edmReloaded=false; window.__edmStopReload=false;
+        var _to=setTimeout(function(){
+          // one-time recovery reload ONLY if the user hasn't interacted (unmuted) yet
+          if(window.__edmStopReload) return;
+          var f=document.getElementById("edm-live-ifr");
+          if(f && !window.__edmReloaded){ window.__edmReloaded=true; f.src=f.src; }
+        }, 4000);
       }
       // TAP FOR SOUND overlay — shown for BOTH live and playlist videos
       var unmute=el("div"); unmute.id="edm-unmute";
@@ -713,7 +715,7 @@ function renderView(view) {
       unmute.style.cssText="position:absolute;top:0;left:0;right:0;z-index:5;cursor:pointer;background:linear-gradient(180deg,"+bg+",rgba(0,0,0,0));padding:14px 16px 28px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:700;color:"+fg+";text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.25)";
       unmute.innerHTML="<span style='font-size:18px'>\uD83D\uDD0A</span> TAP FOR SOUND";
       function ytCmd(fn,arg){ try{ ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:fn,args:arg!==undefined?[arg]:[]}),"*"); }catch(e){} }
-      unmute.onclick=function(){ ytCmd("unMute"); ytCmd("setVolume",100); ytCmd("playVideo"); if(unmute.parentNode) unmute.parentNode.removeChild(unmute); };
+      unmute.onclick=function(){ window.__edmStopReload=true; ytCmd("unMute"); ytCmd("setVolume",100); ytCmd("playVideo"); if(unmute.parentNode) unmute.parentNode.removeChild(unmute); };
       stage.appendChild(unmute);
     }
 
