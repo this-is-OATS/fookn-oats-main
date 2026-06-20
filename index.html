@@ -211,7 +211,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
-      <span id="nav-version">v2.3.6 · 2026.06.16</span>
+      <span id="nav-version">v2.4.0 · 2026.06.16</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -746,12 +746,36 @@ function renderView(view) {
       grid.appendChild(t);
     }
 
+    function liveMsgBar(){
+      var box=el("div"); box.id="edm-msgbar"; box.style.cssText="max-width:1040px;margin:14px auto 0";
+      var lbl=el("div"); lbl.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:#ff3b3b;text-transform:uppercase;margin:0 0 8px"; lbl.textContent="\u25CF MESSAGE THE STREAM";
+      box.appendChild(lbl);
+      var row=el("div"); row.style.cssText="display:flex;gap:8px;flex-wrap:wrap";
+      var name=document.createElement("input"); name.type="text"; name.placeholder="name (optional)"; name.style.cssText="flex:0 0 130px;min-width:110px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+      var msg=document.createElement("input"); msg.type="text"; msg.placeholder="send a message to the booth\u2026"; msg.style.cssText="flex:1 1 200px;min-width:160px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+      var btn=el("button"); btn.textContent="SEND"; btn.style.cssText="flex:0 0 auto;background:#ff3b3b;color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;padding:11px 22px;cursor:pointer";
+      row.appendChild(name); row.appendChild(msg); row.appendChild(btn); box.appendChild(row);
+      var note=el("div"); note.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:8px"; box.appendChild(note);
+      function send(){
+        var m=msg.value.trim(); if(!m){ msg.focus(); return; }
+        btn.disabled=true; btn.textContent="\u2026"; note.textContent="";
+        fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body:JSON.stringify({_subject:"\uD83D\uDD34 EDM OATS LIVE message",name:(name.value.trim()||"anon"),message:m,source:"edm-live-bar"})})
+          .then(function(r){ if(r.ok){ msg.value=""; note.style.color="#5cd68a"; note.textContent="Sent to the booth \u2713"; } else { note.style.color="#ff6b6b"; note.textContent="Couldn\'t send \u2014 try again."; } })
+          .catch(function(){ note.style.color="#ff6b6b"; note.textContent="Couldn\'t send \u2014 try again."; })
+          .finally(function(){ btn.disabled=false; btn.textContent="SEND"; });
+      }
+      btn.onclick=send; msg.onkeydown=function(e){ if(e.key==="Enter") send(); };
+      return box;
+    }
     function renderLive(id){
       liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS";
       // remove grid first so the live video does not compete for bandwidth, then autoplay
       if(grid.parentNode){ grid.parentNode.removeChild(grid); } if(gridLabel.parentNode){ gridLabel.parentNode.removeChild(gridLabel); }
       playInStage(id, true);
       liveNote.innerHTML = noteHtml("Streaming now \u2014 tap to unmute. ");
+      var oldBar=document.getElementById("edm-msgbar"); if(oldBar&&oldBar.parentNode) oldBar.parentNode.removeChild(oldBar);
+      liveWrap.insertBefore(liveMsgBar(), liveNote);
     }
     function renderPlaylist(items){
       liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
