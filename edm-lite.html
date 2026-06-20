@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>EDM OATS — LIVE</title>
+  <link rel="preconnect" href="https://www.youtube.com" crossorigin/>
+  <link rel="preconnect" href="https://i.ytimg.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--gold:#ffb400;--bg:#090909;--mono:'IBM Plex Mono',monospace;--serif:'Playfair Display',Georgia,serif}
+    html,body{background:var(--bg);color:#fff;font-family:Georgia,serif;min-height:100%}
+    .wrap{max-width:1040px;margin:0 auto;padding:28px 18px 60px}
+    .brand{font-family:var(--serif);font-weight:900;font-size:clamp(28px,6vw,46px);letter-spacing:.5px;text-align:center;margin:6px 0 4px}
+    .brand .o{color:var(--gold)}
+    .sub{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:24px}
+    a{color:var(--gold);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">EDM <span class="o">OATS</span></div>
+    <div class="sub">Live · Sets · Sessions</div>
+    <div id="app"></div>
+  </div>
+
+  <script src="./site.js"></script>
+  <script>
+  function el(t,css,html){var e=document.createElement(t);if(css)e.style.cssText=css;if(html!==undefined)e.innerHTML=html;return e;}
+  var app=document.getElementById("app");
+  var Y=(window.SITE&&SITE.youtube)||{channelId:"UCa-9QRISRcW6xVLrMvZ4Egg",fallbackVideoId:"_xyCffufcbs"};
+
+  var liveTag=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;color:var(--gold)","◉ EDM OATS — LATEST");
+  app.appendChild(liveTag);
+  var stage=el("div","position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,180,0,.28)");
+  app.appendChild(stage);
+  var gridLabel=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.4);margin:18px 0 10px;text-transform:uppercase","RECENT UPLOADS");
+  var grid=el("div","display:grid;grid-template-columns:repeat(auto-fill,minmax(75px,1fr));gap:6px");
+  var note=el("div","font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.45);margin:14px 0 4px;line-height:1.7;letter-spacing:.04em");
+  function noteHtml(x){return x+"<a href='https://www.youtube.com/channel/"+Y.channelId+"/videos' target='_blank' rel='noopener'>All videos ↗</a> · <a href='https://www.youtube.com/channel/"+Y.channelId+"?sub_confirmation=1' target='_blank' rel='noopener'>Subscribe ↗</a>";}
+
+  function playInStage(id,live){
+    stage.innerHTML="";
+    stage.style.boxShadow="0 18px 60px rgba(0,0,0,.6), 0 0 0 1px "+(live?"rgba(255,59,59,.45)":"rgba(255,180,0,.28)")+(live?", 0 0 40px rgba(255,59,59,.18)":"");
+    var ifr=document.createElement("iframe"); ifr.id="edm-ifr";
+    var host=live?"https://www.youtube.com":"https://www.youtube-nocookie.com";
+    ifr.src=host+"/embed/"+id+"?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3&vq=hd720&enablejsapi=1";
+    ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
+    ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    ifr.setAttribute("allowfullscreen",""); stage.appendChild(ifr);
+    if(live){ window.__stop=false; setTimeout(function(){ if(window.__stop)return; var f=document.getElementById("edm-ifr"); if(f&&!window.__re){window.__re=true;f.src=f.src;} },4000); }
+    var un=el("div","position:absolute;top:0;left:0;right:0;z-index:5;cursor:pointer;background:linear-gradient(180deg,"+(live?"rgba(255,59,59,.96)":"rgba(255,180,0,.96)")+",rgba(0,0,0,0));padding:14px 16px 28px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:700;color:"+(live?"#fff":"#0a0a0a")+";text-transform:uppercase","<span style='font-size:18px'>🔊</span> TAP FOR SOUND");
+    function cmd(fn,a){try{ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:fn,args:a!==undefined?[a]:[]}),"*");}catch(e){}}
+    un.onclick=function(){window.__stop=true;cmd("unMute");cmd("setVolume",100);cmd("playVideo");if(un.parentNode)un.parentNode.removeChild(un);};
+    stage.appendChild(un);
+  }
+  function thumb(id){
+    var t=el("div","position:relative;padding-bottom:56.25%;height:0;border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,180,0,.18)");
+    var im=document.createElement("img"); im.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; im.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"; t.appendChild(im);
+    var pl=el("div","position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15)","<span style='color:#fff;font-size:20px;text-shadow:0 2px 6px rgba(0,0,0,.7)'>▶</span>"); t.appendChild(pl);
+    t.onclick=function(){playInStage(id,false);window.scrollTo({top:0,behavior:"smooth"});};
+    grid.appendChild(t);
+  }
+  function msgBar(){
+    var box=el("div","max-width:1040px;margin:14px auto 0"); box.id="msgbar";
+    box.appendChild(el("div","font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:#ff3b3b;text-transform:uppercase;margin:0 0 8px","● MESSAGE THE STREAM"));
+    var row=el("div","display:flex;gap:8px;flex-wrap:wrap");
+    var nm=document.createElement("input"); nm.type="text"; nm.placeholder="name (optional)"; nm.style.cssText="flex:0 0 130px;min-width:110px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+    var ms=document.createElement("input"); ms.type="text"; ms.placeholder="send a message to the booth…"; ms.style.cssText="flex:1 1 200px;min-width:160px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+    var b=el("button",null,"SEND"); b.style.cssText="flex:0 0 auto;background:#ff3b3b;color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;padding:11px 22px;cursor:pointer";
+    row.appendChild(nm);row.appendChild(ms);row.appendChild(b);box.appendChild(row);
+    var n2=el("div","font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:8px"); box.appendChild(n2);
+    function send(){var m=ms.value.trim();if(!m){ms.focus();return;}b.disabled=true;b.textContent="…";
+      fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({_subject:"🔴 EDM OATS LIVE message",name:(nm.value.trim()||"anon"),message:m,source:"edm-lite"})})
+        .then(function(r){if(r.ok){ms.value="";n2.style.color="#5cd68a";n2.textContent="Sent to the booth ✓";}else{n2.style.color="#ff6b6b";n2.textContent="Couldn't send — try again.";}})
+        .catch(function(){n2.style.color="#ff6b6b";n2.textContent="Couldn't send — try again.";})
+        .finally(function(){b.disabled=false;b.textContent="SEND";});}
+    b.onclick=send; ms.onkeydown=function(e){if(e.key==="Enter")send();};
+    return box;
+  }
+
+  function renderLive(id){
+    liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW — EDM OATS";
+    if(grid.parentNode)grid.parentNode.removeChild(grid); if(gridLabel.parentNode)gridLabel.parentNode.removeChild(gridLabel);
+    playInStage(id,true);
+    note.innerHTML=noteHtml("Streaming now — tap to unmute. ");
+    if(!note.parentNode)app.appendChild(note);
+    var ob=document.getElementById("msgbar"); if(ob&&ob.parentNode)ob.parentNode.removeChild(ob);
+    app.insertBefore(msgBar(),note);
+  }
+  function renderPlaylist(items){
+    liveTag.style.color="var(--gold)"; liveTag.textContent="◉ EDM OATS — LATEST";
+    playInStage(Y.fallbackVideoId||"_xyCffufcbs",false);
+    grid.innerHTML=""; (items||[]).forEach(function(v){thumb(v.id);});
+    if(!gridLabel.parentNode)app.appendChild(gridLabel); if(!grid.parentNode)app.appendChild(grid);
+    note.innerHTML=noteHtml("Tap for sound. Pick any video. "); if(!note.parentNode)app.appendChild(note);
+  }
+  function loadPlaylist(){
+    var K=Y.apiKey; if(!K){ renderPlaylist([{id:Y.fallbackVideoId}]); return; }
+    fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU"+Y.channelId.slice(2)+"&maxResults=12&key="+K)
+      .then(function(r){return r.json();}).then(function(p){renderPlaylist((p.items||[]).map(function(it){return {id:it.snippet.resourceId.videoId};}));})
+      .catch(function(){renderPlaylist([{id:Y.fallbackVideoId}]);});
+  }
+  // chain: /api/live -> live.json -> playlist
+  fetch("/api/live").then(function(r){return r.json();}).then(function(a){
+    if(a&&a.live&&a.videoId){renderLive(a.videoId);}
+    else fetch("./live.json?t="+Date.now()).then(function(r){return r.json();}).then(function(L){ if(L&&L.liveVideoId)renderLive(L.liveVideoId); else loadPlaylist(); }).catch(loadPlaylist);
+  }).catch(function(){ fetch("./live.json?t="+Date.now()).then(function(r){return r.json();}).then(function(L){ if(L&&L.liveVideoId)renderLive(L.liveVideoId); else loadPlaylist(); }).catch(loadPlaylist); });
+  </script>
+</body>
+</html>
