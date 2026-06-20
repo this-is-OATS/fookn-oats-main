@@ -576,10 +576,10 @@ function renderView(view) {
 
   // HOME
   if (view === "home") {
-    var eyebrow = el("div","home-eyebrow","Lighting · CAD · LED · Crew · Made on the road");
+    var eyebrow = el("div","home-eyebrow","Built on the road · Available to travel");
     var title = el("h1","home-title","FOOK'N<br/><span style='color:var(--gold)'>OATS</span>");
     title.innerHTML = "FOOK'N<br/><span style='color:var(--gold)'>OATS</span>";
-    var desc = el("p","home-desc","Lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years of live production across festival stages, theater runs, and corporate events. What most productions need is an organizer — someone who designs the process, knows special events from the inside, and costs less than three vendors who don't talk to each other. One person. Full toolkit. No agency.");
+    var desc = el("p","home-desc","Festival stages, theater runs, corporate floors — twenty years of figuring it out under pressure. Lighting, CAD, LED, and crew, run by someone who's actually done the load-in at 4am. No agency, no middlemen. Just the work, done right.");
     var btns = el("div","home-btns");
     var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
     var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
