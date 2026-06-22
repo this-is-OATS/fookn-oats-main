@@ -18,6 +18,7 @@ export const config = {
 const ALWAYS_OPEN = [
   '/edm-lite',
   '/edm-lite-og.png',
+  '/will-oats-tree-og.png',
   '/site.js',
   '/live.json',
   '/api/live',
