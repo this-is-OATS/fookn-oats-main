@@ -3,10 +3,15 @@
 Read all "Approved" sections from the FOOK'N OATS Site Content Engine database,
 map generated copy to the right fields in site.js and index.html, commit, and push.
 
+## Database
+
+- **Database URL**: https://app.notion.com/p/d4a98a9c92184ab1beaddab8684d4654
+- **Data Source ID**: `e6a28619-b6a0-40c3-9a74-2b76f5dc35e0`
+
 ## Steps
 
-1. **Fetch approved sections** — search Notion for "FOOK'N OATS — Site Content Engine",
-   filter rows where Status = "Approved". List them for the user before making any changes.
+1. **Fetch approved sections** — query the Content Engine database (data source ID above)
+   filtering rows where Status = "Approved". List them for the user before making any changes.
 
 2. **Read generated copy** — for each approved section, fetch the Notion page and
    extract the text under the "Generated Copy" heading.
