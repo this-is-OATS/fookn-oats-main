@@ -16,7 +16,7 @@ const SITE = {
   },
   ticker: {
     enabled: true,
-    text: "FOOK'N OATS • LIGHTING · CAD · LED · CREW • AVAILABLE TO TRAVEL"
+    text: "hello and welcome to summer"
   },
   nav: [
     { id: "home",     label: "HOME" },
