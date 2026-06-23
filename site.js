@@ -16,7 +16,7 @@ const SITE = {
   },
   ticker: {
     enabled: true,
-    text: "hello and welcome to summer"
+    text: "hello and welcome to summer ☀️ 🌊 🌴"
   },
   nav: [
     { id: "home",     label: "HOME" },
