@@ -49,4 +49,5 @@ The user can invoke this as:
 
 - Main content: `/home/user/fookn-oats-main/site.js`
 - Section renders: `/home/user/fookn-oats-main/index.html` (inline JS data arrays)
+- Ticker (live source): `/home/user/fookn-oats-main/ticker.json` — NOT site.js
 - Deploy target branch: `main`

@@ -1,7 +1,7 @@
 # /deploy-from-notion — Deploy approved Notion copy to the live site
 
 Read all "Approved" sections from the FOOK'N OATS Site Content Engine database,
-map generated copy to the right fields in site.js and index.html, commit, and push.
+map generated copy to the right fields in site.js, index.html, and ticker.json, commit, and push.
 
 ## Steps
 
@@ -36,7 +36,7 @@ map generated copy to the right fields in site.js and index.html, commit, and pu
    | connect           | index.html  | Connect detailPage desc + bullets         |
    | about             | site.js     | about.paragraphs array                    |
    | about.tree        | site.js     | about.tree array                          |
-   | ticker            | site.js     | ticker.text                               |
+   | ticker            | ticker.json | .text field (NOT site.js — ticker.json is the live source)
 
 4. **Show diff** — show the user exactly what will change before writing anything.
    Get confirmation before proceeding.
