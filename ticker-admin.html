@@ -226,7 +226,7 @@
   </div>
 
   <script>
-    var REPO = 'this-is-oats-mgmt/fookn-oats-main';
+    var REPO = 'this-is-OATS/fookn-oats-main';
     var FILE = 'ticker.json';
     var BRANCH = 'main';
     var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
@@ -318,7 +318,7 @@
         return r.json();
       })
       .then(function() {
-        setStatus('Saved! Live in ~30 seconds after GitHub Pages rebuilds.', 'ok');
+        setStatus('Saved! Live in ~30 seconds after Vercel deploys.', 'ok');
       })
       .catch(function(e) { setStatus(e.message, 'err'); })
       .finally(function() { saveBtn.disabled = false; });
