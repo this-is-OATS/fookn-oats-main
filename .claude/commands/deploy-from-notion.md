@@ -49,8 +49,10 @@ map generated copy to the right fields in index.html, site.js, and ticker.json, 
 
 5. **Write changes** — apply all updates to the files.
 
-6. **Bump version** — increment the patch version in site.js and index.html
-   (e.g., v1.0.2 → v1.0.3) and update the date to today.
+6. **Bump version** — increment the patch version and update the date in BOTH places:
+   - `site.js` → `SITE.version` (the JS source of truth)
+   - `index.html` → `<span id="nav-version">` hardcoded fallback (must stay in sync)
+   Example: v2.5.1 → v2.5.2, date → today.
 
 7. **Commit and push** — commit with message:
    "Deploy approved copy from Notion Content Engine — [section list]"
