@@ -1,7 +1,13 @@
 # /deploy-from-notion — Deploy approved Notion copy to the live site
 
 Read all "Approved" sections from the FOOK'N OATS Site Content Engine database,
-map generated copy to the right fields in site.js, index.html, and ticker.json, commit, and push.
+map generated copy to the right fields in index.html, site.js, and ticker.json, commit, and push.
+
+## Source of truth for each file
+
+- **index.html** — `DEPARTMENTS` array (services), `BRANDS` array, `SECTIONS`, home copy, studio/stories/edm/connect detail pages. This is what the live site actually renders.
+- **site.js** — `about.paragraphs`, `about.tree`. Also has a `services` array but it is NOT what renders on the live site — do not write service copy there.
+- **ticker.json** — ticker text only. Do NOT write ticker to site.js.
 
 ## Steps
 
