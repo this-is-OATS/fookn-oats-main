@@ -6,7 +6,7 @@
 
 const SITE = {
   title: "FOOK'N OATS",
-  version: "v2.5.1 · 2026.06.16",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v2.5.2 · 2026.06.27",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", apiKey: "AIzaSyAUzyhIMESo4HJ5PaoNPjZv0ZK2T9f-Mtw", fallbackVideoId: "_xyCffufcbs" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
@@ -31,7 +31,7 @@ const SITE = {
   services: [
     { icon: "◈", label: "CAD & Drafting",       tagline: "Precision drafts. Light plots. Renderings and previz.",               desc: "Vectorworks drafting for lighting plots, rigging designs, stage layouts, venue paperwork, event site plans, and previsualization. Festivals, street fests, specialty activations. Remote-deliverable. Days, not weeks." },
     { icon: "⚡", label: "Master Electrician",   tagline: "On-site supervision. Efficiency under pressure.",        desc: "The ME job isn't doing everything — it's seeing everything. I run load-ins as an efficiency officer: observing the full operation, finding the problems others are too busy to notice, and correcting before showtime. Available for tours, installs, and one-offs." },
-    { icon: "▦", label: "LED Wall Tech",         tagline: "Pixel-perfect builds. LED wall systems.",               desc: "LED wall construction, configuration, and in-show technician services. From spec to strike. Novastar, Brompton, ROE, and custom panels. LED is a team hire — I come in as the dedicated wall tech so the rig gets the attention it needs." },
+    { icon: "▦", label: "Custom LED Builds",      tagline: "RGB tape, driver kits, built to integrate.",            desc: "Custom LED builds fabricated at the Maker-Lab. Tape, drivers, sACN/DMX control. Festival booths, film sets, scenic installs, outdoor lounges. Modular. Fully integrated into the rig when needed." },
     { icon: "◎", label: "Consulting & Quotes",  tagline: "Not sure what you need? Start here.",            desc: "Project scoping, vendor recommendations, budget reviews, and production planning — without the agency markup." },
     { icon: "⚙", label: "Maker-Lab",            tagline: "Fabrication. Prototyping. Hands-on builds.",            desc: "In-house maker lab for custom fabrication and production builds. Active now: 3D printing, embroidery, and vinyl cutting. Laser CNC is planned and sourced on demand. From concept to physical product." },
     { icon: "◇", label: "Design Network",        tagline: "Need crew? I know who's good.",        desc: "Years on the road means a deep contact list of lighting techs and crew. If I can't take your gig, I can point you to someone who can." }
