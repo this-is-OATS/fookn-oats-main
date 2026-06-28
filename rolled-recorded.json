@@ -1,0 +1,35 @@
+{
+  "event": {
+    "presenter": "EDM Oatmeal",
+    "name": "Rolled & Recorded",
+    "tagline": "A Digital Festival Day",
+    "status": "coming_soon",
+    "date": null,
+    "dateDisplay": "Date TBA",
+    "location": "Studio · Streamed Live"
+  },
+  "concept": {
+    "headline": "One Day. One Studio. Real Festival Energy.",
+    "body": "A digital festival day recorded and streamed from the studio. Intimate, in-the-round, built for the camera. Three to five artist performances, a tight run of show, and a release pipeline that lives past the night. The attendee experience goes from interest to empowerment — discover artists and moments in real time, then know exactly how to support and where to find the story after."
+  },
+  "lineup": [],
+  "schedule": [
+    { "time": "TBD", "label": "Doors", "note": "" },
+    { "time": "TBD", "label": "Warm-up Set", "note": "" },
+    { "time": "TBD", "label": "Set 1", "note": "" },
+    { "time": "TBD", "label": "Intermission", "note": "" },
+    { "time": "TBD", "label": "Set 2", "note": "" },
+    { "time": "TBD", "label": "Feature Set", "note": "" },
+    { "time": "TBD", "label": "Close", "note": "" }
+  ],
+  "rsvp": {
+    "enabled": true,
+    "heading": "Stay in the Loop",
+    "body": "Be first to know when lineup drops, tickets open, and the stream goes live.",
+    "formspreeId": "mlgwpppq"
+  },
+  "links": {
+    "edmFeed": "/edm-lite",
+    "instagram": "https://instagram.com/theoats"
+  }
+}
