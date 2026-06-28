@@ -297,6 +297,12 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
     var lineup=d.lineup||[];
     var sec=div('section');
     var label=div('section-label');txt(label,'Lineup');sec.appendChild(label);
+    if(d.lineupPlaceholder){
+      var notice=div();
+      notice.style.cssText='font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:22px;font-style:italic';
+      txt(notice,'* These acts are placeholder examples — real lineup TBA');
+      sec.appendChild(notice);
+    }
     var grid=div('lineup-grid');
     if(!lineup.length){
       var tba=div('tba-block');
