@@ -14,10 +14,10 @@
   },
   "lineup": [],
   "schedule": [
-    { "time": "TBD", "label": "Doors", "note": "" },
-    { "time": "TBD", "label": "Warm-up Set", "note": "" },
+    { "time": "TBD", "label": "Doors / Arrival", "note": "" },
+    { "time": "TBD", "label": "Warm-up Segment", "note": "" },
     { "time": "TBD", "label": "Set 1", "note": "" },
-    { "time": "TBD", "label": "Intermission", "note": "" },
+    { "time": "TBD", "label": "Reset / Intermission", "note": "" },
     { "time": "TBD", "label": "Set 2", "note": "" },
     { "time": "TBD", "label": "Feature Set", "note": "" },
     { "time": "TBD", "label": "Close", "note": "" }
