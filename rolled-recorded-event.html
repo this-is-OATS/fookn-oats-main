@@ -177,7 +177,7 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
   function txt(e,t){e.textContent=t;return e;}
 
   /* ── SLUG ── */
-  var slug=window.location.pathname.split('/').filter(Boolean).pop()||'session-1';
+  var slug=new URLSearchParams(window.location.search).get('slug')||window.location.pathname.split('/').filter(Boolean).pop()||'session-1';
 
   /* ── HERO ── */
   function renderHero(d,status){

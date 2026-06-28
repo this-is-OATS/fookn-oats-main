@@ -1,6 +1,3 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/rolled-recorded/:slug", "destination": "/rolled-recorded-event.html" }
-  ]
+  "cleanUrls": true
 }
