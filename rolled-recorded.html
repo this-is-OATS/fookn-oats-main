@@ -345,6 +345,26 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
     root.appendChild(f);
   }
 
+  /* ── PORTILLO'S ── */
+  function renderPortillos(){
+    var sec=div('section');
+    var label=div('section-label');txt(label,'Pre-Show Fuel');sec.appendChild(label);
+    var card=div();
+    card.style.cssText='border:1px solid rgba(255,180,0,0.15);background:rgba(14,14,14,0.9);padding:24px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap';
+    var copy=div();
+    var h=div();h.style.cssText='font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:5px';txt(h,"Where's the nearest Portillo's?");
+    var sub=div();sub.style.cssText='font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted)';txt(sub,'Italian beef. Hot dogs. Before or after the show.');
+    copy.appendChild(h);copy.appendChild(sub);
+    var btn=el('a');
+    btn.href='https://locations.portillos.com';btn.target='_blank';btn.rel='noopener';
+    btn.style.cssText='flex-shrink:0;display:inline-block;background:var(--gold);color:#080808;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;text-decoration:none;transition:opacity .18s';
+    txt(btn,'Find One Near Me');
+    btn.onmouseover=function(){this.style.opacity='.8'};
+    btn.onmouseout=function(){this.style.opacity='1'};
+    card.appendChild(copy);card.appendChild(btn);
+    sec.appendChild(card);root.appendChild(sec);
+  }
+
   /* ── SESSIONS ── */
   function renderSessions(mount){
     fetch('/rr-events/index.json?t='+Date.now())
@@ -382,6 +402,7 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
     renderLineup(data.lineup);
     renderSchedule(data.schedule);
     renderRSVP(data.rsvp);
+    renderPortillos();
     renderFooter(data.links);
   }
 
