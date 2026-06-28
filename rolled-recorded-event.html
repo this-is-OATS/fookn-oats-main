@@ -167,6 +167,7 @@
 <div id="root"></div>
 
 <script>
+var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
   var sessionLabel=document.getElementById('session-label');
@@ -388,7 +389,7 @@
     f.appendChild(fl);
     var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · '+(d.session||''));
     f.appendChild(brand);
-    var stamp=div('footer-brand');txt(stamp,'v2026.06.28');stamp.style.marginTop='6px';stamp.style.opacity='.5';
+    var stamp=div('footer-brand');txt(stamp,RR_VERSION);stamp.style.marginTop='6px';stamp.style.opacity='.5';
     f.appendChild(stamp);root.appendChild(f);
   }
 

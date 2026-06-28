@@ -51,11 +51,17 @@ and writes it into `rolled-recorded.json`, commits, and pushes.
    - `event.status` — `"coming_soon"`, `"live"`, or `"past"`
    - `event.location` — if updated in Notion
 
-7. **Commit and push**:
+7. **Bump `RR_VERSION`** in both HTML files before committing:
+   - `rolled-recorded.html` — line starting with `var RR_VERSION=`
+   - `rolled-recorded-event.html` — same line
+   - Format: `'rr-v1.X · YYYY.MM.DD'` — increment the minor version each deploy, reset on major changes
+   - Example: `'rr-v1.0 · 2026.06.28'` → `'rr-v1.1 · 2026.07.15'`
+
+8. **Commit and push**:
    ```
-   git add rolled-recorded.json
-   git commit -m "Deploy Rolled & Recorded content from Notion — [sections updated]"
-   git push -u origin claude/edm-oatmeal-presents-6zqnb9
+   git add rolled-recorded.json rolled-recorded.html rolled-recorded-event.html
+   git commit -m "Deploy Rolled & Recorded content from Notion — [sections updated] · rr-v1.X"
+   git push -u origin main
    ```
 
 ## Safety rules
