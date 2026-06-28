@@ -1,19 +1,39 @@
 {
   "slug": "session-1",
   "session": "Session 01",
-  "theme": "",
-  "objective": "",
+  "theme": "First Light",
+  "objective": "Establish the format. Prove the room.",
   "status": "coming_soon",
   "date": null,
-  "dateDisplay": "Date TBA",
+  "dateDisplay": "Fall 2026",
   "location": "Studio · Streamed Live",
-  "lineup": [],
+  "lineup": [
+    {
+      "name": "ƒalling Star",
+      "role": "Headliner",
+      "setTime": "10:30 PM",
+      "bio": "The flagship project. Electronic production built for the floor and the camera in equal measure."
+    },
+    {
+      "name": "Sleepwell Sweetheart",
+      "role": "Live Act",
+      "setTime": "9:00 PM",
+      "bio": "Twenty years of catalog meets the studio session. Live performance, remixed in real time."
+    },
+    {
+      "name": "TBA",
+      "role": "Support",
+      "setTime": "8:00 PM",
+      "bio": "Opening slot. Artist announcement coming soon."
+    }
+  ],
   "schedule": [
-    { "time": "TBD", "label": "Doors / Pre-show", "note": "" },
-    { "time": "TBD", "label": "Set 1", "note": "" },
-    { "time": "TBD", "label": "Intermission", "note": "" },
-    { "time": "TBD", "label": "Set 2", "note": "" },
-    { "time": "TBD", "label": "Wrap", "note": "" }
+    { "time": "7:00 PM", "label": "Doors / Pre-show", "note": "Lobby open, gear check, camera warm-up" },
+    { "time": "8:00 PM", "label": "Set 1 — Support", "note": "" },
+    { "time": "9:00 PM", "label": "Set 2 — Sleepwell Sweetheart", "note": "Live performance" },
+    { "time": "10:00 PM", "label": "Intermission", "note": "Reset, crowd moment" },
+    { "time": "10:30 PM", "label": "Feature Set — ƒalling Star", "note": "Headliner" },
+    { "time": "12:00 AM", "label": "Wrap", "note": "Strike, post-show debrief" }
   ],
   "live": {
     "videoId": null,
