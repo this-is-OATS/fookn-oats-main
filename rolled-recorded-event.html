@@ -387,7 +387,9 @@
     if(d.links&&d.links.instagram){var l3=el('a','footer-link');l3.href=d.links.instagram;l3.target='_blank';l3.rel='noopener';txt(l3,'◆ Instagram');fl.appendChild(l3);}
     f.appendChild(fl);
     var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · '+(d.session||''));
-    f.appendChild(brand);root.appendChild(f);
+    f.appendChild(brand);
+    var stamp=div('footer-brand');txt(stamp,'v2026.06.28');stamp.style.marginTop='6px';stamp.style.opacity='.5';
+    f.appendChild(stamp);root.appendChild(f);
   }
 
   /* ── RENDER ── */
