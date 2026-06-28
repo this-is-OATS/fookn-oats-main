@@ -33,7 +33,7 @@
     #hero{
       display:flex;flex-direction:column;
       align-items:center;justify-content:center;
-      text-align:center;padding:100px 24px 80px;position:relative;
+      text-align:center;padding:24px 24px 80px;position:relative;
     }
     #hero-glow{
       position:absolute;inset:0;pointer-events:none;
@@ -195,7 +195,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.1 · 2026.06.28'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
 
@@ -208,7 +208,7 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
     var hero=div();hero.id='hero';
     var glow=div();glow.id='hero-glow';hero.appendChild(glow);
 
-    var eyebrow=div('hero-eyebrow');txt(eyebrow,ev.presenter||'EDM Oatmeal');
+    var eyebrow=div('hero-eyebrow');txt(eyebrow,(ev.presenter||'EDM Oatmeal')+' Presents:');
     hero.appendChild(eyebrow);
 
     var h1=el('h1','hero-title');
