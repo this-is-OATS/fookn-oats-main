@@ -9,6 +9,12 @@
   Cache-Control: public, max-age=0, must-revalidate
 /ticker.json
   Cache-Control: public, max-age=0, must-revalidate
+/rolled-recorded
+  Cache-Control: public, max-age=0, must-revalidate
+/rolled-recorded.html
+  Cache-Control: public, max-age=0, must-revalidate
+/rolled-recorded-event.html
+  Cache-Control: public, max-age=0, must-revalidate
 /rolled-recorded.json
   Cache-Control: public, max-age=0, must-revalidate
 /rr-events/*
