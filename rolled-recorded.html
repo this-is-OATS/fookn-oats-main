@@ -346,6 +346,35 @@
     root.appendChild(f);
   }
 
+  /* ── SESSIONS ── */
+  function renderSessions(){
+    fetch('/rr-events/index.json?t='+Date.now())
+      .then(function(r){return r.json();})
+      .then(function(idx){
+        var events=idx.events||[];if(!events.length)return;
+        var sec=div('section');sec.style.paddingTop='0';
+        var label=div('section-label');txt(label,'Sessions');sec.appendChild(label);
+        var grid=div();grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px';
+        events.forEach(function(ev){
+          var card=el('a');
+          card.href='/rolled-recorded/'+ev.slug;
+          card.style.cssText='display:block;border:1px solid rgba(255,180,0,0.18);background:rgba(14,14,14,0.9);padding:20px 18px;text-decoration:none;transition:border-color .18s,background .18s;cursor:pointer';
+          card.onmouseover=function(){this.style.borderColor='#ffb400';this.style.background='rgba(255,180,0,0.04)'};
+          card.onmouseout=function(){this.style.borderColor='rgba(255,180,0,0.18)';this.style.background='rgba(14,14,14,0.9)'};
+          var sessTxt=div();sessTxt.style.cssText='font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:#ffb400;text-transform:uppercase;margin-bottom:8px';txt(sessTxt,ev.session||ev.slug);
+          var theme=div();theme.style.cssText='font-family:var(--serif);font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;line-height:1.2';txt(theme,ev.theme||'Session Details →');
+          var meta=div();meta.style.cssText='font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,0.4);text-transform:uppercase;display:flex;align-items:center;gap:10px';
+          var statusDot=ev.status==='live'?'<span style="color:#ff3b3b">◉ LIVE</span>':ev.status==='past'?'<span>○ PAST</span>':'<span>○ '+(ev.dateDisplay||'DATE TBA')+'</span>';
+          meta.innerHTML=statusDot;
+          card.appendChild(sessTxt);card.appendChild(theme);card.appendChild(meta);
+          grid.appendChild(card);
+        });
+        sec.appendChild(grid);
+        var footer=document.getElementById('footer');
+        if(footer)root.insertBefore(sec,footer);else root.appendChild(sec);
+      }).catch(function(){});
+  }
+
   /* ── RENDER ── */
   function render(data){
     renderHero(data.event||{});
@@ -354,6 +383,7 @@
     renderSchedule(data.schedule);
     renderRSVP(data.rsvp);
     renderFooter(data.links);
+    renderSessions();
   }
 
   fetch('./rolled-recorded.json?t='+Date.now())

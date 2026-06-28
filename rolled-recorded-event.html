@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Rolled &amp; Recorded</title>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="https://fookn-oats.enterprises/edm-lite-og.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --gold:#ffb400;--red:#ff3b3b;
+      --bg:#090909;--bg2:rgba(14,14,14,0.9);
+      --border:rgba(255,180,0,0.18);--border-red:rgba(255,59,59,0.25);
+      --text:#fff;--muted:rgba(255,255,255,0.45);
+      --mono:'IBM Plex Mono',monospace;--serif:'Playfair Display',Georgia,serif;
+    }
+    html,body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100%;overflow-x:hidden}
+
+    /* ── TOP BAR ── */
+    #topbar{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:rgba(9,9,9,0.96);backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 20px;height:40px;
+    }
+    #back-link{
+      font-family:var(--mono);font-size:9px;letter-spacing:.18em;
+      color:var(--muted);text-decoration:none;text-transform:uppercase;
+      transition:color .18s;
+    }
+    #back-link:hover{color:var(--gold)}
+    #session-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+
+    /* ── HERO ── */
+    #hero{
+      min-height:100svh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;padding:80px 24px 100px;position:relative;
+    }
+    #hero-glow{position:absolute;inset:0;pointer-events:none}
+    .hero-glow-gold{background:radial-gradient(ellipse 70% 55% at 50% 42%,rgba(255,180,0,0.07) 0%,transparent 100%)}
+    .hero-glow-red{background:radial-gradient(ellipse 70% 55% at 50% 42%,rgba(255,59,59,0.09) 0%,transparent 100%)}
+    .hero-eyebrow{
+      font-family:var(--mono);font-size:9px;letter-spacing:.3em;
+      color:var(--gold);text-transform:uppercase;margin-bottom:16px;
+      display:flex;align-items:center;gap:12px;justify-content:center;
+    }
+    .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:rgba(255,180,0,0.4)}
+    .hero-session{
+      font-family:var(--mono);font-size:clamp(10px,2vw,13px);
+      letter-spacing:.28em;color:var(--muted);text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .hero-theme{
+      font-family:var(--serif);font-weight:900;
+      font-size:clamp(36px,9vw,90px);
+      line-height:.92;letter-spacing:-.02em;margin-bottom:20px;
+    }
+    .hero-location{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:28px}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+      text-transform:uppercase;padding:7px 20px;font-weight:700;
+    }
+    .badge-soon{background:var(--gold);color:#080808}
+    .badge-live{background:var(--red);color:#fff;animation:badge-pulse 1.8s ease-in-out infinite}
+    .badge-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;flex-shrink:0}
+    .badge-past{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12)}
+    @keyframes badge-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.5)}50%{box-shadow:0 0 0 8px rgba(255,59,59,0)}}
+    .hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,0.2);text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+    @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+    /* ── SECTIONS ── */
+    .section{max-width:820px;margin:0 auto;padding:72px 24px 0}
+    .section-label{font-family:var(--mono);font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:32px}
+    .section-label.red{color:var(--red)}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .section-label.red::after{background:var(--border-red)}
+
+    /* ── PLAYER ── */
+    .player-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.7),0 0 0 1px rgba(255,59,59,.35)}
+    .player-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .player-unmute{position:absolute;top:0;left:0;right:0;z-index:5;cursor:pointer;background:linear-gradient(180deg,rgba(255,59,59,.95),rgba(0,0,0,0));padding:16px 20px 32px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:700;color:#fff;text-transform:uppercase}
+
+    /* ── SCHEDULE ── */
+    .schedule-list{display:flex;flex-direction:column}
+    .schedule-row{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.055)}
+    .schedule-row:last-child{border-bottom:none}
+    .schedule-row.current{background:rgba(255,59,59,0.05);margin:0 -12px;padding:14px 12px;border-bottom:1px solid rgba(255,59,59,0.15)}
+    .schedule-row.current .sch-time{color:var(--red)}
+    .schedule-row.current .sch-label{color:#fff}
+    .schedule-row.past-slot .sch-time,.schedule-row.past-slot .sch-label{color:rgba(255,255,255,0.25)}
+    .sch-time{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.04em}
+    .sch-label{font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+    .sch-note{font-size:12px;color:var(--muted);margin-top:3px}
+    .now-tag{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--red);border:1px solid rgba(255,59,59,0.4);padding:2px 7px;margin-left:10px;vertical-align:middle}
+
+    /* ── LINEUP ── */
+    .lineup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+    .artist-card{border:1px solid var(--border);background:var(--bg2);padding:22px 20px;backdrop-filter:blur(6px);transition:border-color .18s,background .18s}
+    .artist-card:hover{border-color:var(--gold);background:rgba(255,180,0,.035)}
+    .artist-name{font-family:var(--serif);font-weight:700;font-size:19px;margin-bottom:5px;line-height:1.1}
+    .artist-role{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+    .artist-time{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:10px}
+    .artist-bio{font-size:13px;color:rgba(255,255,255,0.55);margin-top:10px;line-height:1.55}
+    .tba-block{border:1px dashed rgba(255,180,0,0.18);padding:48px 32px;text-align:center;grid-column:1/-1}
+    .tba-title{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:10px}
+    .tba-sub{font-size:13px;color:rgba(255,255,255,0.22);line-height:1.6}
+
+    /* ── ARCHIVE ── */
+    .archive-player{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.7),0 0 0 1px rgba(255,180,0,.2)}
+    .archive-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .highlights-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:16px}
+    .highlight-thumb{position:relative;padding-bottom:56.25%;height:0;border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,180,0,0.15)}
+    .highlight-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .highlight-thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);color:#fff;font-size:16px}
+
+    /* ── MESSAGE BOOTH ── */
+    .booth-card{border:1px solid var(--border-red);background:rgba(255,59,59,0.04);padding:28px 26px;backdrop-filter:blur(6px)}
+    .booth-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+    .booth-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .booth-input{flex:1;min-width:120px;background:rgba(0,0,0,.45);border:1px solid rgba(255,59,59,0.2);color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px;outline:none;transition:border-color .2s}
+    .booth-input:focus{border-color:rgba(255,59,59,0.55)}
+    .booth-input::placeholder{color:rgba(255,255,255,.28)}
+    .booth-btn{flex:0 0 auto;background:var(--red);color:#fff;border:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;padding:11px 22px;cursor:pointer;text-transform:uppercase;transition:opacity .18s}
+    .booth-btn:hover{opacity:.82}
+    .booth-btn:disabled{opacity:.35;cursor:default}
+    .booth-status{font-family:var(--mono);font-size:11px;min-height:16px}
+
+    /* ── RSVP ── */
+    .rsvp-card{border:1px solid var(--border);background:var(--bg2);padding:32px 28px;backdrop-filter:blur(6px)}
+    .rsvp-heading{font-family:var(--serif);font-weight:700;font-size:22px;margin-bottom:6px}
+    .rsvp-body{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.65}
+    .rsvp-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+    .rsvp-input{flex:1;min-width:120px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,0.18);color:#fff;font-family:var(--mono);font-size:13px;padding:11px 13px;outline:none;transition:border-color .2s}
+    .rsvp-input:focus{border-color:rgba(255,180,0,0.5)}
+    .rsvp-input::placeholder{color:rgba(255,255,255,.28)}
+    .rsvp-btn{flex:0 0 auto;background:var(--gold);color:#080808;border:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;padding:11px 24px;cursor:pointer;text-transform:uppercase;transition:opacity .18s}
+    .rsvp-btn:hover{opacity:.82}
+    .rsvp-btn:disabled{opacity:.35;cursor:default}
+    .rsvp-status{font-family:var(--mono);font-size:11px;min-height:16px}
+
+    /* ── FOOTER ── */
+    #footer{border-top:1px solid rgba(255,255,255,0.055);padding:40px 24px 36px;text-align:center}
+    .footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+    .footer-link{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;text-decoration:none;transition:color .18s}
+    .footer-link:hover{color:var(--gold)}
+    .footer-brand{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(255,255,255,.18)}
+
+    @media(max-width:480px){
+      .section{padding:52px 18px 0}
+      .rsvp-card,.booth-card{padding:22px 18px}
+      .rsvp-row,.booth-row{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<div id="topbar">
+  <a id="back-link" href="/rolled-recorded">← Rolled &amp; Recorded</a>
+  <div id="session-label"></div>
+</div>
+
+<div id="root"></div>
+
+<script>
+(function(){
+  var root=document.getElementById('root');
+  var sessionLabel=document.getElementById('session-label');
+
+  function div(cls){var e=document.createElement('div');if(cls)e.className=cls;return e;}
+  function el(tag,cls){var e=document.createElement(tag);if(cls)e.className=cls;return e;}
+  function txt(e,t){e.textContent=t;return e;}
+
+  /* ── SLUG ── */
+  var slug=window.location.pathname.split('/').filter(Boolean).pop()||'session-1';
+
+  /* ── HERO ── */
+  function renderHero(d,status){
+    var hero=div();hero.id='hero';
+    var glow=div();glow.id='hero-glow';
+    glow.className='hero-glow-'+(status==='live'?'red':'gold');
+    hero.appendChild(glow);
+
+    var eyebrow=div('hero-eyebrow');txt(eyebrow,'EDM Oatmeal Presents');hero.appendChild(eyebrow);
+    var sess=div('hero-session');txt(sess,'Rolled & Recorded · '+(d.session||''));hero.appendChild(sess);
+
+    if(d.theme){
+      var th=div('hero-theme');txt(th,d.theme);hero.appendChild(th);
+    }
+
+    if(d.location){var loc=div('hero-location');txt(loc,d.location);hero.appendChild(loc);}
+
+    var badge=div('hero-badge');
+    if(status==='live'){badge.className='hero-badge badge-live';txt(badge,'Live Now');}
+    else if(status==='past'){badge.className='hero-badge badge-past';txt(badge,d.dateDisplay||'Past');}
+    else{badge.className='hero-badge badge-soon';txt(badge,d.dateDisplay&&d.dateDisplay!=='Date TBA'?d.dateDisplay:'Coming Soon');}
+    hero.appendChild(badge);
+
+    if(status!=='live'){var sc=div('hero-scroll');txt(sc,'↓ scroll');hero.appendChild(sc);}
+    root.appendChild(hero);
+  }
+
+  /* ── LIVE PLAYER ── */
+  function renderLivePlayer(d){
+    var sec=div('section');sec.style.paddingTop='80px';
+    var label=div('section-label red');txt(label,'Now Streaming');sec.appendChild(label);
+
+    var wrap=div('player-wrap');
+    var vId=d.live&&d.live.videoId;
+    if(vId){
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube.com/embed/'+vId+'?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3';
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.setAttribute('allowfullscreen','');
+      wrap.appendChild(ifr);
+
+      var un=div('player-unmute');
+      un.innerHTML='<span style="font-size:18px">🔊</span> TAP FOR SOUND';
+      un.onclick=function(){
+        try{ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:'unMute',args:[]}),'*');}catch(e){}
+        try{ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:'setVolume',args:[100]}),'*');}catch(e){}
+        if(un.parentNode)un.parentNode.removeChild(un);
+      };
+      wrap.appendChild(un);
+    } else {
+      wrap.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.3);text-transform:uppercase">Stream starting soon</div>';
+    }
+    sec.appendChild(wrap);
+    root.appendChild(sec);
+  }
+
+  /* ── MESSAGE BOOTH ── */
+  function renderBooth(d){
+    var sec=div('section');
+    var card=div('booth-card');
+    var lbl=div('booth-label');txt(lbl,'● Message the Booth');card.appendChild(lbl);
+
+    var nameIn=el('input','booth-input');nameIn.type='text';nameIn.placeholder='name (optional)';
+    var msgIn=el('input','booth-input');msgIn.type='text';msgIn.placeholder='send a message to the booth…';msgIn.style.flex='2';
+    var btn=el('button','booth-btn');txt(btn,'Send');
+    var status=div('booth-status');
+
+    var row=div('booth-row');
+    row.appendChild(nameIn);row.appendChild(msgIn);row.appendChild(btn);
+    card.appendChild(row);card.appendChild(status);
+    sec.appendChild(card);root.appendChild(sec);
+
+    function send(){
+      var m=msgIn.value.trim();if(!m){msgIn.focus();return;}
+      btn.disabled=true;txt(btn,'…');
+      fetch('https://formspree.io/f/'+(d.rsvp&&d.rsvp.formspreeId||'mlgwpppq'),{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({_subject:'🔴 R&R LIVE — booth message',name:nameIn.value.trim()||'anon',message:m,session:slug,source:'rr-booth'})
+      }).then(function(r){
+        if(r.ok){status.style.color='#5cd68a';txt(status,'Sent ✓');msgIn.value='';}
+        else{status.style.color='#ff6b6b';txt(status,'Try again.');}
+      }).catch(function(){status.style.color='#ff6b6b';txt(status,'Try again.');})
+      .finally(function(){btn.disabled=false;txt(btn,'Send');});
+    }
+    btn.onclick=send;msgIn.onkeydown=function(e){if(e.key==='Enter')send();};
+  }
+
+  /* ── SCHEDULE ── */
+  function renderSchedule(d,status){
+    var sched=d.schedule||[];if(!sched.length)return;
+    var sec=div('section');
+    var label=div('section-label'+(status==='live'?' red':''));
+    txt(label,'Run of Show');sec.appendChild(label);
+    var list=div('schedule-list');
+    var nowPlaying=d.live&&d.live.nowPlaying;
+    var foundCurrent=false;
+    sched.forEach(function(item){
+      var row=div('schedule-row');
+      var isCurrent=status==='live'&&nowPlaying&&item.label===nowPlaying;
+      if(isCurrent){row.classList.add('current');foundCurrent=true;}
+      else if(status==='live'&&!isCurrent&&!foundCurrent&&nowPlaying){row.classList.add('past-slot');}
+      var time=div('sch-time');txt(time,item.time||'TBD');row.appendChild(time);
+      var right=div();
+      var lbl=div('sch-label');
+      lbl.textContent=item.label||'';
+      if(isCurrent){var tag=el('span','now-tag');txt(tag,'NOW');lbl.appendChild(tag);}
+      right.appendChild(lbl);
+      if(item.note){var note=div('sch-note');txt(note,item.note);right.appendChild(note);}
+      row.appendChild(right);list.appendChild(row);
+    });
+    sec.appendChild(list);root.appendChild(sec);
+  }
+
+  /* ── LINEUP ── */
+  function renderLineup(d){
+    var lineup=d.lineup||[];
+    var sec=div('section');
+    var label=div('section-label');txt(label,'Lineup');sec.appendChild(label);
+    var grid=div('lineup-grid');
+    if(!lineup.length){
+      var tba=div('tba-block');
+      var t1=div('tba-title');txt(t1,'Lineup TBA');tba.appendChild(t1);
+      var t2=div('tba-sub');txt(t2,'Artists will be announced soon.');tba.appendChild(t2);
+      grid.appendChild(tba);
+    } else {
+      lineup.forEach(function(a){
+        var card=div('artist-card');
+        var name=div('artist-name');txt(name,a.name||'');card.appendChild(name);
+        if(a.role){var role=div('artist-role');txt(role,a.role);card.appendChild(role);}
+        if(a.setTime){var st=div('artist-time');txt(st,a.setTime);card.appendChild(st);}
+        if(a.bio){var bio=div('artist-bio');txt(bio,a.bio);card.appendChild(bio);}
+        grid.appendChild(card);
+      });
+    }
+    sec.appendChild(grid);root.appendChild(sec);
+  }
+
+  /* ── ARCHIVE PLAYER ── */
+  function renderArchive(d){
+    var arc=d.archive||{};
+    var vId=arc.videoId||arc.aftermovieId;
+    if(!vId&&!(arc.highlights&&arc.highlights.length))return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,arc.aftermovieId?'Aftermovie':'Full Episode');sec.appendChild(label);
+    if(vId){
+      var wrap=div('archive-player');
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+vId+'?rel=0&modestbranding=1&color=white';
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.setAttribute('allowfullscreen','');
+      wrap.appendChild(ifr);sec.appendChild(wrap);
+    }
+    if(arc.highlights&&arc.highlights.length){
+      var hlLabel=div('section-label');hlLabel.style.marginTop='28px';txt(hlLabel,'Highlights');sec.appendChild(hlLabel);
+      var grid=div('highlights-grid');
+      arc.highlights.forEach(function(hId){
+        var t=div('highlight-thumb');
+        var img=document.createElement('img');img.src='https://i.ytimg.com/vi/'+hId+'/hqdefault.jpg';img.loading='lazy';
+        var pl=div('play');pl.textContent='▶';
+        t.appendChild(img);t.appendChild(pl);
+        t.onclick=function(){window.open('https://youtu.be/'+hId,'_blank');};
+        grid.appendChild(t);
+      });
+      sec.appendChild(grid);
+    }
+    root.appendChild(sec);
+  }
+
+  /* ── RSVP ── */
+  function renderRSVP(d){
+    var rsvp=d.rsvp;if(!rsvp||!rsvp.enabled)return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,'Stay in the Loop');sec.appendChild(label);
+    var card=div('rsvp-card');
+    var h2=el('h2','rsvp-heading');txt(h2,'Get Notified');card.appendChild(h2);
+    var body=div('rsvp-body');txt(body,'Be first to know when lineup drops and the stream goes live.');card.appendChild(body);
+    var nameIn=el('input','rsvp-input');nameIn.type='text';nameIn.placeholder='Name (optional)';
+    var emailIn=el('input','rsvp-input');emailIn.type='email';emailIn.placeholder='Email address';emailIn.style.flex='2';
+    var btn=el('button','rsvp-btn');txt(btn,'Notify Me');
+    var status=div('rsvp-status');
+    var row=div('rsvp-row');
+    row.appendChild(nameIn);row.appendChild(emailIn);row.appendChild(btn);
+    card.appendChild(row);card.appendChild(status);sec.appendChild(card);root.appendChild(sec);
+
+    function submit(){
+      var email=emailIn.value.trim();if(!email){emailIn.focus();return;}
+      btn.disabled=true;txt(btn,'…');
+      fetch('https://formspree.io/f/'+rsvp.formspreeId,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({_subject:'🥣 R&R RSVP — '+slug,name:nameIn.value.trim()||'anon',email:email,session:slug,source:'rr-rsvp'})
+      }).then(function(r){
+        if(r.ok){status.style.color='#5cd68a';txt(status,"You're in.");nameIn.value='';emailIn.value='';}
+        else{status.style.color='#ff6b6b';txt(status,'Try again.');}
+      }).catch(function(){status.style.color='#ff6b6b';txt(status,'Try again.');})
+      .finally(function(){btn.disabled=false;txt(btn,'Notify Me');});
+    }
+    btn.onclick=submit;emailIn.onkeydown=function(e){if(e.key==='Enter')submit();};
+  }
+
+  /* ── FOOTER ── */
+  function renderFooter(d){
+    var f=el('footer');f.id='footer';
+    var fl=div('footer-links');
+    var l1=el('a','footer-link');l1.href='/rolled-recorded';txt(l1,'↩ All Sessions');fl.appendChild(l1);
+    var l2=el('a','footer-link');l2.href='/edm-lite';txt(l2,'◉ EDM Feed');fl.appendChild(l2);
+    if(d.links&&d.links.instagram){var l3=el('a','footer-link');l3.href=d.links.instagram;l3.target='_blank';l3.rel='noopener';txt(l3,'◆ Instagram');fl.appendChild(l3);}
+    f.appendChild(fl);
+    var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · '+(d.session||''));
+    f.appendChild(brand);root.appendChild(f);
+  }
+
+  /* ── RENDER ── */
+  function render(d){
+    var status=d.status||'coming_soon';
+    if(d.session)txt(sessionLabel,d.session);
+
+    renderHero(d,status);
+
+    if(status==='live'){
+      renderLivePlayer(d);
+      renderBooth(d);
+      renderSchedule(d,status);
+      renderLineup(d);
+    } else if(status==='past'){
+      renderArchive(d);
+      renderLineup(d);
+      renderSchedule(d,status);
+    } else {
+      renderLineup(d);
+      renderSchedule(d,status);
+      renderRSVP(d);
+    }
+    renderFooter(d);
+  }
+
+  fetch('/rr-events/'+slug+'.json?t='+Date.now())
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+    .then(render)
+    .catch(function(){
+      root.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:IBM Plex Mono,monospace;color:rgba(255,255,255,.25);font-size:12px;letter-spacing:.1em;text-align:center;padding:40px">Session not found.<br><a href="/rolled-recorded" style="color:#ffb400;margin-top:12px;display:block">← Back to series</a></div>';
+    });
+})();
+</script>
+</body>
+</html>
