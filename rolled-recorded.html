@@ -31,9 +31,9 @@
 
     /* ── HERO ── */
     #hero{
-      min-height:100svh;display:flex;flex-direction:column;
+      display:flex;flex-direction:column;
       align-items:center;justify-content:center;
-      text-align:center;padding:80px 24px 100px;position:relative;
+      text-align:center;padding:100px 24px 80px;position:relative;
     }
     #hero-glow{
       position:absolute;inset:0;pointer-events:none;
@@ -225,8 +225,6 @@ var RR_VERSION='rr-v1.0 · 2026.06.28'; // ← bump on every R&R deploy
     txt(badge,badgeText);
     hero.appendChild(badge);
 
-    var scroll=div('hero-scroll');txt(scroll,'↓ scroll');
-    hero.appendChild(scroll);
 
     root.appendChild(hero);
   }
