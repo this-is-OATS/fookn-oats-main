@@ -5,6 +5,10 @@
   Cache-Control: public, max-age=0, must-revalidate
 /site.js
   Cache-Control: public, max-age=0, must-revalidate
+/edm-lite
+  Cache-Control: public, max-age=0, must-revalidate
+/edm-lite.html
+  Cache-Control: public, max-age=0, must-revalidate
 /live.json
   Cache-Control: public, max-age=0, must-revalidate
 /ticker.json

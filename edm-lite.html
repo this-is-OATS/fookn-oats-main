@@ -91,12 +91,29 @@
     return box;
   }
 
+  function renderRRCard(){
+    if(document.getElementById("rr-card"))return;
+    var wrap=document.querySelector(".wrap");
+    var card=el("a","display:block;margin-top:28px;padding:20px 22px;border:1px solid rgba(255,180,0,0.22);background:rgba(14,14,14,0.9);text-decoration:none;cursor:pointer;transition:border-color .18s,background .18s");
+    card.id="rr-card"; card.href="/rolled-recorded";
+    card.onmouseover=function(){card.style.borderColor="rgba(255,180,0,0.6)";card.style.background="rgba(255,180,0,0.04)"};
+    card.onmouseout=function(){card.style.borderColor="rgba(255,180,0,0.22)";card.style.background="rgba(14,14,14,0.9)"};
+    var top=el("div","font-family:var(--mono);font-size:8px;letter-spacing:.28em;color:rgba(255,180,0,0.55);text-transform:uppercase;margin-bottom:8px","EDM OATMEAL PRESENTS");
+    var title=el("div","font-family:var(--serif);font-weight:900;font-size:clamp(22px,5vw,34px);line-height:1;color:#fff;margin-bottom:6px");
+    title.innerHTML="Rolled <span style='color:#ffb400;font-style:italic'>&amp;</span> Recorded";
+    var sub=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:14px","A Digital Festival Day");
+    var cta=el("div","font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase","View the Series →");
+    card.appendChild(top);card.appendChild(title);card.appendChild(sub);card.appendChild(cta);
+    wrap.appendChild(card);
+  }
+
   function renderLive(id){
     liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW — EDM OATS";
     if(grid.parentNode)grid.parentNode.removeChild(grid); if(gridLabel.parentNode)gridLabel.parentNode.removeChild(gridLabel);
     playInStage(id,true);
     note.innerHTML=noteHtml("Streaming now — tap to unmute. ");
     if(!note.parentNode)app.appendChild(note);
+    renderRRCard();
     var ob=document.getElementById("msgbar"); if(ob&&ob.parentNode)ob.parentNode.removeChild(ob);
     app.insertBefore(msgBar(),note);
   }
@@ -106,6 +123,7 @@
     grid.innerHTML=""; (items||[]).forEach(function(v){thumb(v.id);});
     if(!gridLabel.parentNode)app.appendChild(gridLabel); if(!grid.parentNode)app.appendChild(grid);
     note.innerHTML=noteHtml("Tap for sound. Pick any video. "); if(!note.parentNode)app.appendChild(note);
+    renderRRCard();
   }
   function loadPlaylist(){
     var K=Y.apiKey; if(!K){ renderPlaylist([{id:Y.fallbackVideoId}]); return; }
