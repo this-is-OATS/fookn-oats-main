@@ -23,6 +23,12 @@
   Cache-Control: public, max-age=0, must-revalidate
 /rr-events/*
   Cache-Control: public, max-age=0, must-revalidate
+/parking-garage-sessions-event.html
+  Cache-Control: public, max-age=0, must-revalidate
+/parking-garage-sessions-event
+  Cache-Control: public, max-age=0, must-revalidate
+/pgs-events/*
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Images: safe to cache hard (filenames are stable)
 /images/*

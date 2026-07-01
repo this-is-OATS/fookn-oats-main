@@ -1,0 +1,64 @@
+{
+  "slug": "session-1",
+  "session": "Session 01",
+  "theme": "Open Level",
+  "objective": "Prove the lot. Prove the sound. Prove the crowd can find it.",
+  "status": "coming_soon",
+  "date": null,
+  "dateDisplay": "2027 — TBA",
+  "location": "Covered Parking Structure · Chicago, IL",
+  "lineupPlaceholder": true,
+  "lineup": [
+    {
+      "name": "Hollow Ground",
+      "role": "Headliner",
+      "setTime": "10:30 PM",
+      "bio": "Deep techno and industrial electronics. Built for concrete, low ceilings, and no green room."
+    },
+    {
+      "name": "Mira Vane",
+      "role": "Support",
+      "setTime": "9:00 PM",
+      "bio": "Atmospheric electronics and live synthesis. Chicago underground circuit regular."
+    },
+    {
+      "name": "TBA",
+      "role": "Opening",
+      "setTime": "8:00 PM",
+      "bio": "Opening slot. Artist announcement coming soon."
+    }
+  ],
+  "schedule": [
+    { "time": "7:00 PM", "label": "Lot Opens", "note": "Level 3 entry, east stairwell" },
+    { "time": "8:00 PM", "label": "Opening Set", "note": "" },
+    { "time": "9:00 PM", "label": "Set 2 — Mira Vane", "note": "Live synthesis" },
+    { "time": "10:00 PM", "label": "Intermission", "note": "Vendor window, reset" },
+    { "time": "10:30 PM", "label": "Feature Set — Hollow Ground", "note": "Headliner" },
+    { "time": "12:00 AM", "label": "Strike", "note": "Lot closes" }
+  ],
+  "foodVendors": [
+    {
+      "name": "Paloma Street",
+      "specialty": "Birria Tacos · Quesabirria · Agua de Jamaica",
+      "location": "Level 3 — near east stairwell",
+      "note": "Cash and card. Opens at 7 PM.",
+      "placeholder": true
+    }
+  ],
+  "live": {
+    "videoId": null,
+    "nowPlaying": null
+  },
+  "archive": {
+    "videoId": null,
+    "aftermovieId": null,
+    "highlights": []
+  },
+  "rsvp": {
+    "enabled": true,
+    "formspreeId": "mlgwpppq"
+  },
+  "links": {
+    "instagram": "https://www.instagram.com/edm_oats?igsh=Z2JkMWxvZnltOGFi&utm_source=qr"
+  }
+}
