@@ -25,6 +25,9 @@ const ALWAYS_OPEN = [
   '/api/oauth-start',
   '/api/oauth-callback',
   '/favicon.ico',
+  '/rent',
+  '/rent-data.js',
+  '/og.png',
 ];
 
 // Hostnames that should NEVER be gated (the real production domain).

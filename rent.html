@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>RENT.OATS — Borrow Photo &amp; Video Gear</title>
+  <meta name="description" content="Borrow photo and video gear — camera bodies, lenses, lighting, audio, and support gear. Free to borrow, donations optional."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="RENT.OATS"/>
+  <meta property="og:title" content="RENT.OATS — Borrow Photo &amp; Video Gear"/>
+  <meta property="og:description" content="Camera bodies, lenses, lighting, audio, and support gear — free to borrow. A Fook'n Oats Enterprises project."/>
+  <meta property="og:image" content="https://fookn-oats.enterprises/og.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="RENT.OATS — Borrow Photo &amp; Video Gear"/>
+  <meta name="twitter:description" content="Camera bodies, lenses, lighting, audio, and support gear — free to borrow."/>
+  <meta name="twitter:image" content="https://fookn-oats.enterprises/og.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --gold:#ffb400;
+      --bg:#090909;
+      --bg2:rgba(14,14,14,0.9);
+      --border:rgba(255,180,0,0.18);
+      --text:#fff;
+      --muted:rgba(255,255,255,0.5);
+      --mono:'IBM Plex Mono',monospace;
+      --serif:'Playfair Display',Georgia,serif;
+    }
+    html,body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100%;overflow-x:hidden}
+    a{color:var(--gold)}
+
+    /* ── HERO ── */
+    #hero{max-width:820px;margin:0 auto;padding:56px 24px 40px;text-align:center}
+    .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px;justify-content:center}
+    .eyebrow::before,.eyebrow::after{content:'';display:block;width:32px;height:1px;background:rgba(255,180,0,.4);flex-shrink:0}
+    .hero-title{font-family:var(--serif);font-weight:900;font-size:clamp(42px,10vw,84px);line-height:.95;letter-spacing:-.02em}
+    .hero-title .dot{color:var(--gold)}
+    .hero-tagline{font-family:var(--mono);font-size:clamp(11px,2vw,14px);letter-spacing:.08em;color:rgba(255,255,255,.65);margin-top:18px}
+    .hero-intro{font-size:15px;line-height:1.8;color:rgba(255,255,255,.6);max-width:620px;margin:22px auto 0}
+    .hero-intro a{text-decoration:none;border-bottom:1px solid rgba(255,180,0,.35)}
+
+    /* ── SECTIONS ── */
+    .section{max-width:900px;margin:0 auto;padding:56px 24px 0}
+    .section:last-of-type{padding-bottom:70px}
+    .section-label{font-family:var(--mono);font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    /* ── HOW IT WORKS ── */
+    .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .how-card{border:1px solid var(--border);background:var(--bg2);padding:22px 20px}
+    .how-step{font-family:var(--serif);font-weight:900;font-size:26px;color:var(--gold);margin-bottom:8px}
+    .how-label{font-family:var(--mono);font-size:12px;letter-spacing:.06em;margin-bottom:8px;font-weight:700}
+    .how-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+
+    /* ── GEAR GRID ── */
+    .gear-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .gear-card{border:1px solid rgba(255,255,255,.1);background:var(--bg2);padding:22px 20px;cursor:pointer;transition:all .18s}
+    .gear-card:hover{border-color:var(--gold);background:rgba(255,180,0,.04)}
+    .gear-icon{font-size:22px;color:var(--gold);margin-bottom:8px}
+    .gear-cat{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:6px}
+    .gear-label{font-family:var(--serif);font-weight:900;font-size:18px;margin-bottom:6px;line-height:1.15}
+    .gear-tagline{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:10px}
+    .gear-condition{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+    .gear-cta{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);margin-top:10px;text-transform:uppercase}
+
+    /* ── DONATIONS ── */
+    .donate-note{font-size:14px;line-height:1.75;color:rgba(255,255,255,.55);max-width:620px;margin-bottom:28px}
+    .donate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+    .donate-card{border:1px solid var(--border);background:var(--bg2);padding:20px;text-align:center;text-decoration:none;display:block;transition:all .18s}
+    .donate-card:hover{border-color:var(--gold);background:rgba(255,180,0,.04)}
+    .donate-card img{width:120px;height:120px;display:block;margin:0 auto 12px;border-radius:6px;background:#fff;padding:6px}
+    .donate-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+    .donate-handle{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4)}
+
+    /* ── TERMS ── */
+    .terms-list{list-style:none}
+    .terms-item{display:flex;gap:10px;font-size:13px;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:10px}
+    .terms-dot{color:var(--gold);flex-shrink:0}
+
+    /* ── FOOTER ── */
+    .footer{max-width:900px;margin:0 auto;border-top:1px solid rgba(255,255,255,.06);padding:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .footer span,.footer a{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none}
+
+    /* ── MODAL ── */
+    #modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:60px 20px}
+    #modal{max-width:480px;width:100%;background:#111;border:1px solid var(--border);padding:28px 24px;position:relative}
+    .modal-close{position:absolute;top:14px;right:14px;background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-family:var(--mono);font-size:10px;padding:6px 12px;cursor:pointer}
+    .modal-title{font-family:var(--serif);font-weight:900;font-size:22px;margin-bottom:4px}
+    .modal-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
+    .field-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-bottom:6px;margin-top:14px}
+    .field-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none;box-sizing:border-box}
+    .field-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none;resize:vertical;box-sizing:border-box}
+    .submit-btn{margin-top:20px;background:var(--gold);color:#0a0a0a;border:none;padding:12px 26px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.1em}
+    .submit-btn:disabled{background:rgba(255,180,0,.3);cursor:not-allowed}
+    .form-err{color:#ff5555;font-family:var(--mono);font-size:11px;margin-top:12px}
+    .form-success{color:var(--gold);font-family:var(--mono);font-size:13px;line-height:1.8;margin-top:4px}
+  </style>
+</head>
+<body>
+
+  <div id="hero">
+    <div class="eyebrow" id="hero-eyebrow"></div>
+    <div class="hero-title" id="hero-title"></div>
+    <div class="hero-tagline" id="hero-tagline"></div>
+    <div class="hero-intro" id="hero-intro"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">HOW IT WORKS</div>
+    <div class="how-grid" id="how-grid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">AVAILABLE GEAR</div>
+    <div class="gear-grid" id="gear-grid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">SUPPORT THE COLLECTION</div>
+    <div class="donate-note" id="donate-note"></div>
+    <div class="donate-grid" id="donate-grid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">GOOD TO KNOW</div>
+    <ul class="terms-list" id="terms-list"></ul>
+  </div>
+
+  <div class="footer" id="footer"></div>
+
+  <!-- REQUEST MODAL -->
+  <div id="modal-backdrop">
+    <div id="modal">
+      <button class="modal-close" id="modal-close">CLOSE ✕</button>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-sub">REQUEST TO BORROW</div>
+      <div id="modal-form"></div>
+    </div>
+  </div>
+
+  <script src="./rent-data.js"></script>
+  <script>
+  function el(t,cls,html){var e=document.createElement(t);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e;}
+
+  // ── HERO ──
+  document.getElementById("hero-eyebrow").textContent = RENT.eyebrow + " PRESENTS";
+  var titleEl = document.getElementById("hero-title");
+  titleEl.innerHTML = "RENT<span class='dot'>.</span>OATS";
+  document.getElementById("hero-tagline").textContent = RENT.tagline;
+  var introEl = document.getElementById("hero-intro");
+  introEl.textContent = RENT.intro + " ";
+  var igLink = document.createElement("a");
+  igLink.href = RENT.instagramUrl; igLink.target = "_blank"; igLink.rel = "noopener";
+  igLink.textContent = RENT.instagramHandle + " ↗";
+  introEl.appendChild(igLink);
+
+  // ── HOW IT WORKS ──
+  var howGrid = document.getElementById("how-grid");
+  RENT.howItWorks.forEach(function(h){
+    var card = el("div","how-card");
+    card.appendChild(el("div","how-step",h.step));
+    card.appendChild(el("div","how-label",h.label));
+    card.appendChild(el("div","how-desc",h.desc));
+    howGrid.appendChild(card);
+  });
+
+  // ── GEAR GRID ──
+  var gearGrid = document.getElementById("gear-grid");
+  RENT.gear.forEach(function(g){
+    var card = el("div","gear-card");
+    card.innerHTML =
+      '<div class="gear-icon">'+g.icon+'</div>'+
+      '<div class="gear-cat">'+g.category+'</div>'+
+      '<div class="gear-label">'+g.label+'</div>'+
+      '<div class="gear-tagline">'+g.tagline+'</div>'+
+      '<div class="gear-condition">CONDITION — '+g.condition+'</div>'+
+      '<div class="gear-cta">REQUEST TO BORROW →</div>';
+    card.onclick = function(){ openModal(g); };
+    gearGrid.appendChild(card);
+  });
+
+  // ── DONATIONS ──
+  document.getElementById("donate-note").textContent =
+    "Borrowing is always free. If you'd like to help keep the gear maintained and the collection growing, scan a code below — completely optional.";
+  var donateGrid = document.getElementById("donate-grid");
+  RENT.donations.forEach(function(d){
+    var a = el("a","donate-card");
+    a.href = d.url; a.target = "_blank"; a.rel = "noopener";
+    var img = document.createElement("img");
+    img.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(d.url);
+    img.alt = "QR code for " + d.label;
+    a.appendChild(img);
+    a.appendChild(el("div","donate-label",d.label));
+    a.appendChild(el("div","donate-handle",d.handle));
+    donateGrid.appendChild(a);
+  });
+
+  // ── TERMS ──
+  var termsList = document.getElementById("terms-list");
+  RENT.terms.forEach(function(t){
+    var li = el("li","terms-item");
+    li.innerHTML = '<span class="terms-dot">◆</span><span>'+t+'</span>';
+    termsList.appendChild(li);
+  });
+
+  // ── FOOTER ──
+  var footer = document.getElementById("footer");
+  footer.innerHTML =
+    '<span>A ' + RENT.eyebrow + ' PROJECT</span>' +
+    '<span><a href="' + RENT.homeUrl + '">← MAIN SITE</a> &middot; <a href="mailto:' + RENT.contactEmail + '">' + RENT.contactEmail + '</a></span>';
+
+  // ── MODAL / REQUEST FORM ──
+  var backdrop = document.getElementById("modal-backdrop");
+  var modalTitle = document.getElementById("modal-title");
+  var modalForm = document.getElementById("modal-form");
+
+  function openModal(item){
+    modalTitle.textContent = item.label;
+    renderForm(item);
+    backdrop.style.display = "flex";
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+  function closeModal(){ backdrop.style.display = "none"; }
+  document.getElementById("modal-close").onclick = closeModal;
+  backdrop.onclick = function(e){ if (e.target === backdrop) closeModal(); };
+
+  function renderForm(item){
+    var state = {name:"",email:"",phone:"",dates:"",detail:"",status:"idle"};
+    modalForm.innerHTML = "";
+
+    function draw(){
+      modalForm.innerHTML = "";
+      if (state.status === "success"){
+        var s = el("div","form-success","✓ Request sent — you'll hear back at " + state.email + ".");
+        modalForm.appendChild(s);
+        return;
+      }
+      [
+        {key:"name",label:"YOUR NAME",type:"text"},
+        {key:"email",label:"EMAIL ADDRESS",type:"email"},
+        {key:"phone",label:"PHONE / TEXT (OPTIONAL)",type:"tel"},
+        {key:"dates",label:"DATES NEEDED",type:"text"}
+      ].forEach(function(f){
+        modalForm.appendChild(el("label","field-label",f.label));
+        var inp = document.createElement("input");
+        inp.type = f.type; inp.className = "field-input"; inp.value = state[f.key];
+        inp.oninput = function(){ state[f.key] = this.value; };
+        modalForm.appendChild(inp);
+      });
+      modalForm.appendChild(el("label","field-label","WHAT'S IT FOR? (OPTIONAL)"));
+      var ta = document.createElement("textarea");
+      ta.className = "field-textarea"; ta.rows = 3; ta.placeholder = "Shoot, project, event...";
+      ta.value = state.detail;
+      ta.oninput = function(){ state.detail = this.value; };
+      modalForm.appendChild(ta);
+
+      if (state.status === "error") modalForm.appendChild(el("div","form-err","⚠ Something went wrong — try again or email directly."));
+
+      var btn = document.createElement("button");
+      btn.className = "submit-btn";
+      btn.textContent = state.status === "sending" ? "SENDING..." : "SEND REQUEST →";
+      btn.disabled = state.status === "sending" || !state.name || !state.email;
+      btn.onclick = function(){
+        if (!state.name || !state.email) return;
+        state.status = "sending"; draw();
+        fetch(RENT.formEndpoint, {
+          method:"POST",
+          headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body: JSON.stringify({
+            _subject: "RENT.OATS — borrow request: " + item.label,
+            name: state.name, email: state.email, phone: state.phone,
+            item: item.label, dates: state.dates, message: state.detail,
+            source: "rent.oats"
+          })
+        })
+        .then(function(r){ state.status = r.ok ? "success" : "error"; draw(); })
+        .catch(function(){ state.status = "error"; draw(); });
+      };
+      modalForm.appendChild(btn);
+    }
+    draw();
+  }
+  </script>
+</body>
+</html>

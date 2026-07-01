@@ -29,6 +29,12 @@
   Cache-Control: public, max-age=0, must-revalidate
 /pgs-events/*
   Cache-Control: public, max-age=0, must-revalidate
+/rent
+  Cache-Control: public, max-age=0, must-revalidate
+/rent.html
+  Cache-Control: public, max-age=0, must-revalidate
+/rent-data.js
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Images: safe to cache hard (filenames are stable)
 /images/*
