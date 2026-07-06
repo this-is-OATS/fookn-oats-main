@@ -48,11 +48,13 @@
     #vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,rgba(9,9,9,0.65) 100%)}
 
     /* ── TICKER ── */
-    #ticker-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(90deg,#090909,#1a1a1a,#090909);border-bottom:1px solid rgba(255,180,0,0.3);overflow:hidden;display:none}
-    .ticker-track{display:flex;animation:ticker-scroll 20s linear infinite;white-space:nowrap;padding:8px 0}
-    .ticker-text{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:0 48px}
-    @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    @media(max-width:600px){.ticker-track{animation-duration:12s}.ticker-text{font-size:9px;letter-spacing:.1em;padding:0 28px}}
+    #ticker-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(90deg,#090909,#1a1a1a,#090909);border-bottom:1px solid rgba(255,180,0,0.3);overflow:hidden;display:none;height:33px;cursor:pointer}
+    .ticker-track{animation:ticker-drop 5s linear infinite}
+    .ticker-text{display:flex;align-items:center;justify-content:center;height:33px;font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+    @keyframes ticker-drop{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
+    .tk-sparkle{position:absolute;top:0;left:0;color:#ffe9a8;font-size:9px;pointer-events:none;text-shadow:0 0 6px rgba(255,180,0,.85);animation:tk-twinkle 2s ease-in-out infinite}
+    @keyframes tk-twinkle{0%,100%{opacity:0;transform:translateY(3px) scale(.4)}50%{opacity:1;transform:translateY(16px) scale(1.1)}}
+    @media(max-width:600px){.ticker-text{font-size:9px;letter-spacing:.1em}}
 
     /* ── NAV ── */
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
@@ -90,7 +92,7 @@
     .card-grid-sm{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 
     /* ── SECTION HEADERS ── */
-    .sec-tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:12px}
+    .sec-tag{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--gold);margin-bottom:12px;text-decoration:underline;text-underline-offset:4px}
     .sec-title{font-family:var(--serif);font-size:clamp(28px,5vw,52px);font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
     .sec-desc{color:rgba(255,255,255,.5);font-size:15px;line-height:1.75;max-width:540px;margin-bottom:36px}
 
@@ -333,13 +335,60 @@ fetch("./ticker.json?nocache=" + Date.now())
   .then(function(r){return r.json()})
   .then(function(d){
     if (d && d.enabled && d.text) {
-      var full = d.text + " • ";
-      ["t1","t2","t3","t4"].forEach(function(id){ document.getElementById(id).textContent = full; });
-      document.getElementById("ticker-bar").style.display = "block";
+      ["t1","t2","t3","t4"].forEach(function(id){ document.getElementById(id).textContent = d.text; });
+      var bar = document.getElementById("ticker-bar");
+      bar.style.display = "block";
       document.getElementById("nav-wrap").style.top = "33px";
       document.getElementById("app").style.paddingTop = "154px";
+      // sparkles
+      var glyphs = ["✦","✧","·","✳"];
+      for (var i = 0; i < 8; i++) {
+        var s = document.createElement("span");
+        s.className = "tk-sparkle";
+        s.textContent = glyphs[i % glyphs.length];
+        s.style.left = (Math.random()*96+2) + "%";
+        s.style.animationDelay = (Math.random()*2) + "s";
+        s.style.animationDuration = (1.4 + Math.random()*1.6) + "s";
+        bar.appendChild(s);
+      }
+      setInterval(function(){
+        bar.querySelectorAll(".tk-sparkle").forEach(function(s){
+          if (Math.random() < .5) s.style.left = (Math.random()*96+2) + "%";
+        });
+      }, 3000);
+      bar.addEventListener("click", matrixRain);
     }
   }).catch(function(){});
+
+// ── EASTER EGG: MATRIX RAIN (tap the ticker) ─────────────────────────────────
+var _mxOn = false;
+function matrixRain(){
+  if (_mxOn) return; _mxOn = true;
+  var cv = document.createElement("canvas");
+  cv.style.cssText = "position:fixed;inset:0;z-index:500;background:rgba(9,9,9,.94);cursor:pointer";
+  document.body.appendChild(cv);
+  var ctx = cv.getContext("2d");
+  function size(){ cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  size();
+  window.addEventListener("resize", size);
+  var chars = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄFOOK'NOATS01△✦";
+  var fs = 16, cols = Math.ceil(window.innerWidth/fs), drops = [];
+  for (var i = 0; i < cols; i++) drops[i] = Math.random()*-40;
+  var iv = setInterval(function(){
+    ctx.fillStyle = "rgba(9,9,9,.08)";
+    ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.font = fs + "px monospace";
+    for (var i = 0; i < cols; i++) {
+      ctx.fillStyle = Math.random() < .08 ? "#fff" : "#ffb400";
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*fs, drops[i]*fs);
+      if (drops[i]*fs > cv.height && Math.random() > .975) drops[i] = 0;
+      drops[i]++;
+    }
+  }, 50);
+  function close(){ clearInterval(iv); window.removeEventListener("resize", size); cv.remove(); _mxOn = false; }
+  cv.addEventListener("click", close);
+  setTimeout(close, 15000);
+}
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
 var navTabs = document.getElementById("nav-tabs");
