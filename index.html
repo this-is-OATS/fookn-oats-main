@@ -48,7 +48,7 @@
     #vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,rgba(9,9,9,0.65) 100%)}
 
     /* ── TICKER ── */
-    #ticker-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(90deg,#090909,#1a1a1a,#090909);border-bottom:1px solid rgba(255,180,0,0.3);overflow:hidden;display:none;height:24px;cursor:pointer}
+    #ticker-bar{position:relative;background:linear-gradient(90deg,#090909,#1a1a1a,#090909);border-top:1px solid rgba(255,180,0,0.15);border-bottom:1px solid rgba(255,180,0,0.3);overflow:hidden;display:none;height:24px;cursor:pointer}
     .ticker-track{animation:ticker-drop 5s linear infinite}
     .ticker-text{display:flex;align-items:center;justify-content:center;height:24px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
     @keyframes ticker-drop{0%{transform:translateY(-24px)}14%{transform:translateY(0)}100%{transform:translateY(0)}}
@@ -208,16 +208,6 @@
   <button class="lb-btn" id="lb-next" onclick="lbNav(1,event)">→</button>
 </div>
 
-<!-- TICKER -->
-<div id="ticker-bar">
-  <div class="ticker-track">
-    <span class="ticker-text" id="t1"></span>
-    <span class="ticker-text" id="t2"></span>
-    <span class="ticker-text" id="t3"></span>
-    <span class="ticker-text" id="t4"></span>
-  </div>
-</div>
-
 <!-- FLOATING AI CHAT -->
 <div id="ai-fab" title="Ask Oats">◆<span id="ai-fab-hide">×</span></div>
 <div id="ai-panel"></div>
@@ -227,9 +217,18 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.7.0 · 2026.07.06</span>
+      <span id="nav-version">v2.7.1 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
+  </div>
+  <!-- TICKER -->
+  <div id="ticker-bar">
+    <div class="ticker-track">
+      <span class="ticker-text" id="t1"></span>
+      <span class="ticker-text" id="t2"></span>
+      <span class="ticker-text" id="t3"></span>
+      <span class="ticker-text" id="t4"></span>
+    </div>
   </div>
   <div id="nav-tabs"></div>
 </div>
@@ -348,7 +347,6 @@ fetch("./ticker.json?nocache=" + Date.now())
       ["t1","t2","t3","t4"].forEach(function(id){ document.getElementById(id).textContent = d.text; });
       var bar = document.getElementById("ticker-bar");
       bar.style.display = "block";
-      document.getElementById("nav-wrap").style.top = "24px";
       document.getElementById("app").style.paddingTop = "145px";
       // sparkles
       var glyphs = ["✦","✧","·","·"];
