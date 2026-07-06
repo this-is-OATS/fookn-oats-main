@@ -439,7 +439,7 @@ function el(tag, cls, html) {
 function backBtn(dest) {
   var btn = el("button","back-btn");
   btn.innerHTML = "<span>← BACK</span>";
-  btn.onclick = function(){ showView(dest); };
+  btn.onclick = function(){ showView(dest, true); };
   return btn;
 }
 
@@ -912,17 +912,20 @@ function hashToView(hash){
   return "home";
 }
 var _routing=true;
-function forceScrollTop(){ window.scrollTo(0,0); document.documentElement.scrollTop=0; document.body.scrollTop=0; }
-function showView(view) {
+var _scrollPos = {};
+function _applyScroll(y){ window.scrollTo(0,y); document.documentElement.scrollTop=y; document.body.scrollTop=y; }
+function showView(view, restore) {
+  if (currentView) _scrollPos[currentView] = window.scrollY || document.documentElement.scrollTop || 0;
   currentView = view;
   renderView(view);
-  forceScrollTop();
-  requestAnimationFrame(forceScrollTop);
-  setTimeout(forceScrollTop, 60);
+  var y = restore ? (_scrollPos[view] || 0) : 0;
+  _applyScroll(y);
+  requestAnimationFrame(function(){ _applyScroll(y); });
+  setTimeout(function(){ _applyScroll(y); }, 60);
   if(_routing){ var nh=viewToHash(view); if((location.hash||"")!==nh){ try{ history.pushState(null,"",nh||location.pathname); }catch(e){ location.hash=nh; } } }
 }
-window.addEventListener("hashchange", function(){ _routing=false; showView(hashToView(location.hash)); _routing=true; });
-window.addEventListener("popstate", function(){ _routing=false; showView(hashToView(location.hash)); _routing=true; });
+window.addEventListener("hashchange", function(){ _routing=false; showView(hashToView(location.hash), true); _routing=true; });
+window.addEventListener("popstate", function(){ _routing=false; showView(hashToView(location.hash), true); _routing=true; });
 
 // ── CALENDLY ─────────────────────────────────────────────────────────────────
 window.addEventListener("load", function() {
