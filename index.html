@@ -55,8 +55,12 @@
     .tk-sparkle{position:absolute;top:0;left:0;color:rgba(255,233,168,.6);font-size:6px;pointer-events:none;animation:tk-twinkle 3s ease-in-out infinite}
     @keyframes tk-twinkle{0%,100%{opacity:0;transform:translateY(4px) scale(.5)}50%{opacity:.45;transform:translateY(12px) scale(.9)}}
     @media(max-width:600px){.ticker-text{font-size:9px;letter-spacing:.1em}}
-    /* 16px min stops iOS auto-zoom on input focus (the zoom that never resets) */
-    @media(max-width:600px){.ai-input,.field-input,.field-textarea{font-size:16px}}
+    /* ── FLOATING AI CHAT ── */
+    #ai-fab{position:fixed;bottom:88px;right:16px;z-index:150;width:48px;height:48px;border-radius:50%;background:rgba(9,9,9,.92);border:1px solid var(--gold);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.5),0 0 12px rgba(255,180,0,.25);backdrop-filter:blur(6px)}
+    #ai-fab:hover{background:rgba(255,180,0,.1)}
+    #ai-fab-hide{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.6);font-size:11px;line-height:16px;text-align:center;cursor:pointer}
+    #ai-panel{position:fixed;bottom:146px;right:12px;left:12px;max-width:420px;margin-left:auto;z-index:151;background:rgba(9,9,9,.97);border:1px solid var(--gold);border-radius:12px;padding:6px;display:none;max-height:55vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.7)}
+    #ai-panel .ai-box{margin:0;border:none;background:transparent}
 
     /* ── NAV ── */
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
@@ -114,7 +118,7 @@
     .ai-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:4px}
     .ai-sublabel{color:rgba(255,255,255,.35);font-size:12px;margin-bottom:16px;font-family:var(--mono)}
     .ai-row{display:flex;gap:10px}
-    .ai-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:10px 14px;color:#fff;font-family:var(--mono);font-size:13px;outline:none}
+    .ai-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:10px 14px;color:#fff;font-family:var(--mono);font-size:16px;outline:none}
     .ai-btn{background:var(--gold);color:#0a0a0a;border:none;padding:10px 20px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.08em;white-space:nowrap}
     .ai-btn:disabled{background:rgba(255,180,0,.3);cursor:wait}
     .ai-q{margin-top:14px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.3)}
@@ -141,8 +145,8 @@
     .inquiry-box{border:1px solid rgba(255,180,0,.2);padding:28px 24px;background:rgba(255,180,0,.03);margin-bottom:20px}
     .inquiry-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--gold);margin-bottom:20px}
     .field-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-bottom:6px}
-    .field-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none;box-sizing:border-box;margin-bottom:16px}
-    .field-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none;resize:vertical;box-sizing:border-box;margin-bottom:20px}
+    .field-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:16px;outline:none;box-sizing:border-box;margin-bottom:16px}
+    .field-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:16px;outline:none;resize:vertical;box-sizing:border-box;margin-bottom:20px}
     .submit-btn{background:var(--gold);color:#0a0a0a;border:none;padding:12px 28px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.12em}
     .submit-btn:disabled{background:rgba(255,180,0,.3);cursor:not-allowed}
     .direct-email{margin-top:12px;font-size:11px;color:rgba(255,255,255,.25);font-family:var(--mono)}
@@ -214,12 +218,16 @@
   </div>
 </div>
 
+<!-- FLOATING AI CHAT -->
+<div id="ai-fab" title="Ask Oats">◆<span id="ai-fab-hide">×</span></div>
+<div id="ai-panel"></div>
+
 <!-- NAV -->
 <div id="nav-wrap">
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.6.5 · 2026.07.06</span>
+      <span id="nav-version">v2.6.6 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -471,11 +479,34 @@ function handleAI(inputId, repliesId) {
       : "Tell me a bit more about what you're looking for — services, brands, music, stories, or something else?";
     aiReplies.push({q, msg, route});
     renderView(currentView);
+    if (aiPanelOpen) refreshAiPanel();
   }, 700 + Math.random()*400);
   renderView(currentView);
+  if (aiPanelOpen) refreshAiPanel();
 }
 
+// ── FLOATING AI CHAT ──────────────────────────────────────────────────────────
+var aiPanelOpen = false;
+function refreshAiPanel(){
+  var p = document.getElementById("ai-panel");
+  p.innerHTML = "";
+  p.appendChild(renderAIBox("ai-input-float","ai-replies-float",null,null));
+}
+document.getElementById("ai-fab").addEventListener("click", function(){
+  aiPanelOpen = !aiPanelOpen;
+  var p = document.getElementById("ai-panel");
+  if (aiPanelOpen) { refreshAiPanel(); p.style.display = "block"; }
+  else p.style.display = "none";
+});
+document.getElementById("ai-fab-hide").addEventListener("click", function(e){
+  e.stopPropagation();
+  aiPanelOpen = false;
+  document.getElementById("ai-fab").style.display = "none";
+  document.getElementById("ai-panel").style.display = "none";
+});
+
 function routeClick(route) {
+  if (aiPanelOpen) { aiPanelOpen = false; document.getElementById("ai-panel").style.display = "none"; }
   if (route.type === "dept") showView("dept:" + route.id);
   else showView("section:" + route.id);
 }
