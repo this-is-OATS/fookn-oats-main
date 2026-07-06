@@ -914,9 +914,11 @@ function hashToView(hash){
 var _routing=true;
 var _scrollPos = {};
 var _scrollSeq = 0;
+function _readScroll(){ return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0; }
 function _applyScroll(y){ window.scrollTo(0,y); document.documentElement.scrollTop=y; document.body.scrollTop=y; }
+document.addEventListener("scroll", function(){ if (currentView) _scrollPos[currentView] = _readScroll(); }, {passive:true, capture:true});
 function showView(view, restore) {
-  if (currentView && currentView !== view) _scrollPos[currentView] = window.scrollY || document.documentElement.scrollTop || 0;
+  if (currentView && currentView !== view) _scrollPos[currentView] = _readScroll();
   currentView = view;
   renderView(view);
   var y = restore ? (_scrollPos[view] || 0) : 0;
