@@ -74,7 +74,9 @@
     #nav-logo{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.15em;color:var(--gold);cursor:pointer;display:flex;flex-direction:column;line-height:1.1}
     #nav-logo .nav-ent{font-weight:400;font-size:8px;letter-spacing:.25em;color:rgba(255,180,0,0.6);text-transform:lowercase}
     #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,0.28)}
-    #photos-btn{background:none;border:1px solid rgba(255,180,0,0.35);color:var(--gold);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:3px 10px}
+    #talk-btn{background:var(--gold);border:1px solid var(--gold);color:#0a0a0a;font-family:var(--mono);font-weight:700;font-size:9px;cursor:pointer;letter-spacing:.1em;padding:3px 10px;white-space:nowrap;flex-shrink:0}
+    #nav-logo,#nav-version{white-space:nowrap}
+    @media(max-width:480px){#nav-logo{font-size:11px}#nav-version{font-size:8px}#talk-btn{font-size:8px;padding:3px 7px;letter-spacing:.06em}}
     #nav-tabs{display:flex;align-items:center;gap:18px;height:32px;padding:0 20px;overflow-x:auto}
     .nav-tab{background:none;border:none;color:rgba(255,255,255,0.45);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:0;white-space:nowrap;flex-shrink:0;transition:color .2s}
     .nav-tab.active,.nav-tab:hover{color:var(--gold)}
@@ -223,9 +225,9 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.7.2 · 2026.07.06</span>
+      <span id="nav-version">v2.7.3 · 2026.07.06</span>
     </div>
-    <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
+    <button id="talk-btn" onclick="openCalendly()">LET'S TALK →</button>
   </div>
   <!-- TICKER -->
   <div id="ticker-bar">
@@ -1043,17 +1045,10 @@ window.addEventListener("hashchange", _routeFromHash);
 window.addEventListener("popstate", _routeFromHash);
 
 // ── CALENDLY ─────────────────────────────────────────────────────────────────
-window.addEventListener("load", function() {
-  if (window.Calendly) {
-    Calendly.initBadgeWidget({
-      url: SITE.calendly.url,
-      text: SITE.calendly.text,
-      color: SITE.calendly.color,
-      textColor: SITE.calendly.textColor,
-      branding: true
-    });
-  }
-});
+function openCalendly(){
+  if (window.Calendly) Calendly.initPopupWidget({ url: SITE.calendly.url });
+  else window.open(SITE.calendly.url, "_blank");
+}
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 showView(hashToView(location.hash));
