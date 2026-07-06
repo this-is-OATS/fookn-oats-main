@@ -38,7 +38,7 @@
       --mono:'IBM Plex Mono',monospace;
       --serif:'Playfair Display',Georgia,serif;
     }
-    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden;overflow-x:clip;overflow-anchor:none}
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden;overflow-x:clip;overflow-anchor:none;touch-action:manipulation}
 
     /* ── SLIDESHOW BACKGROUND ── */
     #slideshow{position:fixed;inset:0;z-index:0;overflow:hidden}
@@ -227,7 +227,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.6.9 · 2026.07.06</span>
+      <span id="nav-version">v2.7.0 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -1012,6 +1012,10 @@ function resetZoom(){
 }
 window.addEventListener("load", function(){ setTimeout(resetZoom, 100); });
 window.addEventListener("pageshow", function(e){ if (e.persisted) resetZoom(); });
+// iOS Safari: block pinch/double-tap zoom at gesture level (viewport meta is ignored)
+["gesturestart","gesturechange","gestureend"].forEach(function(ev){
+  document.addEventListener(ev, function(e){ e.preventDefault(); }, {passive:false});
+});
 function showView(view, restore) {
   if (currentView && currentView !== view) _scrollPos[currentView] = _readScroll();
   currentView = view;
