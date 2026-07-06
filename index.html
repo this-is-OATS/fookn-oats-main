@@ -970,9 +970,17 @@ function _applyScroll(y){ window.scrollTo(0,y); document.documentElement.scrollT
 document.addEventListener("scroll", function(){ if (currentView) _scrollPos[currentView] = _readScroll(); }, {passive:true});
 document.addEventListener("touchstart", function(){ _scrollSeq++; }, {passive:true});
 document.addEventListener("wheel", function(){ _scrollSeq++; }, {passive:true});
+function resetZoom(){
+  var vp = document.querySelector('meta[name="viewport"]');
+  if (!vp) return;
+  var orig = "width=device-width,initial-scale=1";
+  vp.setAttribute("content", orig + ",maximum-scale=1");
+  setTimeout(function(){ vp.setAttribute("content", orig); }, 300);
+}
 function showView(view, restore) {
   if (currentView && currentView !== view) _scrollPos[currentView] = _readScroll();
   currentView = view;
+  if (view === "home") resetZoom();
   renderView(view);
   var y = restore ? (_scrollPos[view] || 0) : 0;
   _scrollSeq++;
