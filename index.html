@@ -97,7 +97,7 @@
     .home-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:16px}
     .home-title{font-family:var(--serif);font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 6px}
     .home-title span{color:var(--gold)}
-    .home-ent{font-family:var(--mono);font-size:clamp(11px,1.4vw,16px);letter-spacing:.35em;color:rgba(255,180,0,0.55);text-transform:lowercase;margin:0 0 24px;display:block}
+    .home-ent{font-family:var(--mono);font-size:clamp(20px,3.4vw,42px);letter-spacing:.3em;color:rgba(255,180,0,0.7);text-transform:lowercase;margin:0 0 24px;display:block}
     .home-desc{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.55);max-width:560px;line-height:1.75;margin:0 0 32px}
     .home-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px}
     .btn-primary{background:var(--gold);color:#0a0a0a;border:none;padding:13px 28px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.1em}
@@ -582,7 +582,7 @@ function renderView(view) {
   if (view === "home") {
     var eyebrow = el("div","home-eyebrow","Kenosha HQ · The Imagination Creation Station");
     var title = el("h1","home-title","");
-    title.innerHTML = "FOOK'N <span style='color:var(--gold)'>OATS</span>";
+    title.innerHTML = "FOOK'n <span style='color:var(--gold)'>OATS</span>";
     var ent = el("span","home-ent","enterprises");
     var desc = el("p","home-desc","Whatever the project needs, the space becomes. Design, custom builds, podcast room, previz suite, editing, offices — the knowledge is already in the building. Fly into ENW. Meet, plan, build it to spec.");
     var btns = el("div","home-btns");
