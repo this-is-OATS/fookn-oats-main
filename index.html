@@ -52,6 +52,7 @@
     .ticker-track{display:flex;animation:ticker-scroll 20s linear infinite;white-space:nowrap;padding:8px 0}
     .ticker-text{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:0 48px}
     @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    @media(max-width:600px){.ticker-track{animation-duration:12s}.ticker-text{font-size:9px;letter-spacing:.1em;padding:0 28px}}
 
     /* ── NAV ── */
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
