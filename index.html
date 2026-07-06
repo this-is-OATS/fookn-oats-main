@@ -913,19 +913,25 @@ function hashToView(hash){
 }
 var _routing=true;
 var _scrollPos = {};
+var _scrollSeq = 0;
 function _applyScroll(y){ window.scrollTo(0,y); document.documentElement.scrollTop=y; document.body.scrollTop=y; }
 function showView(view, restore) {
-  if (currentView) _scrollPos[currentView] = window.scrollY || document.documentElement.scrollTop || 0;
+  if (currentView && currentView !== view) _scrollPos[currentView] = window.scrollY || document.documentElement.scrollTop || 0;
   currentView = view;
   renderView(view);
   var y = restore ? (_scrollPos[view] || 0) : 0;
-  _applyScroll(y);
-  requestAnimationFrame(function(){ _applyScroll(y); });
-  setTimeout(function(){ _applyScroll(y); }, 60);
+  _scrollSeq++;
+  var seq = _scrollSeq;
+  function ap(){ if (seq === _scrollSeq) _applyScroll(y); }
+  ap();
+  requestAnimationFrame(ap);
+  setTimeout(ap, 60);
+  setTimeout(ap, 250);
   if(_routing){ var nh=viewToHash(view); if((location.hash||"")!==nh){ try{ history.pushState(null,"",nh||location.pathname); }catch(e){ location.hash=nh; } } }
 }
-window.addEventListener("hashchange", function(){ _routing=false; showView(hashToView(location.hash), true); _routing=true; });
-window.addEventListener("popstate", function(){ _routing=false; showView(hashToView(location.hash), true); _routing=true; });
+function _routeFromHash(){ var v = hashToView(location.hash); if (v === currentView) return; _routing=false; showView(v, true); _routing=true; }
+window.addEventListener("hashchange", _routeFromHash);
+window.addEventListener("popstate", _routeFromHash);
 
 // ── CALENDLY ─────────────────────────────────────────────────────────────────
 window.addEventListener("load", function() {
