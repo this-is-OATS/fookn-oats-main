@@ -38,7 +38,7 @@
       --mono:'IBM Plex Mono',monospace;
       --serif:'Playfair Display',Georgia,serif;
     }
-    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden;overflow-anchor:none}
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden;overflow-x:clip;overflow-anchor:none}
 
     /* ── SLIDESHOW BACKGROUND ── */
     #slideshow{position:fixed;inset:0;z-index:0;overflow:hidden}
@@ -914,9 +914,12 @@ function hashToView(hash){
 var _routing=true;
 var _scrollPos = {};
 var _scrollSeq = 0;
+try { history.scrollRestoration = "manual"; } catch(e) {}
 function _readScroll(){ return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0; }
 function _applyScroll(y){ window.scrollTo(0,y); document.documentElement.scrollTop=y; document.body.scrollTop=y; }
-document.addEventListener("scroll", function(){ if (currentView) _scrollPos[currentView] = _readScroll(); }, {passive:true, capture:true});
+document.addEventListener("scroll", function(){ if (currentView) _scrollPos[currentView] = _readScroll(); }, {passive:true});
+document.addEventListener("touchstart", function(){ _scrollSeq++; }, {passive:true});
+document.addEventListener("wheel", function(){ _scrollSeq++; }, {passive:true});
 function showView(view, restore) {
   if (currentView && currentView !== view) _scrollPos[currentView] = _readScroll();
   currentView = view;
@@ -924,11 +927,14 @@ function showView(view, restore) {
   var y = restore ? (_scrollPos[view] || 0) : 0;
   _scrollSeq++;
   var seq = _scrollSeq;
-  function ap(){ if (seq === _scrollSeq) _applyScroll(y); }
+  var tries = 0;
+  function ap(){
+    if (seq !== _scrollSeq) return;
+    _applyScroll(y);
+    if (Math.abs(_readScroll() - y) < 2 || ++tries > 30) return;
+    setTimeout(ap, 50);
+  }
   ap();
-  requestAnimationFrame(ap);
-  setTimeout(ap, 60);
-  setTimeout(ap, 250);
   if(_routing){ var nh=viewToHash(view); if((location.hash||"")!==nh){ try{ history.pushState(null,"",nh||location.pathname); }catch(e){ location.hash=nh; } } }
 }
 function _routeFromHash(){ var v = hashToView(location.hash); if (v === currentView) return; _routing=false; showView(v, true); _routing=true; }
