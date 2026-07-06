@@ -38,7 +38,7 @@
       --mono:'IBM Plex Mono',monospace;
       --serif:'Playfair Display',Georgia,serif;
     }
-    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden}
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:Georgia,serif;overflow-x:hidden;overflow-anchor:none}
 
     /* ── SLIDESHOW BACKGROUND ── */
     #slideshow{position:fixed;inset:0;z-index:0;overflow:hidden}
@@ -912,10 +912,13 @@ function hashToView(hash){
   return "home";
 }
 var _routing=true;
+function forceScrollTop(){ window.scrollTo(0,0); document.documentElement.scrollTop=0; document.body.scrollTop=0; }
 function showView(view) {
   currentView = view;
   renderView(view);
-  window.scrollTo(0,0);
+  forceScrollTop();
+  requestAnimationFrame(forceScrollTop);
+  setTimeout(forceScrollTop, 60);
   if(_routing){ var nh=viewToHash(view); if((location.hash||"")!==nh){ try{ history.pushState(null,"",nh||location.pathname); }catch(e){ location.hash=nh; } } }
 }
 window.addEventListener("hashchange", function(){ _routing=false; showView(hashToView(location.hash)); _routing=true; });
