@@ -60,7 +60,13 @@
     #ai-fab:hover{background:rgba(255,180,0,.1)}
     #ai-fab-hide{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.6);font-size:11px;line-height:16px;text-align:center;cursor:pointer}
     #ai-panel{position:fixed;bottom:146px;right:12px;left:12px;max-width:420px;margin-left:auto;z-index:151;background:rgba(9,9,9,.97);border:1px solid var(--gold);border-radius:12px;padding:6px;display:none;max-height:55vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.7)}
-    #ai-panel .ai-box{margin:0;border:none;background:transparent}
+    #ai-panel .ai-box{margin:0;border:none;background:transparent;padding:12px 14px}
+    #ai-panel .ai-sublabel{font-size:10px;margin-bottom:10px}
+    #ai-panel .ai-input{padding:7px 10px}
+    #ai-panel .ai-btn{padding:8px 12px;font-size:10px}
+    #ai-panel .ai-q{font-size:10px;margin-top:10px}
+    #ai-panel .ai-reply{font-size:11px;padding:10px 12px;line-height:1.6}
+    #ai-panel .ai-route-btn{font-size:10px;padding:6px 12px}
 
     /* ── NAV ── */
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
@@ -217,7 +223,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.7.1 · 2026.07.06</span>
+      <span id="nav-version">v2.7.2 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
