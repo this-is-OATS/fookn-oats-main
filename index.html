@@ -214,7 +214,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N OATS<span class="nav-ent">enterprises</span></div>
-      <span id="nav-version">v2.5.2 · 2026.06.27</span>
+      <span id="nav-version">v2.6.1 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -580,11 +580,11 @@ function renderView(view) {
 
   // HOME
   if (view === "home") {
-    var eyebrow = el("div","home-eyebrow","Built on the road · Available to travel");
+    var eyebrow = el("div","home-eyebrow","Kenosha HQ · The Imagination Creation Station");
     var title = el("h1","home-title","");
     title.innerHTML = "FOOK'N <span style='color:var(--gold)'>OATS</span>";
     var ent = el("span","home-ent","enterprises");
-    var desc = el("p","home-desc","Festival stages, theater runs, corporate floors — twenty years of figuring it out under pressure. Lighting, CAD, LED, and crew, run by someone who's actually done the load-in at 4am. No agency, no middlemen. Just the work, done right.");
+    var desc = el("p","home-desc","Whatever the project needs, the space becomes. Design, custom builds, podcast room, previz suite, editing, offices — the knowledge is already in the building. Bring the idea. Meet, plan, build it to spec.");
     var btns = el("div","home-btns");
     var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
     var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
