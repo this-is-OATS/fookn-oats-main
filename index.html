@@ -56,7 +56,8 @@
     /* ── NAV ── */
     #nav-wrap{position:fixed;left:0;right:0;z-index:200;background:rgba(9,9,9,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07)}
     #nav-top{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.04)}
-    #nav-logo{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.15em;color:var(--gold);cursor:pointer}
+    #nav-logo{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.15em;color:var(--gold);cursor:pointer;display:flex;flex-direction:column;line-height:1.1}
+    #nav-logo .nav-ent{font-weight:400;font-size:8px;letter-spacing:.25em;color:rgba(255,180,0,0.6);text-transform:lowercase}
     #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,0.28)}
     #photos-btn{background:none;border:1px solid rgba(255,180,0,0.35);color:var(--gold);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:3px 10px}
     #nav-tabs{display:flex;align-items:center;gap:18px;height:32px;padding:0 20px;overflow-x:auto}
@@ -93,8 +94,9 @@
 
     /* ── HOME ── */
     .home-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:16px}
-    .home-title{font-family:var(--serif);font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 20px}
+    .home-title{font-family:var(--serif);font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 6px}
     .home-title span{color:var(--gold)}
+    .home-ent{font-family:var(--mono);font-size:clamp(11px,1.4vw,16px);letter-spacing:.35em;color:rgba(255,180,0,0.55);text-transform:lowercase;margin:0 0 24px;display:block}
     .home-desc{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.55);max-width:560px;line-height:1.75;margin:0 0 32px}
     .home-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px}
     .btn-primary{background:var(--gold);color:#0a0a0a;border:none;padding:13px 28px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.1em}
@@ -210,7 +212,7 @@
 <div id="nav-wrap">
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
-      <div id="nav-logo" onclick="showView('home')">FOOK'N OATS</div>
+      <div id="nav-logo" onclick="showView('home')">FOOK'N OATS<span class="nav-ent">enterprises</span></div>
       <span id="nav-version">v2.5.2 · 2026.06.27</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
@@ -578,15 +580,16 @@ function renderView(view) {
   // HOME
   if (view === "home") {
     var eyebrow = el("div","home-eyebrow","Built on the road · Available to travel");
-    var title = el("h1","home-title","FOOK'N<br/><span style='color:var(--gold)'>OATS</span>");
+    var title = el("h1","home-title","");
     title.innerHTML = "FOOK'N<br/><span style='color:var(--gold)'>OATS</span>";
+    var ent = el("span","home-ent","enterprises");
     var desc = el("p","home-desc","Festival stages, theater runs, corporate floors — twenty years of figuring it out under pressure. Lighting, CAD, LED, and crew, run by someone who's actually done the load-in at 4am. No agency, no middlemen. Just the work, done right.");
     var btns = el("div","home-btns");
     var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
     var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
     var b3=el("button","btn-ghost","SHOW PHOTOS ↗"); b3.onclick=openGallery;
     btns.appendChild(b1); btns.appendChild(b2); btns.appendChild(b3);
-    app.appendChild(eyebrow); app.appendChild(title); app.appendChild(desc); app.appendChild(btns);
+    app.appendChild(eyebrow); app.appendChild(title); app.appendChild(ent); app.appendChild(desc); app.appendChild(btns);
 
     app.appendChild(renderAIBox("ai-input-home","ai-replies-home",null,null));
 
