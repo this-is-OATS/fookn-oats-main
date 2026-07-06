@@ -974,9 +974,11 @@ function resetZoom(){
   var vp = document.querySelector('meta[name="viewport"]');
   if (!vp) return;
   var orig = "width=device-width,initial-scale=1";
-  vp.setAttribute("content", orig + ",maximum-scale=1");
-  setTimeout(function(){ vp.setAttribute("content", orig); }, 300);
+  vp.setAttribute("content", orig + ",minimum-scale=1,maximum-scale=1,user-scalable=0");
+  setTimeout(function(){ vp.setAttribute("content", orig); }, 600);
 }
+window.addEventListener("load", function(){ setTimeout(resetZoom, 100); });
+window.addEventListener("pageshow", function(e){ if (e.persisted) resetZoom(); });
 function showView(view, restore) {
   if (currentView && currentView !== view) _scrollPos[currentView] = _readScroll();
   currentView = view;
