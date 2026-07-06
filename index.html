@@ -227,7 +227,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.6.6 · 2026.07.06</span>
+      <span id="nav-version">v2.6.7 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -721,7 +721,7 @@ function renderView(view) {
     app.appendChild(backBtn("home"));
     app.appendChild(el("div","sec-tag","BRAND ECOSYSTEM"));
     app.appendChild(el("h2","sec-title","Six Identities."));
-    app.appendChild(el("p","sec-desc","Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — each with its own voice, aesthetic, and purpose."));
+    app.appendChild(el("p","sec-desc","Each with its own voice, aesthetic, and purpose."));
     var grid = el("div","card-grid-sm");
     BRANDS.forEach(function(b) {
       grid.appendChild(card(b, function(){ showView("brand:"+b.id); }));
