@@ -227,7 +227,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.6.7 · 2026.07.06</span>
+      <span id="nav-version">v2.6.8 · 2026.07.06</span>
     </div>
     <button id="photos-btn" onclick="openGallery()">PHOTOS</button>
   </div>
@@ -535,7 +535,7 @@ function card(item, onclick) {
 
 function renderAIBox(inputId, repliesId, placeholder, btnLabel) {
   var box = el("div","ai-box");
-  box.innerHTML = '<div class="ai-label">◆ AI INQUIRY ROUTER</div><div class="ai-sublabel">'+(placeholder||"Tell me what you're looking for — services, brands, music, stories — and I'll point you to the right place.")+'</div>';
+  box.innerHTML = '<div class="ai-label">◆ INQUIRY ROUTER</div><div class="ai-sublabel">'+(placeholder||"Say what you're looking for — I'll point you to the right page.")+'</div>';
   var row = el("div","ai-row");
   var inp = el("input"); inp.type="text"; inp.id=inputId; inp.className="ai-input"; inp.placeholder=placeholder||"e.g. 'I need a lighting plot' or 'tell me about the DJ brand'";
   inp.onkeydown = function(e){ if(e.key==="Enter") handleAI(inputId,repliesId); };
