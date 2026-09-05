@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>FOOK'N OATS — Photo Manager</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--surface:#111;--border:rgba(255,180,0,.2);--gold:#ffb400;--mono:'IBM Plex Mono',monospace;--text:rgba(255,255,255,.85);--muted:rgba(255,255,255,.45)}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh;padding:24px}
+
+header{max-width:960px;margin:0 auto 32px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.logo{font-size:18px;font-weight:700;letter-spacing:.12em;color:var(--gold)}
+.subtitle{font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+.badge{font-size:10px;color:var(--muted);letter-spacing:.1em}
+
+.toolbar{max-width:960px;margin:0 auto 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar button{background:none;border:1px solid var(--border);color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.1em;padding:10px 18px;cursor:pointer;transition:all .15s}
+.toolbar button:hover{background:rgba(255,180,0,.1);border-color:var(--gold)}
+.toolbar button.primary{background:var(--gold);color:#0a0a0a;border-color:var(--gold);font-weight:700}
+.toolbar button.primary:hover{background:#ffc633}
+.toolbar .spacer{flex:1}
+.toolbar .status{font-size:10px;color:var(--muted);letter-spacing:.08em}
+
+#drop-zone{max-width:960px;margin:0 auto 24px;border:2px dashed var(--border);padding:28px;text-align:center;cursor:pointer;transition:all .2s}
+#drop-zone.over{border-color:var(--gold);background:rgba(255,180,0,.05)}
+#drop-zone .dz-label{font-size:12px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+#drop-zone .dz-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:6px;letter-spacing:.06em}
+#drop-zone input{display:none}
+
+#grid{max-width:960px;margin:0 auto 32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+
+.card{position:relative;background:var(--surface);border:1px solid rgba(255,255,255,.08);overflow:hidden;cursor:grab;transition:all .15s;user-select:none}
+.card:hover{border-color:var(--border)}
+.card.dragging{opacity:.3;border-color:var(--gold)}
+.card.drag-over{border-color:var(--gold);box-shadow:0 0 20px rgba(255,180,0,.15)}
+.card.new-img{border-color:rgba(100,220,100,.3)}
+.card.new-img .card-badge{background:rgba(100,220,100,.15);color:#6c6}
+
+.card-thumb{aspect-ratio:16/9;background-size:cover;background-position:center;background-color:#1a1a1a}
+.card-info{padding:8px 10px;display:flex;align-items:center;gap:8px}
+.card-num{font-size:10px;font-weight:700;color:var(--gold);min-width:22px}
+.card-name{font-size:10px;color:var(--muted);letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.card-badge{font-size:8px;letter-spacing:.1em;padding:2px 6px;background:rgba(255,180,0,.1);color:var(--gold);text-transform:uppercase}
+.card-actions{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.card:hover .card-actions{opacity:1}
+.card-btn{width:26px;height:26px;border:none;background:rgba(0,0,0,.7);color:rgba(255,255,255,.7);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.card-btn:hover{background:rgba(0,0,0,.9);color:#fff}
+.card-btn.remove:hover{color:#ff4444}
+
+.card-move{position:absolute;top:50%;left:6px;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .15s}
+.card:hover .card-move{opacity:1}
+.move-btn{width:22px;height:22px;border:none;background:rgba(0,0,0,.7);color:rgba(255,255,255,.6);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.move-btn:hover{color:var(--gold)}
+
+#output-section{max-width:960px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
+.output-label{font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+#output{background:var(--surface);border:1px solid rgba(255,255,255,.08);padding:16px;font-family:var(--mono);font-size:11px;color:var(--text);overflow-x:auto;white-space:pre;max-height:300px;overflow-y:auto;line-height:1.6}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.1em;padding:12px 24px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:100}
+.toast.show{opacity:1}
+
+@media(max-width:600px){
+  body{padding:12px}
+  #grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+  .card-actions{opacity:1}
+  .card-move{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">FOOK'N OATS</div>
+    <div class="subtitle">Photo Manager</div>
+  </div>
+  <div class="badge" id="count"></div>
+</header>
+
+<div class="toolbar">
+  <button class="primary" id="btn-copy">COPY shows.json</button>
+  <button id="btn-copy-js">COPY site.js ARRAY</button>
+  <div class="spacer"></div>
+  <div class="status" id="status">Loading...</div>
+</div>
+
+<div id="drop-zone">
+  <div class="dz-label">DROP NEW IMAGES HERE</div>
+  <div class="dz-sub">or click to browse — JPG / PNG / WEBP</div>
+  <input type="file" id="file-input" accept="image/*" multiple/>
+</div>
+
+<div id="grid"></div>
+
+<div id="output-section">
+  <div class="output-label">shows.json preview</div>
+  <pre id="output"></pre>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="./site.js"></script>
+<script>
+var photos = [];
+var dragSrcIdx = null;
+var newFileCounter = 0;
+var grid = document.getElementById("grid");
+
+function init() {
+  fetch("./shows.json?nocache=" + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(imgs){
+      if (imgs && imgs.length) {
+        photos = imgs.map(function(src){ return {src:src, isNew:false}; });
+      } else {
+        fallback();
+      }
+      render();
+    })
+    .catch(function(){ fallback(); render(); });
+}
+
+function fallback() {
+  photos = (SITE.shows || []).map(function(src){ return {src:src, isNew:false}; });
+}
+
+function render() {
+  grid.innerHTML = "";
+  photos.forEach(function(p, i) {
+    var card = document.createElement("div");
+    card.className = "card" + (p.isNew ? " new-img" : "");
+    card.draggable = true;
+    card.dataset.index = i;
+
+    var thumb = document.createElement("div");
+    thumb.className = "card-thumb";
+    if (p.dataUrl) {
+      thumb.style.backgroundImage = "url(" + p.dataUrl + ")";
+    } else {
+      thumb.style.backgroundImage = "url(" + p.src + ")";
+    }
+    card.appendChild(thumb);
+
+    var info = document.createElement("div");
+    info.className = "card-info";
+    var num = document.createElement("span");
+    num.className = "card-num";
+    num.textContent = (i + 1);
+    var name = document.createElement("span");
+    name.className = "card-name";
+    name.textContent = p.src.split("/").pop();
+    info.appendChild(num);
+    info.appendChild(name);
+    if (p.isNew) {
+      var badge = document.createElement("span");
+      badge.className = "card-badge";
+      badge.textContent = "NEW";
+      info.appendChild(badge);
+    }
+    card.appendChild(info);
+
+    var actions = document.createElement("div");
+    actions.className = "card-actions";
+    var removeBtn = document.createElement("button");
+    removeBtn.className = "card-btn remove";
+    removeBtn.innerHTML = "&times;";
+    removeBtn.title = "Remove";
+    removeBtn.onclick = function(e){ e.stopPropagation(); removePhoto(i); };
+    actions.appendChild(removeBtn);
+    card.appendChild(actions);
+
+    var moveWrap = document.createElement("div");
+    moveWrap.className = "card-move";
+    if (i > 0) {
+      var upBtn = document.createElement("button");
+      upBtn.className = "move-btn";
+      upBtn.innerHTML = "&#9650;";
+      upBtn.title = "Move up";
+      upBtn.onclick = function(e){ e.stopPropagation(); movePhoto(i, i - 1); };
+      moveWrap.appendChild(upBtn);
+    }
+    if (i < photos.length - 1) {
+      var downBtn = document.createElement("button");
+      downBtn.className = "move-btn";
+      downBtn.innerHTML = "&#9660;";
+      downBtn.title = "Move down";
+      downBtn.onclick = function(e){ e.stopPropagation(); movePhoto(i, i + 1); };
+      moveWrap.appendChild(downBtn);
+    }
+    card.appendChild(moveWrap);
+
+    card.addEventListener("dragstart", onDragStart);
+    card.addEventListener("dragend", onDragEnd);
+    card.addEventListener("dragover", onDragOver);
+    card.addEventListener("dragenter", onDragEnter);
+    card.addEventListener("dragleave", onDragLeave);
+    card.addEventListener("drop", onDrop);
+
+    addTouchDrag(card, i);
+
+    grid.appendChild(card);
+  });
+
+  updateOutput();
+  document.getElementById("count").textContent = photos.length + " PHOTOS";
+  document.getElementById("status").textContent = "Drag to reorder · Drop images to add";
+}
+
+function onDragStart(e) {
+  dragSrcIdx = parseInt(this.dataset.index);
+  this.classList.add("dragging");
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", dragSrcIdx);
+}
+function onDragEnd(e) {
+  this.classList.remove("dragging");
+  var cards = grid.querySelectorAll(".card");
+  cards.forEach(function(c){ c.classList.remove("drag-over"); });
+}
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+function onDragEnter(e) {
+  e.preventDefault();
+  this.classList.add("drag-over");
+}
+function onDragLeave(e) {
+  this.classList.remove("drag-over");
+}
+function onDrop(e) {
+  e.preventDefault();
+  this.classList.remove("drag-over");
+  var destIdx = parseInt(this.dataset.index);
+  if (dragSrcIdx === null || dragSrcIdx === destIdx) return;
+  movePhoto(dragSrcIdx, destIdx);
+  dragSrcIdx = null;
+}
+
+function addTouchDrag(card, idx) {
+  var startY = 0, startX = 0, clone = null, moved = false;
+  card.addEventListener("touchstart", function(e) {
+    if (e.target.closest(".card-btn,.move-btn")) return;
+    startY = e.touches[0].clientY;
+    startX = e.touches[0].clientX;
+    moved = false;
+  }, {passive: true});
+  card.addEventListener("touchmove", function(e) {
+    var dy = Math.abs(e.touches[0].clientY - startY);
+    var dx = Math.abs(e.touches[0].clientX - startX);
+    if (dy > 10 || dx > 10) moved = true;
+  }, {passive: true});
+  card.addEventListener("touchend", function(e) {
+    if (moved) return;
+  }, {passive: true});
+}
+
+function movePhoto(from, to) {
+  var item = photos.splice(from, 1)[0];
+  photos.splice(to, 0, item);
+  render();
+}
+
+function removePhoto(idx) {
+  photos.splice(idx, 1);
+  render();
+}
+
+function addPhotos(files) {
+  Array.from(files).forEach(function(file) {
+    if (!file.type.startsWith("image/")) return;
+    newFileCounter++;
+    var ext = file.name.split(".").pop().toLowerCase();
+    if (ext === "jpeg") ext = "jpg";
+    var nums = photos.map(function(p) {
+      var m = p.src.match(/show-(\d+)/);
+      return m ? parseInt(m[1]) : 0;
+    });
+    var nextNum = Math.max.apply(null, nums.concat([0])) + newFileCounter;
+    var newName = "show-" + nextNum + "." + ext;
+    var newSrc = "./images/shows/" + newName;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      photos.push({src: newSrc, isNew: true, dataUrl: e.target.result, fileName: file.name});
+      render();
+      toast("Added " + newName + " — save the file to images/shows/");
+    };
+    reader.readAsDataURL(file);
+  });
+  newFileCounter = 0;
+}
+
+// Drop zone
+var dz = document.getElementById("drop-zone");
+var fi = document.getElementById("file-input");
+dz.addEventListener("click", function(){ fi.click(); });
+fi.addEventListener("change", function(){ if (fi.files.length) addPhotos(fi.files); fi.value = ""; });
+dz.addEventListener("dragover", function(e){ e.preventDefault(); dz.classList.add("over"); });
+dz.addEventListener("dragleave", function(){ dz.classList.remove("over"); });
+dz.addEventListener("drop", function(e){
+  e.preventDefault(); dz.classList.remove("over");
+  if (e.dataTransfer.files.length) addPhotos(e.dataTransfer.files);
+});
+
+function getShowsJson() {
+  return JSON.stringify(photos.map(function(p){ return p.src; }), null, 2);
+}
+
+function getSiteJsArray() {
+  var paths = photos.map(function(p){ return p.src; });
+  var lines = paths.map(function(p, i){
+    return '    "' + p + '"' + (i < paths.length - 1 ? ',' : '');
+  });
+  return '  shows: [\n' + lines.join('\n') + '\n  ]';
+}
+
+function updateOutput() {
+  document.getElementById("output").textContent = getShowsJson();
+}
+
+function toast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function(){ t.classList.remove("show"); }, 2500);
+}
+
+document.getElementById("btn-copy").addEventListener("click", function() {
+  navigator.clipboard.writeText(getShowsJson()).then(function(){
+    toast("shows.json copied to clipboard");
+  });
+});
+
+document.getElementById("btn-copy-js").addEventListener("click", function() {
+  navigator.clipboard.writeText(getSiteJsArray()).then(function(){
+    toast("site.js array copied to clipboard");
+  });
+});
+
+init();
+</script>
+</body>
+</html>

@@ -225,7 +225,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.7.6 · 2026.07.10</span>
+      <span id="nav-version">v2.7.7 · 2026.09.05</span>
     </div>
     <button id="talk-btn" onclick="openCalendly()">LET'S TALK →</button>
   </div>
@@ -448,6 +448,33 @@ showImgs.forEach(function(src, i) {
 
 function openGallery() { document.getElementById("gallery").style.display = "block"; }
 function closeGallery() { document.getElementById("gallery").style.display = "none"; }
+
+// ── SHOWS.JSON (drag-and-drop order source) ──────────────────────────────────
+fetch("./shows.json?nocache=" + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(imgs){
+    if (!imgs || !imgs.length) return;
+    showImgs = imgs;
+    slideEl.innerHTML = "";
+    imgs.forEach(function(src, i) {
+      var img = document.createElement("img");
+      img.src = src; img.alt = "";
+      if (i === 0) img.classList.add("active");
+      slideEl.appendChild(img);
+    });
+    slideImages = slideEl.querySelectorAll("img");
+    slideCur = 0;
+    galleryGrid.innerHTML = "";
+    document.getElementById("gallery-count").textContent = "SHOW PHOTOS — " + imgs.length + " IMAGES";
+    imgs.forEach(function(src, i) {
+      var div = document.createElement("div");
+      div.className = "gallery-thumb";
+      div.style.backgroundImage = "url(" + src + ")";
+      div.onclick = function(){ openLightbox(i); };
+      galleryGrid.appendChild(div);
+    });
+  })
+  .catch(function(){});
 
 function openLightbox(i) {
   lbIndex = i;
