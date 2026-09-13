@@ -4,6 +4,11 @@ Conduct a structured interview for one section of the fookn-oats.enterprises sit
 write answers + generated copy back to the Notion Content Engine database, then
 update the section status.
 
+## Database
+
+- **Database URL**: https://app.notion.com/p/d4a98a9c92184ab1beaddab8684d4654
+- **Data Source ID**: `e6a28619-b6a0-40c3-9a74-2b76f5dc35e0`
+
 ## How to run
 
 The user can invoke this as:
@@ -13,7 +18,7 @@ The user can invoke this as:
 
 ## Your job as the interview agent
 
-1. **Load the database** — search Notion for "FOOK'N OATS — Site Content Engine"
+1. **Load the database** — query the Content Engine database using the data source ID above
    and find the target section row.
 
 2. **Read the questions** — fetch the section's Notion page body to get the question list.
