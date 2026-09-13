@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex, nofollow"/>
 <title>FOOK'N OATS — Photo Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0a0a;--surface:#111;--border:rgba(255,180,0,.2);--gold:#ffb400;--mono:'IBM Plex Mono',monospace;--text:rgba(255,255,255,.85);--muted:rgba(255,255,255,.45)}
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
 body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh;padding:24px}
 
 header{max-width:960px;margin:0 auto 32px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px}
@@ -198,8 +198,6 @@ function render() {
     card.addEventListener("dragleave", onDragLeave);
     card.addEventListener("drop", onDrop);
 
-    addTouchDrag(card, i);
-
     grid.appendChild(card);
   });
 
@@ -237,24 +235,6 @@ function onDrop(e) {
   if (dragSrcIdx === null || dragSrcIdx === destIdx) return;
   movePhoto(dragSrcIdx, destIdx);
   dragSrcIdx = null;
-}
-
-function addTouchDrag(card, idx) {
-  var startY = 0, startX = 0, clone = null, moved = false;
-  card.addEventListener("touchstart", function(e) {
-    if (e.target.closest(".card-btn,.move-btn")) return;
-    startY = e.touches[0].clientY;
-    startX = e.touches[0].clientX;
-    moved = false;
-  }, {passive: true});
-  card.addEventListener("touchmove", function(e) {
-    var dy = Math.abs(e.touches[0].clientY - startY);
-    var dx = Math.abs(e.touches[0].clientX - startX);
-    if (dy > 10 || dx > 10) moved = true;
-  }, {passive: true});
-  card.addEventListener("touchend", function(e) {
-    if (moved) return;
-  }, {passive: true});
 }
 
 function movePhoto(from, to) {
