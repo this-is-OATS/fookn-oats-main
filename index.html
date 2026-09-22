@@ -272,7 +272,7 @@ const BRANDS = [
 ];
 
 const SECTIONS = [
-  { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"What I actually do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Real services, clear pricing." },
+  { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"CAD and previz, master electrician work, LED walls, custom LED builds, the Maker-Lab, and crew I'd vouch for. Built in Kenosha or delivered remote." },
   { id:"brands",   label:"Brands",      icon:"✦", tagline:"The side projects — lighting art, music, memes, and electronic production.",  desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — the creative stuff I make when I'm not on a gig." },
   { id:"studio",   label:"Studio",      icon:"◈", tagline:"Mobile studio solutions \u2014 audio & video capture, anywhere.",              desc:"A portable production rig that comes to you. Multi-cam video, livestreaming, and audio capture for shows, sessions, events, and content \u2014 set up on location." },
   { id:"stories",  label:"Stories",     icon:"◎", tagline:"Festival runs, long nights, desert resets.",                                    desc:"Wrong-way Ubers at Electric Forest, desert resets at Joshua Tree, and a lot of road in between." },
@@ -733,8 +733,8 @@ function renderView(view) {
   if (view === "section:services") {
     app.appendChild(backBtn("home"));
     app.appendChild(el("div","sec-tag","SERVICES"));
-    app.appendChild(el("h2","sec-title","Production Departments"));
-    app.appendChild(el("p","sec-desc","What I do for hire: CAD drafting, master electrician work, LED wall tech, consulting, the Maker-Lab, and crew connections. Clear scope, clear pricing."));
+    app.appendChild(el("h2","sec-title","What Gets Built Here"));
+    app.appendChild(el("p","sec-desc","CAD and previz, master electrician work, LED walls, custom LED builds, the Maker-Lab, and crew I'd vouch for. Bring it to Kenosha or send it remote. Clear scope, clear pricing."));
     app.appendChild(el("div","universe-label","DEPARTMENTS / SERVICES"));
     var grid = el("div","card-grid-sm");
     DEPARTMENTS.forEach(function(d) {
