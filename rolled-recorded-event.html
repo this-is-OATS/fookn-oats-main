@@ -168,7 +168,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.5 · 2026.09.24'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.6 · 2026.09.24'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
   var sessionLabel=document.getElementById('session-label');
@@ -364,6 +364,23 @@ var RR_VERSION='rr-v1.5 · 2026.09.24'; // ← bump on every R&R deploy
     root.appendChild(sec);
   }
 
+  /* ── ON SITE ── */
+  function renderOnSite(d){
+    var items=d.onSite;if(!items||!items.length)return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,'On Site');sec.appendChild(label);
+    var list=div('schedule-list');
+    items.forEach(function(it){
+      var row=div('schedule-row');
+      var k=div('sch-time');txt(k,it.label||'');row.appendChild(k);
+      var right=div();
+      var v=div('sch-label');txt(v,it.detail||'');right.appendChild(v);
+      if(it.note){var n=div('sch-note');txt(n,it.note);right.appendChild(n);}
+      row.appendChild(right);list.appendChild(row);
+    });
+    sec.appendChild(list);root.appendChild(sec);
+  }
+
   /* ── ARTIST CALL ── */
   function renderArtistCall(d){
     var ac=d.artistCall;if(!ac||!ac.enabled)return;
@@ -469,6 +486,12 @@ var RR_VERSION='rr-v1.5 · 2026.09.24'; // ← bump on every R&R deploy
     var l2=el('a','footer-link');l2.href='/edm-lite';txt(l2,'◉ EDM Feed');fl.appendChild(l2);
     if(d.links&&d.links.instagram){var l3=el('a','footer-link');l3.href=d.links.instagram;l3.target='_blank';l3.rel='noopener';txt(l3,'◆ Instagram');fl.appendChild(l3);}
     f.appendChild(fl);
+    if(d.partner&&d.partner.name){
+      var pc=div('footer-brand');pc.style.cssText='font-size:9px;letter-spacing:.16em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:12px';
+      if(d.partner.url){var pa=el('a');pa.href=d.partner.url;pa.target='_blank';pa.rel='noopener';pa.style.cssText='color:var(--gold);text-decoration:none';txt(pa,d.partner.name);pc.appendChild(document.createTextNode((d.partner.role||'Partner')+' · '));pc.appendChild(pa);}
+      else{txt(pc,(d.partner.role||'Partner')+' · '+d.partner.name);}
+      f.appendChild(pc);
+    }
     var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · '+(d.session||''));
     f.appendChild(brand);
     var stamp=div('footer-brand');txt(stamp,RR_VERSION);stamp.style.marginTop='6px';stamp.style.opacity='.5';
@@ -495,6 +518,7 @@ var RR_VERSION='rr-v1.5 · 2026.09.24'; // ← bump on every R&R deploy
       renderConcept(d);
       renderLineup(d);
       renderSchedule(d,status);
+      renderOnSite(d);
       renderArtistCall(d);
       renderRSVP(d);
     }
