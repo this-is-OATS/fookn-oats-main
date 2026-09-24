@@ -168,7 +168,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.3 · 2026.09.24'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.4 · 2026.09.24'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
   var sessionLabel=document.getElementById('session-label');
@@ -353,6 +353,61 @@ var RR_VERSION='rr-v1.3 · 2026.09.24'; // ← bump on every R&R deploy
     root.appendChild(sec);
   }
 
+  /* ── CONCEPT ── */
+  function renderConcept(d){
+    var c=d.concept;if(!c||(!c.headline&&!c.body))return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,'What This Is');sec.appendChild(label);
+    if(c.headline){var h=div();h.style.cssText='font-family:var(--serif);font-weight:700;font-size:clamp(20px,4vw,30px);line-height:1.2;margin-bottom:16px';txt(h,c.headline);sec.appendChild(h);}
+    if(c.body){var b=div();b.style.cssText='font-size:15px;line-height:1.82;color:rgba(255,255,255,0.7);max-width:620px';txt(b,c.body);sec.appendChild(b);}
+    if(c.note){var n=div();n.style.cssText='font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);margin-top:18px';txt(n,c.note);sec.appendChild(n);}
+    root.appendChild(sec);
+  }
+
+  /* ── ARTIST CALL ── */
+  function renderArtistCall(d){
+    var ac=d.artistCall;if(!ac||!ac.enabled)return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,ac.label||'Play This Session');sec.appendChild(label);
+    var card=div('rsvp-card');
+    var h2=el('h2','rsvp-heading');txt(h2,ac.heading||'Artists — Get on the List');card.appendChild(h2);
+    if(ac.body){var body=div('rsvp-body');txt(body,ac.body);card.appendChild(body);}
+    if(ac.perks&&ac.perks.length){
+      var ul=el('ul');ul.style.cssText='list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:9px';
+      ac.perks.forEach(function(p){
+        var li=el('li');li.style.cssText='font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.5;color:rgba(255,255,255,0.78);padding-left:20px;position:relative';
+        var dot=el('span');dot.style.cssText='position:absolute;left:0;top:0;color:var(--gold);font-size:9px';dot.textContent='◆';
+        li.appendChild(dot);li.appendChild(document.createTextNode(p));ul.appendChild(li);
+      });
+      card.appendChild(ul);
+    }
+    var nameIn=el('input','rsvp-input');nameIn.type='text';nameIn.placeholder='Artist / DJ name';
+    var linkIn=el('input','rsvp-input');linkIn.type='text';linkIn.placeholder='Link to your music';linkIn.style.flex='2';
+    var emailIn=el('input','rsvp-input');emailIn.type='email';emailIn.placeholder='Email address';emailIn.style.flex='2';
+    var btn=el('button','rsvp-btn');txt(btn,ac.cta||'Get on the List');
+    var status=div('rsvp-status');
+    var row1=div('rsvp-row');row1.appendChild(nameIn);row1.appendChild(linkIn);
+    var row2=div('rsvp-row');row2.appendChild(emailIn);row2.appendChild(btn);
+    card.appendChild(row1);card.appendChild(row2);card.appendChild(status);sec.appendChild(card);root.appendChild(sec);
+
+    function submit(){
+      var name=nameIn.value.trim(),email=emailIn.value.trim();
+      if(!name){nameIn.focus();return;}
+      if(!email){emailIn.focus();return;}
+      btn.disabled=true;txt(btn,'…');
+      fetch('https://formspree.io/f/'+(ac.formspreeId||(d.rsvp&&d.rsvp.formspreeId)||'mlgwpppq'),{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({_subject:'🎛 R&R ARTIST SIGN-UP — '+slug,artist:name,link:linkIn.value.trim(),email:email,session:slug,source:'rr-artist-call'})
+      }).then(function(r){
+        if(r.ok){status.style.color='#5cd68a';txt(status,"You're on the list. We'll reach out.");nameIn.value='';linkIn.value='';emailIn.value='';}
+        else{status.style.color='#ff6b6b';txt(status,'Try again.');}
+      }).catch(function(){status.style.color='#ff6b6b';txt(status,'Try again.');})
+      .finally(function(){btn.disabled=false;txt(btn,ac.cta||'Get on the List');});
+    }
+    btn.onclick=submit;emailIn.onkeydown=function(e){if(e.key==='Enter')submit();};
+  }
+
   /* ── RSVP ── */
   function renderRSVP(d){
     var rsvp=d.rsvp;if(!rsvp||!rsvp.enabled)return;
@@ -437,8 +492,10 @@ var RR_VERSION='rr-v1.3 · 2026.09.24'; // ← bump on every R&R deploy
       renderLineup(d);
       renderSchedule(d,status);
     } else {
+      renderConcept(d);
       renderLineup(d);
       renderSchedule(d,status);
+      renderArtistCall(d);
       renderRSVP(d);
     }
     renderPortillos();

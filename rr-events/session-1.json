@@ -2,40 +2,51 @@
   "slug": "session-1",
   "session": "Session 01",
   "theme": "First Light",
-  "objective": "Establish the format. Prove the room.",
+  "objective": "Proof of dopeness. Prove the format works before scaling anything.",
   "status": "coming_soon",
-  "date": null,
-  "dateDisplay": "Fall 2026",
-  "location": "Studio · Streamed Live",
-  "lineupPlaceholder": true,
+  "date": "2027-01-07",
+  "dateDisplay": "Thu · Jan 7, 2027",
+  "location": "The Studio · Streamed Live",
+  "concept": {
+    "headline": "A documented music party. Not a polished broadcast.",
+    "body": "Think Prince renting a room and just playing. AOL Sessions. MTV Unplugged. A small room, real artists, two sets that flow into each other, a podcast-room feed in between — and four cameras rolling so the night lives past the night. This isn't proof of concept. It's proof of dopeness: we're actually doing it, on our own. Ten die-hards over a hundred.",
+    "note": "Episode 01 · Monthly if it lands. Quarterly if the gear says otherwise."
+  },
   "lineup": [
     {
+      "name": "Local Artist — TBA",
+      "role": "Set 1 · Open Slot",
+      "setTime": "15–20 min",
+      "bio": "One DJ or producer from the Milwaukee → Chicago corridor, or a touring act passing through. Could be you — see below."
+    },
+    {
       "name": "ƒalling Star",
-      "role": "Headliner",
-      "setTime": "10:30 PM",
-      "bio": "The flagship project. Electronic production built for the floor and the camera in equal measure."
-    },
-    {
-      "name": "Sleepwell Sweetheart",
-      "role": "Live Act",
-      "setTime": "9:00 PM",
-      "bio": "Twenty years of catalog meets the studio session. Live performance, remixed in real time."
-    },
-    {
-      "name": "TBA",
-      "role": "Support",
-      "setTime": "8:00 PM",
-      "bio": "Opening slot. Artist announcement coming soon."
+      "role": "Set 2 · Host",
+      "setTime": "15–20 min",
+      "bio": "Logic session, turntable, DJ app. Lights programmed to the music on a timeline, not a cue stack."
     }
   ],
   "schedule": [
-    { "time": "7:00 PM", "label": "Doors / Pre-show", "note": "Lobby open, gear check, camera warm-up" },
-    { "time": "8:00 PM", "label": "Set 1 — Support", "note": "" },
-    { "time": "9:00 PM", "label": "Set 2 — Sleepwell Sweetheart", "note": "Live performance" },
-    { "time": "10:00 PM", "label": "Intermission", "note": "Reset, crowd moment" },
-    { "time": "10:30 PM", "label": "Feature Set — ƒalling Star", "note": "Headliner" },
-    { "time": "12:00 AM", "label": "Wrap", "note": "Strike, post-show debrief" }
+    { "time": "TBD", "label": "Doors / Pre-show", "note": "Room open, gear check, cameras warm" },
+    { "time": "TBD", "label": "Set 1 — Local Artist", "note": "15–20 min" },
+    { "time": "TBD", "label": "Podcast Room", "note": "Interviews and talk between sets. The stream doesn't stop." },
+    { "time": "TBD", "label": "Set 2 — ƒalling Star", "note": "15–20 min · flows straight out of Set 1" },
+    { "time": "TBD", "label": "Wrap", "note": "" }
   ],
+  "artistCall": {
+    "enabled": true,
+    "label": "Play This Session",
+    "heading": "Artists: one open slot for Episode 01.",
+    "body": "This is an expansion session, and you leave with free content. DJs and producers from Milwaukee to Chicago — or passing through on a tour date — sign up to secure a spot. The list carries forward to every session after this one.",
+    "perks": [
+      "Free four-camera package of your full set — yours to keep",
+      "Lights programmed to your music",
+      "Podcast-room interview between sets",
+      "Run lights, VJ, or shoot? Techies welcome — the room is a workspace too"
+    ],
+    "cta": "Get on the List",
+    "formspreeId": "mlgwpppq"
+  },
   "live": {
     "videoId": null,
     "nowPlaying": null
