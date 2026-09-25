@@ -132,6 +132,23 @@
     .tba-title{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
     .tba-sub{font-size:16px;color:var(--muted);line-height:1.6;font-style:italic}
 
+    /* ── SESSIONS ── */
+    .session-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .session-card{
+      position:relative;display:block;padding:28px 22px 24px;text-align:center;text-decoration:none;
+      border:1px solid var(--border);outline:1px solid var(--border-soft);outline-offset:4px;background:var(--bg2);
+      transition:border-color .18s,outline-color .18s,background .18s;
+    }
+    .session-card::before{content:'◆';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--gold);background:var(--bg);padding:0 8px;line-height:1}
+    .session-card:hover{border-color:var(--gold);outline-color:var(--border);background:#1a1512}
+    .session-kicker{font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+    .session-theme{font-family:var(--display);font-size:clamp(28px,6vw,40px);letter-spacing:.06em;text-transform:uppercase;color:var(--ivory);line-height:1.05;margin-bottom:10px}
+    .session-meta{font-family:var(--mono);font-weight:300;font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
+    .session-meta.live{color:var(--red);font-weight:600}
+    .session-cta{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:600;font-size:10px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;border:1px solid var(--gold);padding:9px 18px 7px;transition:background .18s,color .18s}
+    .session-cta::before,.session-cta::after{content:'◆';font-size:6px}
+    .session-card:hover .session-cta{background:var(--gold);color:#0d0b09}
+
     /* ── SCHEDULE ── */
     .schedule-list{display:flex;flex-direction:column;border-top:1px solid var(--border-soft)}
     .schedule-row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--border-soft)}
@@ -179,7 +196,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.7 · 2026.09.25'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.8 · 2026.09.25'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
 
@@ -354,20 +371,18 @@ var RR_VERSION='rr-v1.7 · 2026.09.25'; // ← bump on every R&R deploy
       .then(function(idx){
         var events=idx.events||[];if(!events.length){mount.parentNode&&mount.parentNode.removeChild(mount);return;}
         var label=div('section-label');txt(label,'Sessions');mount.appendChild(label);
-        var grid=div();grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px';
+        var grid=div('session-grid');
         events.forEach(function(ev){
-          var card=el('a');
+          var card=el('a','session-card');
           card.href='/rolled-recorded-event?slug='+ev.slug;
-          card.style.cssText='display:block;border:1px solid rgba(212,175,55,0.25);background:var(--bg2);padding:26px 22px;text-decoration:none;transition:border-color .18s,background .18s,transform .18s;cursor:pointer';
-          card.onmouseover=function(){this.style.borderColor='var(--gold)';this.style.background='rgba(212,175,55,0.05)';this.style.transform='translateY(-2px)'};
-          card.onmouseout=function(){this.style.borderColor='rgba(212,175,55,0.25)';this.style.background='rgba(14,14,14,0.9)';this.style.transform=''};
-          var sessTxt=div();sessTxt.style.cssText='font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px';txt(sessTxt,ev.session||ev.slug);
-          var theme=div();theme.style.cssText='font-family:var(--serif);font-weight:700;font-size:20px;color:var(--ivory);margin-bottom:14px;line-height:1.2';txt(theme,ev.theme||'Session Details');
-          var meta=div();meta.style.cssText='font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(243,234,216,0.4);text-transform:uppercase;display:flex;align-items:center;gap:10px';
-          var statusDot=ev.status==='live'?'<span style="color:#ff3b3b">◉ LIVE NOW</span>':ev.status==='past'?'<span>○ PAST</span>':'<span style="color:rgba(212,175,55,0.6)">○ '+(ev.dateDisplay||'DATE TBA')+'</span>';
-          meta.innerHTML=statusDot;
-          var arrow=div();arrow.style.cssText='font-family:var(--mono);font-size:11px;color:rgba(212,175,55,0.5);margin-top:16px;letter-spacing:.1em';txt(arrow,'View Session →');
-          card.appendChild(sessTxt);card.appendChild(theme);card.appendChild(meta);card.appendChild(arrow);
+          var kicker=div('session-kicker');txt(kicker,'Rolled & Recorded · '+(ev.session||ev.slug));
+          var theme=div('session-theme');txt(theme,ev.theme||'Session Details');
+          var meta=div('session-meta');
+          if(ev.status==='live'){meta.classList.add('live');txt(meta,'◉ Live Now');}
+          else if(ev.status==='past'){txt(meta,'Past · '+(ev.dateDisplay||''));}
+          else{txt(meta,ev.dateDisplay||'Date TBA');}
+          var cta=el('span','session-cta');txt(cta,ev.status==='live'?'Watch Live':'View the Session');
+          card.appendChild(kicker);card.appendChild(theme);card.appendChild(meta);card.appendChild(cta);
           grid.appendChild(card);
         });
         mount.appendChild(grid);
