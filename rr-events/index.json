@@ -6,6 +6,15 @@
       "theme": "First Light",
       "dateDisplay": "Jan 7, 2027",
       "status": "coming_soon"
+    },
+    {
+      "slug": "session-1",
+      "series": "Parking Garage Sessions",
+      "href": "/parking-garage-sessions-event?slug=session-1",
+      "session": "Session 01",
+      "theme": "Open Level",
+      "dateDisplay": "2027 — TBA · Shakespeare Ave",
+      "status": "coming_soon"
     }
   ]
 }

@@ -196,7 +196,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.8 · 2026.09.25'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.9 · 2026.09.25'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
 
@@ -374,8 +374,8 @@ var RR_VERSION='rr-v1.8 · 2026.09.25'; // ← bump on every R&R deploy
         var grid=div('session-grid');
         events.forEach(function(ev){
           var card=el('a','session-card');
-          card.href='/rolled-recorded-event?slug='+ev.slug;
-          var kicker=div('session-kicker');txt(kicker,'Rolled & Recorded · '+(ev.session||ev.slug));
+          card.href=ev.href||('/rolled-recorded-event?slug='+ev.slug);
+          var kicker=div('session-kicker');txt(kicker,(ev.series||'Rolled & Recorded')+' · '+(ev.session||ev.slug));
           var theme=div('session-theme');txt(theme,ev.theme||'Session Details');
           var meta=div('session-meta');
           if(ev.status==='live'){meta.classList.add('live');txt(meta,'◉ Live Now');}
