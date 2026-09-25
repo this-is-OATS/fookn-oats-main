@@ -16,7 +16,7 @@
                     <meta name="twitter:image" content="https://fookn-oats-web.vercel.app/edm-lite-og.png"/>
   <link rel="preconnect" href="https://www.youtube.com" crossorigin/>
   <link rel="preconnect" href="https://i.ytimg.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&family=Poiret+One&family=Cormorant+Garamond:wght@400;600&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css"/>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -27,6 +27,25 @@
     .brand .o{color:var(--gold)}
     .sub{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:24px}
     a{color:var(--gold);text-decoration:none}
+
+    /* ── DECO (Rolled & Recorded system, scoped to the events block) ── */
+    .deco{--dg:#d4af37;--dgh:#f1d78a;--dbg2:#15110e;--div:#f3ead8;--dbord:rgba(212,175,55,.38);--dsoft:rgba(212,175,55,.16);--dmuted:rgba(243,234,216,.52);margin-top:14px}
+    .deco-label{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.38em;color:var(--dg);text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:18px;margin:44px 0 24px;text-align:center}
+    .deco-label::before,.deco-label::after{content:'◆';flex:1;font-size:7px;line-height:1;color:var(--dg);opacity:.85;background:linear-gradient(90deg,transparent,var(--dbord)) no-repeat left center/calc(100% - 18px) 1px;text-align:right}
+    .deco-label::after{background:linear-gradient(90deg,var(--dbord),transparent) no-repeat right center/calc(100% - 18px) 1px;text-align:left}
+    .deco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .deco-card{position:relative;display:block;padding:28px 22px 24px;border:1px solid var(--dbord);outline:1px solid var(--dsoft);outline-offset:4px;background:var(--dbg2);text-decoration:none;text-align:center;transition:border-color .18s,outline-color .18s,background .18s}
+    .deco-card::before{content:'◆';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--dg);background:var(--bg);padding:0 8px;line-height:1}
+    .deco-card:hover{border-color:var(--dg);outline-color:var(--dbord);background:#1a1512}
+    .deco-kicker{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.3em;color:var(--dg);text-transform:uppercase;margin-bottom:12px}
+    .deco-title{font-family:'Poiret One','Josefin Sans',sans-serif;font-size:clamp(28px,6vw,40px);letter-spacing:.06em;text-transform:uppercase;color:var(--div);line-height:1.05;margin-bottom:10px}
+    .deco-sub{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:10px;letter-spacing:.22em;color:var(--dmuted);text-transform:uppercase;margin-bottom:14px}
+    .deco-body{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;line-height:1.6;color:rgba(243,234,216,.72);margin:0 auto 18px;max-width:360px}
+    .deco-cta{display:inline-flex;align-items:center;gap:10px;font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:10px;letter-spacing:.26em;color:var(--dg);text-transform:uppercase;border:1px solid var(--dg);padding:9px 18px 7px;transition:background .18s,color .18s}
+    .deco-cta::before,.deco-cta::after{content:'◆';font-size:6px}
+    .deco-card:hover .deco-cta{background:var(--dg);color:#0d0b09}
+    .deco-more{display:block;text-align:center;margin-top:18px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.24em;color:var(--dmuted);text-transform:uppercase;text-decoration:none;transition:color .18s}
+    .deco-more:hover{color:var(--dg)}
   </style>
 </head>
 <body>
@@ -92,33 +111,28 @@
   }
 
   function renderRRCard(){
-    if(document.getElementById("rr-card"))return;
+    if(document.getElementById("rr-events"))return;
     var wrap=document.querySelector(".wrap");
-    var sectionLabel=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;margin-top:36px;margin-bottom:14px;display:flex;align-items:center;gap:14px");
-    sectionLabel.innerHTML="EVENTS IN THE PIPELINE <span style='flex:1;height:1px;background:rgba(255,180,0,0.18);display:inline-block'></span>";
-    wrap.appendChild(sectionLabel);
-    var card=el("a","display:block;padding:20px 22px;border:1px solid rgba(255,180,0,0.22);background:rgba(14,14,14,0.9);text-decoration:none;cursor:pointer;transition:border-color .18s,background .18s");
-    card.id="rr-card"; card.href="/rolled-recorded";
-    card.onmouseover=function(){card.style.borderColor="rgba(255,180,0,0.6)";card.style.background="rgba(255,180,0,0.04)"};
-    card.onmouseout=function(){card.style.borderColor="rgba(255,180,0,0.22)";card.style.background="rgba(14,14,14,0.9)"};
-    var top=el("div","font-family:var(--mono);font-size:8px;letter-spacing:.28em;color:rgba(255,180,0,0.55);text-transform:uppercase;margin-bottom:8px","EDM OATMEAL PRESENTS");
-    var title=el("div","font-family:var(--serif);font-weight:900;font-size:clamp(22px,5vw,34px);line-height:1;color:#fff;margin-bottom:6px");
-    title.innerHTML="Rolled <span style='color:#ffb400;font-style:italic'>&amp;</span> Recorded";
-    var sub=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:14px","A Digital Festival Day");
-    var cta=el("div","font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase","View the Series →");
-    card.appendChild(top);card.appendChild(title);card.appendChild(sub);card.appendChild(cta);
-    wrap.appendChild(card);
+    var sec=el("div"); sec.id="rr-events"; sec.className="deco";
+    function label(t){var l=el("div"); l.className="deco-label"; l.textContent=t; return l;}
+    function card(o){
+      var a=el("a"); a.className="deco-card"; a.href=o.href; if(o.ext){a.target="_blank";a.rel="noopener";}
+      a.innerHTML="<div class='deco-kicker'>"+o.kicker+"</div><div class='deco-title'>"+o.title+"</div><div class='deco-sub'>"+o.sub+"</div>"+(o.body?"<div class='deco-body'>"+o.body+"</div>":"")+"<span class='deco-cta'>"+o.cta+"</span>";
+      return a;
+    }
+    sec.appendChild(label("Events in the Pipeline"));
+    var g1=el("div"); g1.className="deco-grid";
+    g1.appendChild(card({kicker:"Rolled &amp; Recorded · Session 01",title:"First Light",sub:"Thu · Jan 7, 2027 · @RELAYHOUSE",href:"/rolled-recorded-event?slug=session-1",cta:"View the Session"}));
+    g1.appendChild(card({kicker:"Parking Garage Sessions · Session 01",title:"Open Level",sub:"2027 — TBA · Shakespeare Ave · Chicago",href:"/parking-garage-sessions-event?slug=session-1",cta:"View the Session"}));
+    sec.appendChild(g1);
+    var more=el("a"); more.className="deco-more"; more.href="/rolled-recorded"; more.textContent="◆ All Rolled & Recorded sessions"; sec.appendChild(more);
 
-    var card2=el("a","display:block;margin-top:10px;padding:20px 22px;border:1px dashed rgba(255,255,255,0.14);background:rgba(14,14,14,0.5);text-decoration:none;transition:border-color .18s,background .18s");
-    card2.href="/parking-garage-sessions-event?slug=session-1";
-    card2.onmouseover=function(){card2.style.borderColor="rgba(255,180,0,0.35)";card2.style.background="rgba(255,180,0,0.03)"};
-    card2.onmouseout=function(){card2.style.borderColor="rgba(255,255,255,0.14)";card2.style.background="rgba(14,14,14,0.5)"};
-    var top2=el("div","font-family:var(--mono);font-size:8px;letter-spacing:.28em;color:rgba(255,255,255,0.25);text-transform:uppercase;margin-bottom:8px","CONCEPT — LOCATION TBD");
-    var title2=el("div","font-family:var(--serif);font-weight:900;font-size:clamp(20px,4.5vw,30px);line-height:1;color:rgba(255,255,255,0.5);margin-bottom:6px","Parking Garage Sessions");
-    var sub2=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:14px","Open Air · City · Pending Approval");
-    var cta2=el("div","font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(255,180,0,0.45);text-transform:uppercase","Preview the Concept →");
-    card2.appendChild(top2);card2.appendChild(title2);card2.appendChild(sub2);card2.appendChild(cta2);
-    wrap.appendChild(card2);
+    sec.appendChild(label("Bring the Session to You"));
+    var g2=el("div"); g2.className="deco-grid";
+    g2.appendChild(card({kicker:"Pop-Up Event Package",title:"The Session, Anywhere",sub:"Lights · Four Cameras · Live Stream · Podcast Room",body:"The Rolled &amp; Recorded production, brought to your room. I design and program the lights, run four cameras, stream it with a backup uplink, and hand you the footage.",href:"https://calendly.com/fookn-oats-enterprises/30min",ext:true,cta:"Book a Call"}));
+    g2.appendChild(card({kicker:"Mobile System",title:"Mobile Studio",sub:"Audio &amp; Video Capture · On Location",body:"A portable production rig that comes to you. Multi-cam video, livestreaming, and audio capture for shows, sessions, and content — set up where you are.",href:"/#studio",cta:"See the Rig"}));
+    sec.appendChild(g2);
+    wrap.appendChild(sec);
   }
 
   function renderLive(id){
