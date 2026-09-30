@@ -100,6 +100,14 @@
 
     /* ── SECTIONS ── */
     .section{max-width:820px;margin:0 auto;padding:76px 24px 0}
+    .orbit-frame{position:relative;aspect-ratio:16/9;border:1px solid var(--border);outline:1px solid var(--border-soft);outline-offset:5px;background:#15110e}
+    .orbit-frame::before{content:'◆';position:absolute;z-index:3;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--gold);background:var(--bg);padding:0 8px;line-height:1}
+    .orbit-map{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity 1.6s ease}
+    .orbit-map.on{opacity:1}
+    .orbit-shade{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(13,11,9,.62) 100%)}
+    .orbit-cap{margin-top:16px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(243,234,216,.42);text-transform:uppercase}
+    .orbit-credit{margin-top:6px;text-align:center;font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:rgba(243,234,216,.26)}
+    @media(max-width:600px){.orbit-frame{aspect-ratio:4/3}}
     .section-label{
       font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.38em;
       color:var(--gold);text-transform:uppercase;
@@ -213,7 +221,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.13 · 2026.09.30'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.14 · 2026.09.30'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
   var sessionLabel=document.getElementById('session-label');
@@ -248,6 +256,51 @@ var RR_VERSION='rr-v1.13 · 2026.09.30'; // ← bump on every R&R deploy
     hero.appendChild(badge);
 
     root.appendChild(hero);
+  }
+
+  /* ── ORBIT (3D terrain flyover, driven by d.orbit) ── */
+  function renderOrbit(d){
+    var o=d.orbit;if(!o||o.lat==null||o.lng==null)return;
+    var sec=div('section');
+    var label=div('section-label');txt(label,o.label||'The Ground');sec.appendChild(label);
+    var frame=div('orbit-frame');var mapEl=div('orbit-map');frame.appendChild(mapEl);frame.appendChild(div('orbit-shade'));
+    sec.appendChild(frame);
+    if(o.caption){var cap=div('orbit-cap');txt(cap,o.caption);sec.appendChild(cap);}
+    var cr=div('orbit-credit');txt(cr,'Imagery: USGS · Terrain: Mapzen / AWS Open Data · MapLibre');sec.appendChild(cr);
+    root.appendChild(sec);
+    var started=false;
+    function start(){
+      if(started)return;started=true;
+      var cdn='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/';
+      var lk=el('link');lk.rel='stylesheet';lk.href=cdn+'maplibre-gl.min.css';document.head.appendChild(lk);
+      var sc=el('script');sc.src=cdn+'maplibre-gl.min.js';
+      sc.onload=function(){
+        var map;
+        try{
+          map=new maplibregl.Map({container:mapEl,interactive:false,attributionControl:false,
+            center:[o.lng,o.lat],zoom:o.zoom||14.6,pitch:o.pitch||68,bearing:o.bearing||0,maxPitch:80,
+            style:{version:8,sources:{
+              sat:{type:'raster',tiles:['https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16},
+              dem:{type:'raster-dem',tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],tileSize:256,maxzoom:14,encoding:'terrarium'}},
+              layers:[{id:'sat',type:'raster',source:'sat',paint:{'raster-saturation':-0.15,'raster-contrast':0.1}}],
+              terrain:{source:'dem',exaggeration:o.exaggeration||1.6},
+              sky:{'sky-color':'#2a2118','horizon-color':'#d4af37','fog-color':'#15110e','sky-horizon-blend':0.6,'horizon-fog-blend':0.7,'fog-ground-blend':0.4}}});
+        }catch(e){sec.style.display='none';return;}
+        var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var visible=true,last=0,secs=o.secondsPerOrbit||150;
+        if('IntersectionObserver' in window){new IntersectionObserver(function(en){visible=en[0].isIntersecting;}).observe(frame);}
+        function spin(t){
+          if(last&&visible&&!document.hidden){map.setBearing((map.getBearing()+360*((t-last)/1000)/secs)%360);}
+          last=t;requestAnimationFrame(spin);
+        }
+        map.once('idle',function(){mapEl.className='orbit-map on';if(!still)requestAnimationFrame(spin);});
+      };
+      sc.onerror=function(){sec.style.display='none';};
+      document.head.appendChild(sc);
+    }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();start();}},{rootMargin:'400px'});io.observe(frame);
+    }else{start();}
   }
 
   /* ── LIVE PLAYER ── */
@@ -561,6 +614,7 @@ var RR_VERSION='rr-v1.13 · 2026.09.30'; // ← bump on every R&R deploy
       renderSchedule(d,status);
     } else {
       renderConcept(d);
+      renderOrbit(d);
       renderLineup(d);
       renderSchedule(d,status);
       renderOnSite(d);

@@ -12,6 +12,17 @@
     "body": "Garden of the Gods sits in the Shawnee National Forest at the bottom of Illinois — sandstone bluffs over miles of trees. Open Air takes Rolled & Recorded out there for the spring bloom. Music made outside, in nature, and filmed from the ground and from the air. Every other session is about the room. This one is about the view.",
     "note": "Session 04 of the series. The outdoor session."
   },
+  "orbit": {
+    "label": "The Ground",
+    "lat": 37.6046,
+    "lng": -88.3843,
+    "zoom": 14.6,
+    "pitch": 68,
+    "bearing": 20,
+    "exaggeration": 1.6,
+    "secondsPerOrbit": 150,
+    "caption": "Garden of the Gods · Shawnee National Forest · terrain flyover"
+  },
   "lineup": [],
   "schedule": [
     {
