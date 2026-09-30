@@ -1,0 +1,64 @@
+{
+  "slug": "open-air",
+  "session": "Session 04",
+  "theme": "Open Air",
+  "objective": "Take the format outside. Let the landscape be the stage.",
+  "status": "coming_soon",
+  "date": null,
+  "dateDisplay": "Spring 2027 — TBA",
+  "location": "Garden of the Gods · Shawnee National Forest · Southern Illinois",
+  "concept": {
+    "headline": "No room. No ceiling. The spring bloom.",
+    "body": "Garden of the Gods sits in the Shawnee National Forest at the bottom of Illinois — sandstone bluffs over miles of trees. Open Air takes Rolled & Recorded out there for the spring bloom. Music made outside, in nature, and filmed from the ground and from the air. Every other session is about the room. This one is about the view.",
+    "note": "Session 04 of the series. The outdoor session."
+  },
+  "lineup": [],
+  "schedule": [
+    {
+      "time": "TBD",
+      "label": "Details to be announced",
+      "note": "Date, call time and meeting point go to the list first"
+    }
+  ],
+  "onSite": [
+    {
+      "label": "Setting",
+      "detail": "Sandstone bluffs and forest in bloom",
+      "note": "Outdoors, daylight, weather permitting"
+    },
+    {
+      "label": "Cameras",
+      "detail": "Ground cameras and aerial cinematography",
+      "note": "The landscape is part of the set"
+    }
+  ],
+  "artistCall": {
+    "enabled": true,
+    "label": "Play This Session",
+    "heading": "Artists: play it outside.",
+    "body": "Same offer as every session — an expansion session, and you leave with free content. This one is for players and producers who want their music filmed somewhere no venue can match. Sign up to secure a spot; the list carries forward.",
+    "perks": [
+      "Your full set on camera — yours to keep",
+      "Aerial and ground footage of your performance",
+      "A setting no room can give you"
+    ],
+    "cta": "Get on the List",
+    "formspreeId": "mlgwpppq"
+  },
+  "live": {
+    "videoId": null,
+    "nowPlaying": null
+  },
+  "archive": {
+    "videoId": null,
+    "aftermovieId": null,
+    "highlights": []
+  },
+  "rsvp": {
+    "enabled": true,
+    "formspreeId": "mlgwpppq"
+  },
+  "links": {
+    "instagram": "https://www.instagram.com/edm_oats?igsh=Z2JkMWxvZnltOGFi&utm_source=qr"
+  }
+}
