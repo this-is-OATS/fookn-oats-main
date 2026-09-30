@@ -1,0 +1,63 @@
+{
+  "slug": "the-service",
+  "session": "Session 02",
+  "theme": "The Service",
+  "objective": "Put a show in the sanctuary and the studio on display.",
+  "status": "coming_soon",
+  "date": null,
+  "dateDisplay": "2027 — TBA",
+  "location": "Lunde Records Studio · The Old Church · Streamed Live",
+  "concept": {
+    "headline": "A show in the sanctuary. A studio on display.",
+    "body": "Lunde Records Studio lives in an old church. The open floor and the lobby are the room — high ceilings, long sightlines, built for a congregation and now for a crowd. The Service runs the Rolled & Recorded format inside it: sets that flow into each other, a podcast-room feed between them, four cameras rolling. And while the music plays, the studio shows its work — the rooms, the gear, the people who record there. Come for the show. Leave knowing what gets made in this building.",
+    "note": "Session 02 of the series. Format proven at First Light; this one proves the room."
+  },
+  "lineup": [],
+  "schedule": [
+    { "time": "TBD", "label": "Doors / Lobby", "note": "Info table, studio open for a look" },
+    { "time": "TBD", "label": "Set 1", "note": "The sanctuary floor" },
+    { "time": "TBD", "label": "Podcast Room — Studio Tour", "note": "Lunde Records on camera: how the room works, what gets cut here" },
+    { "time": "TBD", "label": "Set 2", "note": "" },
+    { "time": "TBD", "label": "Set 3", "note": "" },
+    { "time": "TBD", "label": "Wrap", "note": "" }
+  ],
+  "onSite": [
+    { "label": "Lobby", "detail": "Info table — everyone's stuff in one place", "note": "Cards, links, merch, what you do. Bring yours." },
+    { "label": "Studio", "detail": "Lunde Records open for a look", "note": "The rooms and the gear, on camera during the podcast segment" },
+    { "label": "Food", "detail": "TBD", "note": "" }
+  ],
+  "partner": {
+    "name": "Lunde Records Studio",
+    "role": "Venue Partner"
+  },
+  "artistCall": {
+    "enabled": true,
+    "label": "Play This Session",
+    "heading": "Artists: the sanctuary floor is open.",
+    "body": "Same offer as every session — an expansion session, and you leave with free content. DJs, producers, and players who want a room with a ceiling. Sign up to secure a spot; the list carries forward.",
+    "perks": [
+      "Free four-camera package of your full set — yours to keep",
+      "Lighting, visuals, and mood built with your music presentation",
+      "Podcast-room interview between sets",
+      "A real studio in the building — talk to the people who run it"
+    ],
+    "cta": "Get on the List",
+    "formspreeId": "mlgwpppq"
+  },
+  "live": {
+    "videoId": null,
+    "nowPlaying": null
+  },
+  "archive": {
+    "videoId": null,
+    "aftermovieId": null,
+    "highlights": []
+  },
+  "rsvp": {
+    "enabled": true,
+    "formspreeId": "mlgwpppq"
+  },
+  "links": {
+    "instagram": "https://www.instagram.com/edm_oats?igsh=Z2JkMWxvZnltOGFi&utm_source=qr"
+  }
+}
