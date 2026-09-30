@@ -100,6 +100,8 @@
 
     /* ── SECTIONS ── */
     .section{max-width:820px;margin:0 auto;padding:76px 24px 0}
+    .photo-frame{border:1px solid var(--border);outline:1px solid var(--border-soft);outline-offset:5px;background:#15110e;line-height:0}
+    .photo-frame img{display:block;width:100%;height:auto}
     .orbit-frame{position:relative;aspect-ratio:16/9;border:1px solid var(--border);outline:1px solid var(--border-soft);outline-offset:5px;background:#15110e}
     .orbit-frame::before{content:'◆';position:absolute;z-index:3;top:-6px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--gold);background:var(--bg);padding:0 8px;line-height:1}
     .orbit-map{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity 1.6s ease}
@@ -221,7 +223,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.14 · 2026.09.30'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.15 · 2026.09.30'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
   var sessionLabel=document.getElementById('session-label');
@@ -256,6 +258,16 @@ var RR_VERSION='rr-v1.14 · 2026.09.30'; // ← bump on every R&R deploy
     hero.appendChild(badge);
 
     root.appendChild(hero);
+  }
+
+  /* ── PHOTO (driven by d.photo) ── */
+  function renderPhoto(d){
+    var p=d.photo;if(!p||!p.src)return;
+    var sec=div('section');sec.style.paddingTop='48px';
+    var frame=div('photo-frame');var img=el('img');img.src=p.src;img.alt=p.alt||'';img.loading='lazy';img.width=p.width||1600;img.height=p.height||1200;
+    frame.appendChild(img);sec.appendChild(frame);
+    if(p.caption){var cap=div('orbit-cap');txt(cap,p.caption);sec.appendChild(cap);}
+    root.appendChild(sec);
   }
 
   /* ── ORBIT (3D terrain flyover, driven by d.orbit) ── */
@@ -613,6 +625,7 @@ var RR_VERSION='rr-v1.14 · 2026.09.30'; // ← bump on every R&R deploy
       renderLineup(d);
       renderSchedule(d,status);
     } else {
+      renderPhoto(d);
       renderConcept(d);
       renderOrbit(d);
       renderLineup(d);
