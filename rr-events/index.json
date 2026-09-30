@@ -8,19 +8,19 @@
       "status": "coming_soon"
     },
     {
-      "slug": "session-1",
-      "series": "Parking Garage Sessions",
-      "href": "/parking-garage-sessions-event?slug=session-1",
-      "session": "Session 01",
-      "theme": "Open Level",
-      "dateDisplay": "2027 — TBA · Shakespeare Ave",
-      "status": "coming_soon"
-    },
-    {
       "slug": "the-service",
       "session": "Session 02",
       "theme": "The Service",
       "dateDisplay": "2027 — TBA · Lunde Records Studio",
+      "status": "coming_soon"
+    },
+    {
+      "slug": "session-1",
+      "series": "Parking Garage Sessions",
+      "href": "/parking-garage-sessions-event?slug=session-1",
+      "session": "Session 03",
+      "theme": "Open Level",
+      "dateDisplay": "2027 — TBA · Shakespeare Ave",
       "status": "coming_soon"
     }
   ]
