@@ -4,16 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
-  <title>EDM OATS — LIVE</title>
-    <meta property="og:title" content="EDM OATS — Live · Sets · Sessions"/>
-    <meta property="og:description" content="Watch live sets and recent uploads from EDM OATS."/>
-                    <meta property="og:image" content="https://fookn-oats-web.vercel.app/edm-lite-og.png"/>
-    <meta property="og:url" content="https://fookn-oats-web.vercel.app/edm-lite"/>
+  <title>EDM Oatmeal · Live</title>
+    <meta property="og:title" content="EDM Oatmeal — Live · Sets · Sessions"/>
+    <meta property="og:description" content="Live sets, recent uploads, and the Rolled &amp; Recorded sessions. From EDM Oatmeal."/>
+                    <meta property="og:image" content="https://fookn-oats.enterprises/edm-lite-og.png"/>
+    <meta property="og:url" content="https://fookn-oats.enterprises/edm-lite"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="EDM OATS — Live · Sets · Sessions"/>
-    <meta name="twitter:description" content="Watch live sets and recent uploads from EDM OATS."/>
-                    <meta name="twitter:image" content="https://fookn-oats-web.vercel.app/edm-lite-og.png"/>
+    <meta name="twitter:title" content="EDM Oatmeal — Live · Sets · Sessions"/>
+    <meta name="twitter:description" content="Live sets, recent uploads, and the Rolled &amp; Recorded sessions. From EDM Oatmeal."/>
+                    <meta name="twitter:image" content="https://fookn-oats.enterprises/edm-lite-og.png"/>
   <link rel="preconnect" href="https://www.youtube.com" crossorigin/>
   <link rel="preconnect" href="https://i.ytimg.com"/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&family=Poiret+One&family=Cormorant+Garamond:wght@400;600&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
@@ -50,7 +50,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="brand">EDM <span class="o">OATS</span></div>
+    <div class="brand">EDM <span class="o">OATMEAL</span></div>
     <div class="sub">Live · Sets · Sessions</div>
     <div id="app"></div>
   </div>
@@ -61,7 +61,7 @@
   var app=document.getElementById("app");
   var Y=(window.SITE&&SITE.youtube)||{channelId:"UCa-9QRISRcW6xVLrMvZ4Egg",fallbackVideoId:"_xyCffufcbs"};
 
-  var liveTag=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;color:var(--gold)","◉ EDM OATS — LATEST");
+  var liveTag=el("div","font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;color:var(--gold)","◉ EDM OATMEAL · LATEST");
   app.appendChild(liveTag);
   var stage=el("div","position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,180,0,.28)");
   app.appendChild(stage);
@@ -102,7 +102,7 @@
     row.appendChild(nm);row.appendChild(ms);row.appendChild(b);box.appendChild(row);
     var n2=el("div","font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:8px"); box.appendChild(n2);
     function send(){var m=ms.value.trim();if(!m){ms.focus();return;}b.disabled=true;b.textContent="…";
-      fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({_subject:"🔴 EDM OATS LIVE message",name:(nm.value.trim()||"anon"),message:m,source:"edm-lite"})})
+      fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({_subject:"🔴 EDM Oatmeal live message",name:(nm.value.trim()||"anon"),message:m,source:"edm-lite"})})
         .then(function(r){if(r.ok){ms.value="";n2.style.color="#5cd68a";n2.textContent="Sent to the booth ✓";}else{n2.style.color="#ff6b6b";n2.textContent="Couldn't send — try again.";}})
         .catch(function(){n2.style.color="#ff6b6b";n2.textContent="Couldn't send — try again.";})
         .finally(function(){b.disabled=false;b.textContent="SEND";});}
@@ -138,7 +138,7 @@
   }
 
   function renderLive(id){
-    liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW — EDM OATS";
+    liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW · EDM OATMEAL";
     if(grid.parentNode)grid.parentNode.removeChild(grid); if(gridLabel.parentNode)gridLabel.parentNode.removeChild(gridLabel);
     playInStage(id,true);
     note.innerHTML=noteHtml("Streaming now — tap to unmute. ");
@@ -148,7 +148,7 @@
     app.insertBefore(msgBar(),note);
   }
   function renderPlaylist(items){
-    liveTag.style.color="var(--gold)"; liveTag.textContent="◉ EDM OATS — LATEST";
+    liveTag.style.color="var(--gold)"; liveTag.textContent="◉ EDM OATMEAL · LATEST";
     playInStage(Y.fallbackVideoId||"_xyCffufcbs",false);
     grid.innerHTML=""; (items||[]).forEach(function(v){thumb(v.id);});
     if(!gridLabel.parentNode)app.appendChild(gridLabel); if(!grid.parentNode)app.appendChild(grid);

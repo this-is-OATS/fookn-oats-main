@@ -5,18 +5,18 @@
 // ============================================================
 
 const SITE = {
-  title: "FOOK'N OATS",
-  version: "v2.8.14 · 2026.10.12",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  title: "FOOK'n OATS",
+  version: "v2.9.0 · 2026.10.24",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", apiKey: "AIzaSyAUzyhIMESo4HJ5PaoNPjZv0ZK2T9f-Mtw", fallbackVideoId: "_xyCffufcbs" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
-    text: "LET'S TALK →",
+    text: "BOOK A CALL →",
     color: "#0069ff",
     textColor: "#ffffff"
   },
   ticker: {
     enabled: true,
-    text: "hello and welcome to summer ☀️ 🌊 🌴"
+    text: "Imagination Creation Station · Kenosha HQ · Start with a little."
   },
   nav: [
     { id: "home",     label: "HOME" },
@@ -59,15 +59,15 @@ const SITE = {
     headline: "Built on the Road.",
     subheadline: "Twenty years of shows, songs, overnight drives, and building whatever wasn't already on the shelf.",
     paragraphs: [
-      "Johnny Oats — lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production across festival stages, theater runs, and corporate events. Based in the Chicago–Milwaukee corridor, available to travel.",
-      "The work is technical and creative in equal measure. Vectorworks for plots, documentation, and previsualization. grandMA2/3 for programming. Novastar, Brompton, and ROE for LED builds. Master electrician on call for load-ins, installs, and one-offs. If the rig needs to be right by showtime, that's the job — and it always needs to be right by showtime.",
-      "Fook'n Oats Enterprises is the umbrella — services, creative projects, and operational systems under one name. Current focus: remote CAD drafting, corporate AV deployments, and the Maker-Lab in Kenosha — 3D printing, embroidery, vinyl cutting, and custom fabrication from concept to physical product.",
-      "On the creative side: Sleepwell Sweetheart (twenty years of catalog, special events in mind), Revelator Illuminae (lighting design and previsualization), Falling Star (the record label and recording studio team), and AI Oatmeal — content, experiments, and an active coding division building tools and web projects. This site maps the full operation."
+      "FOOK'n OATS Enterprises is the company: the brands, the Kenosha HQ, and the systems that run them. The HQ sits in RELAYHOUSE. The Imagination Creation Station handles builds, prototyping, and R&D, with the Maker-Lab inside it. AI Oatmeal Systems Corp is the engine room. RENT.OATS and SHOP.OATS are the front doors.",
+      "Johnny Oats runs it. Lighting designer, CAD drafter, LED wall tech, crew chief. Twenty years in live production: festival stages, theater runs, corporate events. Based in Kenosha, between Chicago and Milwaukee. Available to travel.",
+      "Production runs under SuperTech LX. Vectorworks for plots and previz. grandMA2/3 for programming. Novastar, Brompton, ROE for LED. Remote CAD, corporate AV, and ME work on tours and one-offs. The rig has to be right by showtime.",
+      "FOOK'n OATS is the company. SuperTech LX is the work. Revelator Illuminae is the design. AI Oatmeal is the tools, with Systems Corp as the engine room. EDM Oatmeal is the scene. Falling Star is the records. The Imagination Creation Station is where things get built, and RENT.OATS and SHOP.OATS are the front doors."
     ],
     tree: [
       { label: "How I Work",    desc: "Show up prepared. Communicate straight. Leave the rig better than I found it. No exceptions." },
       { label: "The Tech",      desc: "Vectorworks. grandMA2/3. Novastar, Brompton, ROE. Twenty years of solving problems at 2 AM in dark rooms." },
-      { label: "Creative Side", desc: "Revelator Illuminae for design. Sleepwell Sweetheart for music. Falling Star for the label and recording studio. AI Oatmeal for everything in between." },
+      { label: "Creative Side", desc: "SuperTech LX for the work. Revelator Illuminae for the design. AI Oatmeal for the tools. EDM Oatmeal for the scene. Falling Star for the records. RENT.OATS and SHOP.OATS for gear and merch." },
       { label: "Building Now",  desc: "Remote CAD drafting. Corporate AV deployments. The Maker-Lab in Kenosha. Systems that work without five-week tours." },
       { label: "Road Stories",  desc: "Big festival runs. Electric Forest. The Integratron. A lot of road in between." }
     ]

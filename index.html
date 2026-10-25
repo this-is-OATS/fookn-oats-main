@@ -9,20 +9,20 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
-  <title>FOOK'N OATS enterprises</title>
-  <meta name="description" content="FOOK'N OATS enterprises — the Imagination Creation Station in Kenosha. Design, custom builds, podcast room, previz suite, editing, offices. Fly into ENW. Meet, plan, build it to spec."/>
+  <title>FOOK'n OATS Enterprises — Start with a little.</title>
+  <meta name="description" content="FOOK'n OATS Enterprises. One company in Kenosha. Production, lighting design, free DIY tools, the scene, and the records. Gear at RENT.OATS, merch at SHOP.OATS. Fly into ENW."/>
   <!-- Open Graph / social share -->
   <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="FOOK'N OATS enterprises"/>
-  <meta property="og:title" content="FOOK'N OATS enterprises — The Imagination Creation Station"/>
-  <meta property="og:description" content="Kenosha HQ. Design, custom builds, podcast room, previz suite, editing, offices — the knowledge is already in the building. Fly into ENW. Meet, plan, build it to spec."/>
+  <meta property="og:site_name" content="FOOK'n OATS Enterprises"/>
+  <meta property="og:title" content="FOOK'n OATS Enterprises — Start with a little."/>
+  <meta property="og:description" content="The Oats brands, and the Kenosha HQ where they get built. Start with a little."/>
   <meta property="og:url" content="https://fookn-oats.enterprises/"/>
   <meta property="og:image" content="https://fookn-oats.enterprises/og.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="FOOK'N OATS enterprises — The Imagination Creation Station"/>
-  <meta name="twitter:description" content="Kenosha HQ. Design, custom builds, podcast room, previz suite, editing, offices. Fly into ENW. Meet, plan, build it to spec."/>
+  <meta name="twitter:title" content="FOOK'n OATS Enterprises — Start with a little."/>
+  <meta name="twitter:description" content="The Oats brands + the Kenosha HQ. RENT.OATS. SHOP.OATS. Start with a little."/>
   <meta name="twitter:image" content="https://fookn-oats.enterprises/og.png"/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
   <style>
@@ -190,6 +190,29 @@
 
     /* form error/success */
     .form-err{color:#ff5555;font-family:var(--mono);font-size:11px;margin-bottom:12px}
+    .home-headline{font-family:var(--serif);font-size:clamp(22px,3.6vw,38px);font-weight:900;line-height:1.15;margin:0 0 16px;letter-spacing:-.01em}
+    .text-link{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(255,180,0,.35)}
+    .combo-wrap{position:relative;display:inline-block}
+    .combo-menu{display:none;position:absolute;top:100%;left:0;margin-top:6px;z-index:50;min-width:220px;background:#111;border:1px solid var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.6)}
+    .combo-opt{display:flex;justify-content:space-between;width:100%;background:none;border:none;border-bottom:1px solid rgba(255,255,255,.08);color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.1em;padding:12px 16px;cursor:pointer;text-align:left}
+    .combo-opt:hover{background:rgba(255,180,0,.08)}
+    .combo-opt b{color:var(--gold)}
+    .combo-opt span{color:rgba(255,255,255,.5)}
+    .home-section{margin-bottom:48px}
+    .hq-block{border:1px solid rgba(255,180,0,.18);background:#141414;padding:18px 20px;margin-bottom:14px}
+    .hq-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:8px}
+    .hq-line{color:rgba(255,255,255,.72);font-size:15px;line-height:1.7;margin-bottom:12px}
+    .hq-line a{color:var(--gold)}
+    .hq-detail{color:rgba(255,255,255,.5);font-size:13px;line-height:1.6;margin-bottom:12px}
+    .hq-spaces{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--gold);margin-bottom:14px}
+    .link-soon{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.45);margin-left:12px;align-self:center}
+    .teaser{border-top:1px solid rgba(255,255,255,.07);padding:28px 0;margin-bottom:8px}
+    .teaser-line{color:rgba(255,255,255,.7);font-size:16px;line-height:1.7;margin-bottom:16px;max-width:620px}
+    .jag-off{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.35);margin-top:36px}
+    .hib-card{cursor:default}
+    .hib-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.4);margin-bottom:6px}
+    select.field-input{appearance:auto}
+    .bullet-item a{color:var(--gold);text-decoration:none}
     .form-success{color:var(--gold);font-family:var(--mono);font-size:13px;line-height:1.8}
   </style>
 </head>
@@ -211,8 +234,8 @@
 <div id="lightbox" onclick="closeLightbox()">
   <img id="lb-img" src="" alt=""/>
   <div id="lightbox-counter"></div>
-  <button class="lb-btn" id="lb-prev" onclick="lbNav(-1,event)">←</button>
-  <button class="lb-btn" id="lb-next" onclick="lbNav(1,event)">→</button>
+  <button class="lb-btn" id="lb-prev" aria-label="Previous photo" onclick="lbNav(-1,event)">←</button>
+  <button class="lb-btn" id="lb-next" aria-label="Next photo" onclick="lbNav(1,event)">→</button>
 </div>
 
 <!-- FLOATING AI CHAT -->
@@ -223,10 +246,10 @@
 <div id="nav-wrap">
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
-      <div id="nav-logo" onclick="showView('home')">FOOK'N-OATS WEB</div>
-      <span id="nav-version">v2.8.14 · 2026.10.12</span>
+      <div id="nav-logo" onclick="showView('home')">FOOK'n OATS</div>
+      <span id="nav-version">v2.9.0 · 2026.10.24</span>
     </div>
-    <button id="talk-btn" onclick="openCalendly()">LET'S TALK →</button>
+    <button id="talk-btn" onclick="bookCall()">BOOK A CALL →</button>
   </div>
   <!-- TICKER -->
   <div id="ticker-bar">
@@ -250,43 +273,75 @@
 <script>
 // ── DATA ─────────────────────────────────────────────────────────────────────
 
+// ── LINKS (placeholders until supplied) ──────────────────────────────────────
+var RELAYHOUSE_URL = "";   // [LINK NEEDED: RELAYHOUSE] — BOOK THE SPACE ↗. Do NOT route to our contact form.
+var SHOP_OATS_URL  = "";   // [LINK NEEDED: SHOP.OATS]
+var BOOK_CALL_URL  = "";   // [LINK NEEDED: Bobeng Availability]. Until set, BOOK A CALL opens the contact form.
+var RENT_OATS_URL  = "/rent";
+
 const DEPARTMENTS = [
-  { id:"cad",       label:"CAD & Drafting",      icon:"◈", tagline:"Precision drafts. Light plots. Renderings and previz.",               desc:"Vectorworks drafting for lighting plots, rigging designs, stage layouts, venue paperwork, event site plans, and previsualization. Festivals, street fests, specialty activations. Remote-deliverable. Days, not weeks.",                                                                                                                         bullets:["Lighting plots (full-detail)","Rigging & truss layouts","Venue/stage ground plans","Event site plans & festival layouts","Renderings & previsualization","As-builts & documentation"],                          cta:"Request a Draft",   keywords:["cad","draft","plot","drawing","vectorworks","layout","lighting plot","venue","plan","festival","site plan","street fest","event site","activation","rendering","previz","previsualization"] },
-  { id:"gaffer",    label:"Master Electrician",  icon:"⚡", tagline:"SuperTech LX Services. Efficiency under pressure.",        desc:"The ME job isn't doing everything — it's seeing everything. I run load-ins as an efficiency officer: observing the full operation, finding the problems others are too busy to notice, and correcting before showtime. Tours, installs, and one-offs run under SuperTech LX Services.",                    bullets:["SuperTech LX — tour & one-off ME/crew chief","Lighting installs & load-ins","Operational efficiency & troubleshooting","Crew coordination & supervision"],cta:"Check Availability",keywords:["gaffer","electrician","crew","chief","me","touring","tour","load","rig","supervise","lighting crew","efficiency","supertech","lx services"] },
-  { id:"ledwall",   label:"LED Wall Tech",        icon:"▤", tagline:"Walls built, mapped, and running clean.",            desc:"LED wall build, mapping, and show support. Brompton and Novastar processing, ROE panels, camera-ready walls for stages, corporate, and film. Smaller-scale builds are the sweet spot — dialed, not rushed.",                                                                                                                         bullets:["Wall builds & teardown supervision","Brompton / Novastar processing","Pixel mapping & signal flow","On-show wall tech & troubleshooting"],    cta:"Check Availability",     keywords:["led wall","wall","brompton","novastar","roe","processor","pixel","video wall","panels","wall tech"] },
-  { id:"led",       label:"Custom LED Builds",    icon:"▦", tagline:"RGB tape, driver kits, built to integrate.",            desc:"Custom LED builds fabricated at the Maker-Lab. Tape, drivers, sACN/DMX control. Festival booths, film sets, scenic installs, outdoor lounges. Modular. Fully integrated into the rig when needed.",                                                                                                                         bullets:["RGB tape design & build","Driver kits & sACN/DMX control","Festival booths & scenic installs","Architectural & outdoor elements"],    cta:"Start a Build",     keywords:["led","rgb","tape","custom","dmx","sacn","maker lab","scenic","festival","modular","architectural","lounge","film set"] },
-  { id:"consult",   label:"Consulting & Quotes",  icon:"◎", tagline:"Not sure what you need yet? Start here.",            desc:"Project scoping, vendor recommendations, budget reviews, and production planning — without the agency markup. Tell me the gig and I'll tell you what it actually takes.",                                                                                                              bullets:["Project scoping calls","Budget & vendor review","RFP support","Production planning"],                                                  cta:"Book a Consult",    keywords:["consult","quote","scope","budget","plan","advice","help","not sure","recommend","rfp"] },
-  { id:"makerlab",  label:"Maker-Lab",            icon:"⚙", tagline:"Fabrication. Prototyping. Hands-on builds.",            desc:"In-house maker lab for custom fabrication and production builds. Active now: 3D printing, embroidery, and vinyl cutting. Laser CNC is planned and sourced on demand. From concept to physical product.",                                                                  bullets:["3D printing & prototyping","Custom embroidery","Vinyl cutting & graphics","Laser CNC (sourced on demand)"],                           cta:"Start a Build",     keywords:["maker","fabricat","prototype","build","laser","cnc","3d print","embroidery","vinyl","workshop","physical"] },
-  { id:"designnet", label:"Design Network",       icon:"◇", tagline:"Need crew? I know who's good.",        desc:"Years on the road means a deep contact list of lighting techs, super-techs, and crew. If I can't take your gig, I can point you to someone who can. Real people, vouched for.",                                                                    bullets:["Crew & tech referrals","Production coordination","Talent sourcing","People I'd vouch for"],                                                    cta:"Join the Network",  keywords:["network","crew","talent","lxprod","crewfam","gig","match","production network","design network"] },
+  { id:"cad",       label:"CAD & Drafting",      icon:"◈", tagline:"Plots, rigging, and previz in Vectorworks.", desc:"Light plots, rigging, stage layouts, venue paperwork, site plans, and previz for festivals, street fests, and activations. Delivered remote.", bullets:["Full-detail light plots","Rigging & truss layouts","Venue & stage ground plans","Festival & event site plans","Renderings & previz","As-builts & documentation"], cta:"Request a Draft", option:"production", keywords:["cad","draft","plot","drawing","vectorworks","layout","lighting plot","venue","plan","site plan","street fest","event site","activation","rendering","previz","previsualization"] },
+  { id:"gaffer",    label:"Master Electrician",  icon:"⚡", tagline:"Tour ME and crew chief. Efficiency under pressure.", desc:"The ME job isn't doing everything. It's seeing everything. We watch the whole load-in, catch what busy crews miss, and fix it before showtime. Tours, installs, one-offs.", bullets:["Tour & one-off ME / crew chief","Lighting installs & load-ins","Troubleshooting before showtime","Crew coordination & supervision"], cta:"Check Availability", option:"production", keywords:["gaffer","electrician","chief","touring","tour","load","rig","supervise","lighting crew","efficiency","supertech","lx services"] },
+  { id:"ledwall",   label:"LED Wall Tech",       icon:"▤", tagline:"Walls built, mapped, and running clean.", desc:"Builds, mapping, and show support. Brompton and Novastar processing. ROE panels. Camera-ready walls for stage, corporate, and film. Smaller builds are the sweet spot: dialed, not rushed.", bullets:["Build & teardown supervision","Brompton / Novastar processing","Pixel mapping & signal flow","In-show wall tech & troubleshooting"], cta:"Check Availability", option:"production", keywords:["led wall","video wall","brompton","novastar","roe","processor","pixel","panels","wall tech"] },
+  { id:"led",       label:"Custom LED Builds",   icon:"▦", tagline:"RGB tape, driver kits, built to integrate.", desc:"Built in the Maker-Lab, inside the Imagination Creation Station at the Kenosha HQ. Billed through SuperTech LX. Tape, drivers, sACN/DMX control. Festival booths, film sets, scenic, outdoor lounges. Modular, and wired into the rig when you need it.", bullets:["RGB tape design & build","Driver kits & sACN/DMX control","Festival booths & scenic installs","Architectural & outdoor elements"], cta:"Start a Build", option:"build", subject:"Maker-Lab build", keywords:["rgb","tape","custom led","dmx","sacn","scenic","modular","architectural","lounge","film set"] },
+  { id:"consult",   label:"Consulting & Quotes", icon:"◎", tagline:"Not sure what you need? Start here.", desc:"Scoping, vendor picks, budget review, production planning. No agency markup. Tell us the gig. We'll tell you what it takes.", bullets:["Project scoping calls","Budget & vendor review","RFP support","Production planning"], cta:"Book a Consult", option:"production", keywords:["consult","quote","scope","budget","advice","not sure","recommend","rfp"] },
+  { id:"designnet", label:"Design Network",      icon:"◇", tagline:"Need crew? We know who's good.", desc:"Years on the road built a deep list of lighting techs and super-techs. If we can't take your gig, we'll send you someone who can. Real people. Vouched for.", bullets:["Crew & tech referrals","Production coordination","Talent sourcing"], cta:"Find Crew", option:"crew", keywords:["network","crew","talent","lxprod","crewfam","gig","match","design network"] },
 ];
 
 const BRANDS = [
-  { id:"revelator",  label:"Revelator Illuminae",  icon:"✦", tagline:"The creative lighting arm.",               desc:"Original lighting design, visuals programming, and previsualization services. Go4oats.vizzies — where the art of light meets live production.",                                             bullets:["Original lighting design","Visuals programming","Previsualization services","Go4oats.vizzies"] },
-  { id:"sleepwell",  label:"Sleepwell Sweetheart", icon:"♪", tagline:"The band. Twenty years of catalog.",          desc:"Two decades of music — the early catalog and new EDM remixes. Special events in mind.",                                                         bullets:["Legacy catalog","EDM remixes","Special events in mind","Active releases"] },
-  { id:"aioatmeal",  label:"AI Oatmeal",           icon:"◉", tagline:"Content, experiments, and an active coding division.", desc:"AI-assisted content, memes, storyboards, and a development arm building tools, automations, and web projects. The playground became a pipeline.",             bullets:["AI content & memes","Storyboards & creative work","Coding & development division","Automations and web builds"], link:"https://oats-apps-hub.vercel.app", linkLabel:"OPEN THE OATS APPS HUB" },
-  { id:"ghosted",    label:"Ghosted Oats",         icon:"◌", tagline:"The unpolished stuff. No brand rules.",    desc:"Where the rough work lives — sketches, experiments, and personal shots that don't fit a clean brand. No filter, no plan. Just what I actually make.",                                               bullets:["Rough experiments","Personal shots","Visual notebook","No filter"] },
-  { id:"crypto",     label:"Cryptos4Oats",         icon:"₿", tagline:"Market notes from a touring tech who reads charts.",  desc:"Personal crypto and market-cycle notes — a side interest, shared openly. Not advice, just what I'm watching and why.",                       bullets:["Market-cycle notes","XRP & macro watching","Research links","Honest, not financial advice"] },
-  { id:"fallingstar",label:"Falling Star",         icon:"★", tagline:"The record label and recording studio team.", desc:"The label and studio side of the operation \u2014 artist development, recording, production, and release. A home for original music and the artists behind it.",                           bullets:["Record label","Recording studio team","Production & artist development","Releases & catalog"] },
-  { id:"rentoats",   label:"RENT.OATS",            icon:"◈", tagline:"Borrow the photo & video gear.",         desc:"Camera bodies, lenses, lighting, audio, and support gear \u2014 sitting in cases between tours. Free to borrow, donations optional. Kept separate from the tour life on @the_oats.",          bullets:["Camera bodies & lenses","Lighting & audio gear","Free to borrow","Optional QR donations"],                          link:"/rent", linkLabel:"OPEN RENT.OATS" },
+  { id:"supertechlx", label:"SuperTech LX",        icon:"⚡", tagline:"You Run the Rig.", desc:"Production hours: crew, programming, and previz. Tours, installs, one-offs, and remote drafting.", bullets:["Tour ME & crew chief","Programming","CAD & previz","LED walls & custom LED","Crew network"], view:"section:supertech", viewLabel:"SEE THE DEPARTMENTS" },
+  // [CONFIRM: does Go4oats.vizzies still belong here?]
+  { id:"revelator",  label:"Revelator Illuminae", icon:"✦", tagline:"The look.", desc:"A lighting design brand of its own. Design, concepts, show files, and the design credit. Billed separately from production.", bullets:["Lighting design","Concepts","Show files","Design credit"] },
+  { id:"aioatmeal",  label:"AI Oatmeal",          icon:"◉", tagline:"Start with a little.", desc:"Free DIY tools for people starting with a little, plus the faceless @ai_oatmeal account. The engine room behind it is AI Oatmeal Systems Corp, the agentic back end that serves every brand.", bullets:["Free DIY tools","@ai_oatmeal"], link:"https://oats-apps-hub.vercel.app", linkLabel:"OPEN THE APPS HUB" },
+  { id:"edmoatmeal", label:"EDM Oatmeal",         icon:"⊕", tagline:"Breakfast and bass. In that order.", desc:"The fan and community brand. The Oat-Ghost, PLUR, live streams, and the Rolled & Recorded sessions.", bullets:["Oat-Ghost","PLUR","Live streams","Sessions"], view:"section:edm", viewLabel:"OPEN THE EDM FEED" },
+  { id:"fallingstar",label:"Falling Star",        icon:"★", tagline:"The records.", desc:"Johnny's personal imprint. Mainly home to his own \u0192//ing::st\u25B3r releases. (The near-match in the names is on purpose.)", bullets:["\u0192//ing::st\u25B3r releases"] },
+];
+
+const STOREFRONTS = [
+  { id:"rentoats", label:"RENT.OATS", icon:"◈", tagline:"Gear rental.", desc:"Cameras, lenses, lighting, audio, and support gear. For any of our brands or any outside client.", linkLabel:"OPEN RENT.OATS" },
+  { id:"shopoats", label:"SHOP.OATS", icon:"◇", tagline:"One merch store.", desc:"A collection for every brand.", linkLabel:"OPEN SHOP.OATS" },
+];
+
+const HIBERNATING = [
+  { id:"sleepwell", label:"Sleepwell Sweetheart", icon:"♪", tagline:"The band. Twenty years of songs. Resting for now." },
+  { id:"ghosted",   label:"Ghosted Oats",         icon:"◌", tagline:"The unpolished stuff. Sketches, experiments and personal shots. Resting for now." },
+  { id:"crypto",    label:"Cryptos4Oats",         icon:"₿", tagline:"Johnny's personal market notes. Resting for now. Not financial advice." },
 ];
 
 const SECTIONS = [
-  { id:"services", label:"Services",    icon:"⚡", tagline:"Lighting, CAD, LED, fabrication, and crew — done right.",    desc:"CAD and previz, master electrician work, LED walls, custom LED builds, the Maker-Lab, and crew I'd vouch for. Built in Kenosha or delivered remote." },
-  { id:"brands",   label:"Brands",      icon:"✦", tagline:"The side projects — lighting art, music, memes, and electronic production.",  desc:"Revelator Illuminae, Sleepwell Sweetheart, AI Oatmeal, Ghosted Oats, Cryptos4Oats, and Falling Star — the creative stuff I make when I'm not on a gig." },
-  { id:"studio",   label:"Studio",      icon:"◈", tagline:"Mobile studio solutions \u2014 audio & video capture, anywhere.",              desc:"A portable production rig that comes to you. Multi-cam video, livestreaming, and audio capture for shows, sessions, events, and content \u2014 set up on location." },
-  { id:"stories",  label:"Stories",     icon:"◎", tagline:"Festival runs, long nights, desert resets.",                                    desc:"Wrong-way Ubers at Electric Forest, desert resets at Joshua Tree, and a lot of road in between." },
-  { id:"edm",      label:"EDM Oatmeal", icon:"⊕", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM.",                           desc:"Industry news, ground crew live feeds, and the Scan → Store → Stream pipeline. Automated hashtag scanning, event tracking, and real-time community pulse." },
-  { id:"connect",  label:"Connect",     icon:"◆", tagline:"Where to find me and the projects.",                        desc:"Socials, channels, email, and a booking link. All the ways to reach out." },
-  { id:"about",    label:"About",       icon:"◇", tagline:"Built on the road.",                                desc:"How the shows, songs, builds, and side quests became Fook'n Oats." },
+  { id:"hq",        label:"HQ",           icon:"⌂", tagline:"Kenosha HQ at RELAYHOUSE. The Station and the Maker-Lab." },
+  { id:"supertech", label:"SuperTech LX", icon:"⚡", tagline:"Production hours: crew, programming, previz." },
+  { id:"brands",    label:"Brands",       icon:"✦", tagline:"The work, the design, the tools, the scene, the records." },
+  { id:"rentoats",  label:"RENT.OATS",    icon:"◈", tagline:"Gear rental.", href:"rent" },
+  { id:"shopoats",  label:"SHOP.OATS",    icon:"◇", tagline:"Merch, a collection per brand.", href:"shop" },
+  { id:"studio",    label:"Studio",       icon:"▣", tagline:"Audio and video capture, on location." },
+  { id:"stories",   label:"Stories",      icon:"◎", tagline:"Festival runs, long nights, desert resets." },
+  { id:"edm",       label:"EDM Oatmeal",  icon:"⊕", tagline:"Live streams, news, and the ground crew." },
+  { id:"connect",   label:"Connect",      icon:"◆", tagline:"Socials, email, booking." },
+  { id:"about",     label:"About",        icon:"◇", tagline:"Built on the road." },
+];
+
+const CONTACT_OPTIONS = [
+  { id:"production", label:"PRODUCTION (SUPERTECH LX)" },
+  { id:"design",     label:"LIGHTING DESIGN (REVELATOR ILLUMINAE)" },
+  { id:"build",      label:"CUSTOM BUILD (MAKER-LAB)" },
+  { id:"rental",     label:"GEAR RENTAL (RENT.OATS)" },
+  { id:"crew",       label:"FIND CREW" },
+  { id:"else",       label:"SOMETHING ELSE" },
 ];
 
 const AI_KEYWORDS = [
-  ...DEPARTMENTS.map(d => ({ id:d.id, type:"dept", keywords:d.keywords, label:d.label, tagline:d.tagline })),
-  { id:"brands",  type:"section", keywords:["brand","revelator","sleepwell","ai oatmeal","ghosted","crypto","falling star","dj","music","identity"], label:"Brands",      tagline:"The side projects — lighting art, music, memes, DJ sets." },
-  { id:"studio",  type:"section", keywords:["studio","mobile","livestream","capture","audio","video","record","production","stream","multicam"],                                        label:"Studio",      tagline:"Mobile studio solutions \u2014 audio & video capture, anywhere." },
-  { id:"stories", type:"section", keywords:["story","stories","tour","pretty lights","electric forest","red rocks","joshua tree","festival","road"],   label:"Stories",     tagline:"Pretty Lights tours, Electric Forest, desert road trips." },
-  { id:"edm",     type:"section", keywords:["edm","oatmeal","feed","scanner","hashtag","community","electronic","news"],                               label:"EDM Oatmeal", tagline:"Live feed. Ground crew. Scanner. The pulse of EDM." },
-  { id:"connect", type:"section", keywords:["connect","social","instagram","contact","follow","link","find"],                                           label:"Connect",     tagline:"Social networks, media archive, and future structures." },
+  { id:"hq",        type:"section", keywords:["hq","relayhouse","kenosha","podcast","office","photo studio","building","space","room","maker","fabricat","prototype","3d print","embroidery","vinyl","laser","cnc"], label:"HQ", tagline:"Kenosha HQ at RELAYHOUSE, and the Maker-Lab." },
+  { id:"rentoats",  type:"link", href:RENT_OATS_URL, keywords:["rent","camera","lens","gear rental","borrow","tripod","drone"], label:"RENT.OATS", tagline:"Gear rental." },
+  { id:"shopoats",  type:"shop", keywords:["merch","shop","shirt","hoodie","hat","store"], label:"SHOP.OATS", tagline:"Merch, a collection per brand." },
+  { id:"revelator", type:"brand", keywords:["revelator","lighting design","design credit","show file","concept","the look"], label:"Revelator Illuminae", tagline:"The look. Design, concepts, show files." },
+  ...DEPARTMENTS.map(function(d){ return { id:d.id, type:"dept", keywords:d.keywords, label:d.label, tagline:"SuperTech LX: Crew, programming, and previz." }; }),
+  { id:"supertech", type:"section", keywords:["supertech","production","crew","programming","grandma","me ","hire"], label:"SuperTech LX", tagline:"Crew, programming, and previz." },
+  { id:"brands",    type:"section", keywords:["brand","ai oatmeal","falling star","dj","music","record","identity","tools"], label:"Brands", tagline:"The work, the design, the tools, the scene, the records." },
+  { id:"studio",    type:"section", keywords:["studio","mobile","livestream","capture","audio","video","stream","multicam"], label:"Studio", tagline:"Audio and video capture, on location." },
+  { id:"stories",   type:"section", keywords:["story","stories","tour","electric forest","red rocks","joshua tree","festival","road"], label:"Stories", tagline:"Tour runs, Electric Forest, desert resets." },
+  { id:"edm",       type:"section", keywords:["edm","oatmeal","feed","community","electronic","news","plur"], label:"EDM Oatmeal", tagline:"Live streams, news, and the ground crew." },
+  { id:"connect",   type:"section", keywords:["connect","social","instagram","contact","follow","link","email","call"], label:"Connect", tagline:"Socials, email, and a booking link." },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -352,14 +407,15 @@ function matrixRain(){
 // ── NAV ───────────────────────────────────────────────────────────────────────
 var navTabs = document.getElementById("nav-tabs");
 var tabDefs = [
-  {label:"HOME",     view:"home"},
-  {label:"SERVICES", view:"section:services"},
-  {label:"BRANDS",   view:"section:brands"},
-  {label:"STUDIO",   view:"section:studio"},
-  {label:"STORIES",  view:"section:stories"},
-  {label:"EDM FEED", view:"section:edm"},
-  {label:"ABOUT",    view:"section:about"},
-  {label:"CONNECT",  view:"section:connect"},
+  {label:"HOME",         view:"home"},
+  {label:"HQ",           view:"section:hq"},
+  {label:"BRANDS",       view:"section:brands"},
+  {label:"SUPERTECH LX", view:"section:supertech"},
+  {label:"STUDIO",       view:"section:studio"},
+  {label:"STORIES",      view:"section:stories"},
+  {label:"EDM FEED",     view:"section:edm"},
+  {label:"CONNECT",      view:"section:connect"},
+  {label:"ABOUT",        view:"section:about"},
 ];
 tabDefs.forEach(function(t) {
   var btn = document.createElement("button");
@@ -372,18 +428,19 @@ tabDefs.forEach(function(t) {
 
 function updateNav(view) {
   document.querySelectorAll(".nav-tab").forEach(function(btn) {
-    var base = view.startsWith("dept:") ? "section:services" : view.startsWith("brand:") ? "section:brands" : view;
+    var base = view.startsWith("dept:") ? "section:supertech" : (view.startsWith("brand:") || view === "section:hibernating") ? "section:brands" : view;
     btn.classList.toggle("active", btn.dataset.view === base);
   });
 }
 
 // ── GALLERY ───────────────────────────────────────────────────────────────────
 var galleryGrid = document.getElementById("gallery-grid");
-document.getElementById("gallery-count").textContent = "SHOW PHOTOS — " + showImgs.length + " IMAGES";
+document.getElementById("gallery-count").textContent = "SHOW PHOTOS · " + showImgs.length;
 showImgs.forEach(function(src, i) {
   var div = document.createElement("div");
   div.className = "gallery-thumb";
   div.style.backgroundImage = "url(" + src + ")";
+  div.setAttribute("role","button"); div.setAttribute("aria-label","Open show photo "+(i+1));
   div.onclick = function(){ openLightbox(i); };
   galleryGrid.appendChild(div);
 });
@@ -399,11 +456,12 @@ fetch("./shows.json?nocache=" + Date.now())
     showImgs = imgs;
 
     galleryGrid.innerHTML = "";
-    document.getElementById("gallery-count").textContent = "SHOW PHOTOS — " + imgs.length + " IMAGES";
+    document.getElementById("gallery-count").textContent = "SHOW PHOTOS · " + imgs.length;
     imgs.forEach(function(src, i) {
       var div = document.createElement("div");
       div.className = "gallery-thumb";
       div.style.backgroundImage = "url(" + src + ")";
+      div.setAttribute("role","button"); div.setAttribute("aria-label","Open show photo "+(i+1));
       div.onclick = function(){ openLightbox(i); };
       galleryGrid.appendChild(div);
     });
@@ -413,7 +471,8 @@ fetch("./shows.json?nocache=" + Date.now())
 function openLightbox(i) {
   lbIndex = i;
   document.getElementById("lb-img").src = showImgs[i];
-  document.getElementById("lightbox-counter").textContent = (i+1) + " / " + showImgs.length + " — CLICK TO CLOSE";
+  document.getElementById("lb-img").alt = "Show photo " + (i+1) + " of " + showImgs.length;
+  document.getElementById("lightbox-counter").textContent = (i+1) + " / " + showImgs.length + " · TAP TO CLOSE";
   document.getElementById("lb-prev").style.display = i === 0 ? "none" : "block";
   document.getElementById("lb-next").style.display = i === showImgs.length-1 ? "none" : "block";
   document.getElementById("lightbox").style.display = "flex";
@@ -443,8 +502,8 @@ function handleAI(inputId, repliesId) {
     aiTyping = false;
     var route = routeQuery(q);
     var msg = route
-      ? "Got it. Based on what you're describing, the right place is \"" + route.label + "\" — " + route.tagline + " Let me point you there."
-      : "Tell me a bit more about what you're looking for — services, brands, music, stories, or something else?";
+      ? "Sounds like " + route.label + ". " + route.tagline
+      : "Say a little more. The HQ, SuperTech LX, lighting design, a custom build, gear rental, merch, or music?";
     aiReplies.push({q, msg, route});
     renderView(currentView);
     if (aiPanelOpen) refreshAiPanel();
@@ -476,6 +535,9 @@ document.getElementById("ai-fab-hide").addEventListener("click", function(e){
 function routeClick(route) {
   if (aiPanelOpen) { aiPanelOpen = false; document.getElementById("ai-panel").style.display = "none"; }
   if (route.type === "dept") showView("dept:" + route.id);
+  else if (route.type === "brand") showView("brand:" + route.id);
+  else if (route.type === "link") window.location.href = route.href;
+  else if (route.type === "shop") openShop();
   else showView("section:" + route.id);
 }
 
@@ -503,11 +565,11 @@ function card(item, onclick) {
 
 function renderAIBox(inputId, repliesId, placeholder, btnLabel) {
   var box = el("div","ai-box");
-  box.innerHTML = '<div class="ai-label">◆ INQUIRY ROUTER</div><div class="ai-sublabel">'+(placeholder||"Say what you're looking for — I'll point you to the right page.")+'</div>';
+  box.innerHTML = '<div class="ai-label">◆ ASK OATS</div><div class="ai-sublabel">'+"Tell us what you need. We'll point you to the right page."+'</div>';
   var row = el("div","ai-row");
-  var inp = el("input"); inp.type="text"; inp.id=inputId; inp.className="ai-input"; inp.placeholder=placeholder||"e.g. 'I need a lighting plot' or 'tell me about the DJ brand'";
+  var inp = el("input"); inp.type="text"; inp.id=inputId; inp.className="ai-input"; inp.placeholder=placeholder||"e.g. 'I need a light plot' or 'where do I rent a camera?'";
   inp.onkeydown = function(e){ if(e.key==="Enter") handleAI(inputId,repliesId); };
-  var btn = el("button","ai-btn"); btn.textContent = aiTyping ? "..." : (btnLabel||"ASK OATS");
+  var btn = el("button","ai-btn"); btn.textContent = aiTyping ? "···" : (btnLabel||"GO →");
   if(aiTyping) btn.disabled = true;
   btn.onclick = function(){ handleAI(inputId,repliesId); };
   row.appendChild(inp); row.appendChild(btn);
@@ -539,83 +601,103 @@ function bullets(arr) {
   return wrap;
 }
 
-function inquiryForm(dept) {
-  var formState = {name:"",email:"",phone:"",detail:"",status:"idle"};
+function inquiryForm(dept, presetOption, presetSubject) {
+  var formState = {name:"",email:"",phone:"",detail:"",option:(presetOption||dept.option||""),status:"idle",err:""};
   var wrap = el("div");
+  function validate() {
+    if (!formState.name.trim() && !formState.email.trim()) return "NAME AND EMAIL REQUIRED.";
+    if (!formState.name.trim()) return "Name, please.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email.trim())) return "That email doesn't look right. Check it and try again.";
+    if (formState.phone && !/^[\d\s()+\-.]+$/.test(formState.phone)) return "Digits only, or leave it blank.";
+    return "";
+  }
   function renderForm() {
     wrap.innerHTML = "";
     if (formState.status === "success") {
-      var s = el("div","form-success");
-      s.innerHTML = "✓ Message sent — you'll hear back at "+formState.email+".";
-      if(formState.phone) s.innerHTML += "<br><span style='color:rgba(255,255,255,.5)'>📱 Text follow-up may come to "+formState.phone+"</span>";
-      wrap.appendChild(s);
+      wrap.appendChild(el("div","form-success","Signal received. Check your inbox. Our system is already on it. You'll get a reply in a minute or two with a few quick questions and a link to grab a call."));
       return;
     }
+    wrap.appendChild(el("label","field-label","WHAT DO YOU NEED?"));
+    var sel = el("select"); sel.className = "field-input"; sel.id = "need-sel";
+    var o0 = el("option","","Choose one…"); o0.value = ""; sel.appendChild(o0);
+    CONTACT_OPTIONS.forEach(function(o){ var op = el("option","",o.label); op.value = o.id; if (o.id === formState.option) op.selected = true; sel.appendChild(op); });
+    sel.onchange = function(){ formState.option = this.value; };
+    wrap.appendChild(sel);
     [
-      {key:"name",label:"YOUR NAME",type:"text"},
-      {key:"email",label:"EMAIL ADDRESS",type:"email"},
+      {key:"name",label:"NAME",type:"text"},
+      {key:"email",label:"EMAIL",type:"email"},
       {key:"phone",label:"PHONE / TEXT (OPTIONAL)",type:"tel"},
     ].forEach(function(f) {
-      var lbl = el("label",""); lbl.textContent = f.label; lbl.setAttribute("for",f.key+"-inp"); lbl.className="field-label";
+      var lbl = el("label","field-label"); lbl.textContent = f.label; lbl.setAttribute("for",f.key+"-inp");
       var inp = el("input"); inp.type=f.type; inp.id=f.key+"-inp"; inp.className="field-input"; inp.value=formState[f.key];
       inp.oninput = function(){ formState[f.key] = this.value; };
       wrap.appendChild(lbl); wrap.appendChild(inp);
     });
-    var tlbl = el("label","field-label","TELL ME ABOUT YOUR PROJECT");
+    wrap.appendChild(el("label","field-label","THE PROJECT (OPTIONAL)"));
     var ta = el("textarea"); ta.className="field-textarea"; ta.rows=4; ta.placeholder="Dates, venue, scope, questions..."; ta.value=formState.detail;
     ta.oninput = function(){ formState.detail=this.value; };
-    wrap.appendChild(tlbl); wrap.appendChild(ta);
-    if (formState.status==="error") { var err = el("div","form-err","⚠ Something went wrong — try again or email directly."); wrap.appendChild(err); }
-    var sbtn = el("button","submit-btn", formState.status==="sending"?"SENDING...":"SEND INQUIRY →");
-    sbtn.disabled = formState.status==="sending" || !formState.name || !formState.email;
+    wrap.appendChild(ta);
+    if (formState.err) wrap.appendChild(el("div","form-err",formState.err));
+    if (formState.status==="error") wrap.appendChild(el("div","form-err","⚠ Didn't send. Try again, or email fookn.oats.enterprises@gmail.com."));
+    var sbtn = el("button","submit-btn", formState.status==="sending"?"SENDING…":"SEND INQUIRY →");
+    sbtn.disabled = formState.status==="sending";
     sbtn.onclick = function() {
-      if (!formState.name || !formState.email) return;
+      formState.err = validate();
+      if (formState.err) { renderForm(); return; }
       formState.status = "sending"; renderForm();
-      fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name:formState.name,email:formState.email,phone:formState.phone,department:dept.label,message:formState.detail})})
+      var opt = CONTACT_OPTIONS.find(function(o){ return o.id === formState.option; });
+      var payload = {name:formState.name,email:formState.email,phone:formState.phone,department:dept.label,need:(opt?opt.label:""),message:formState.detail};
+      if (presetSubject) payload._subject = presetSubject;
+      fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
         .then(function(r){formState.status=r.ok?"success":"error";renderForm();})
         .catch(function(){formState.status="error";renderForm();});
     };
     wrap.appendChild(sbtn);
-    var de = el("div","direct-email","Direct: fookn.oats.enterprises@gmail.com");
-    wrap.appendChild(de);
+    wrap.appendChild(el("div","direct-email","Direct: fookn.oats.enterprises@gmail.com"));
   }
   renderForm();
   return wrap;
 }
 
-function detailPage(item, backDest, showForm) {
+function callBox() {
+  var cbox = el("div","calendly-box");
+  cbox.appendChild(el("div","calendly-label","PREFER A CALL?"));
+  var cbtn = el("button","calendly-btn","ACTIVATE COMMS — LET'S CHAT →");
+  cbtn.onclick = bookCall;
+  cbox.appendChild(cbtn);
+  return cbox;
+}
+
+function detailPage(item, backDest, showForm, crumb, brandFooter) {
   var frag = document.createDocumentFragment();
   frag.appendChild(backBtn(backDest));
-  var icon = el("div","detail-icon",item.icon);
-  var title = el("h2","detail-title",item.label);
-  var sub = el("p","detail-sub","FOOK'N OATS / "+item.label.toUpperCase());
-  var desc = el("p","detail-desc",item.desc);
-  frag.appendChild(icon); frag.appendChild(title); frag.appendChild(sub); frag.appendChild(desc);
+  frag.appendChild(el("div","detail-icon",item.icon));
+  frag.appendChild(el("h2","detail-title",item.label));
+  frag.appendChild(el("p","detail-sub",(crumb||"FOOK'n OATS")+" / "+item.label.toUpperCase()));
+  if (item.tagline && (showForm || brandFooter)) frag.appendChild(el("p","detail-desc","<b>"+item.tagline+"</b>"));
+  frag.appendChild(el("p","detail-desc",item.desc));
   if (item.bullets) frag.appendChild(bullets(item.bullets));
   if (item.link) {
     var lb = el("a");
     lb.href = item.link; lb.target="_blank"; lb.rel="noopener";
-    lb.style.cssText="display:inline-flex;align-items:center;gap:12px;margin:-49px 0 4px;padding:17px 26px;border-radius:12px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:14.4px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 30px rgba(255,180,0,.22);transition:transform .15s";
+    lb.style.cssText="display:inline-flex;align-items:center;gap:12px;margin:-20px 0 24px;padding:17px 26px;border-radius:12px;background:var(--gold);color:#0a0a0a;font-family:var(--mono);font-size:14.4px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 30px rgba(255,180,0,.22)";
     lb.innerHTML = (item.linkLabel || "VISIT") + " <span style='font-size:17px'>\u2197</span>";
-    lb.onmouseenter=function(){ this.style.transform="translateY(-2px)"; this.style.animationPlayState="paused"; };
-    lb.onmouseleave=function(){ this.style.transform="none"; this.style.animationPlayState="running"; };
     frag.appendChild(lb);
+  }
+  if (item.view) {
+    var vb = el("button","btn-secondary",(item.viewLabel||"OPEN")+" →"); vb.style.marginBottom="24px";
+    vb.onclick = function(){ showView(item.view); };
+    frag.appendChild(vb);
   }
   if (showForm) {
     var ibox = el("div","inquiry-box");
-    var ilabel = el("div","inquiry-label","INQUIRY FORM — "+(item.cta||"CONTACT").toUpperCase());
-    ibox.appendChild(ilabel);
-    ibox.appendChild(inquiryForm(item));
+    ibox.appendChild(el("div","inquiry-label","◆ "+(item.cta||"CONTACT").toUpperCase()));
+    ibox.appendChild(inquiryForm(item, item.option, item.subject));
     frag.appendChild(ibox);
-    var cbox = el("div","calendly-box");
-    var clbl = el("div","calendly-label","PREFER A CALL?");
-    var cbtn = el("button","calendly-btn","ACTIVATE COMMS — LET'S CHAT →");
-    cbtn.onclick = function(){ window.open("https://calendly.com/fookn-oats-enterprises/30min","_blank"); };
-    cbox.appendChild(clbl); cbox.appendChild(cbtn);
-    frag.appendChild(cbox);
-  } else {
+    frag.appendChild(callBox());
+  } else if (brandFooter) {
     var bnote = el("div","brand-note");
-    bnote.innerHTML = '<div class="brand-note-label">A FOOK\'N OATS SIDE PROJECT</div><div class="brand-note-text">Still building this one out — releases and collabs in progress.</div>';
+    bnote.innerHTML = '<div class="brand-note-label">A FOOK\'n OATS BRAND</div><div class="brand-note-text">In progress. Releases and collabs coming.</div>';
     frag.appendChild(bnote);
   }
   var wrap = el("div","detail-wrap");
@@ -624,6 +706,95 @@ function detailPage(item, backDest, showForm) {
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
+var contactCtx = { cta:"CONTACT", option:"", subject:"" };
+function openContact(cta, option, subject) {
+  contactCtx = { cta:(cta||"CONTACT"), option:(option||""), subject:(subject||"") };
+  showView("contact");
+}
+function bookCall() {
+  if (BOOK_CALL_URL) window.open(BOOK_CALL_URL, "_blank", "noopener");
+  else openContact("BOOK A CALL", "", "");
+}
+// External link button. Placeholder links (empty URL) render a disabled-looking button with a "Link coming soon." note.
+function extBtn(label, url, cls) {
+  var b = el("button", cls || "btn-secondary", label);
+  b.onclick = function(){
+    if (url) { window.open(url, "_blank", "noopener"); return; }
+    if (b.nextSibling && b.nextSibling.className === "link-soon") return;
+    var n = el("span","link-soon","Link coming soon.");
+    b.parentNode.insertBefore(n, b.nextSibling);
+  };
+  return b;
+}
+function bookSpaceBtn(cls) { return extBtn("BOOK THE SPACE ↗", RELAYHOUSE_URL, cls); }
+function openRent() { window.location.href = RENT_OATS_URL; }
+function openShop(btn) {
+  if (SHOP_OATS_URL) { window.open(SHOP_OATS_URL, "_blank", "noopener"); return; }
+  alert("SHOP.OATS link coming soon.");
+}
+// SHOP / RENT combo button with a small chooser.
+function shopRentBtn() {
+  var wrap = el("div","combo-wrap");
+  var b = el("button","btn-ghost","SHOP / RENT →");
+  b.setAttribute("aria-haspopup","true"); b.setAttribute("aria-expanded","false");
+  var menu = el("div","combo-menu");
+  var s = el("button","combo-opt","<b>SHOP.OATS</b><span>Merch</span>"); s.onclick = function(){ openShop(); };
+  var r = el("button","combo-opt","<b>RENT.OATS</b><span>Gear</span>"); r.onclick = openRent;
+  menu.appendChild(s); menu.appendChild(r);
+  b.onclick = function(e){ e.stopPropagation(); var open = menu.style.display === "block"; menu.style.display = open ? "none" : "block"; b.setAttribute("aria-expanded", String(!open)); };
+  document.addEventListener("click", function(){ menu.style.display = "none"; b.setAttribute("aria-expanded","false"); });
+  wrap.appendChild(b); wrap.appendChild(menu);
+  return wrap;
+}
+function jagOff(text) { return el("div","jag-off","▲ " + text); }
+function siteFooter() {
+  var f = el("div","footer");
+  f.innerHTML = '<span>© FOOK\'n OATS ENTERPRISES · START WITH A LITTLE.</span><span>fookn.oats.enterprises@gmail.com</span>';
+  return f;
+}
+function block(label, line, extra) {
+  var d = el("div","hq-block");
+  d.appendChild(el("div","hq-label",label));
+  if (line) d.appendChild(el("p","hq-line",line));
+  if (extra) d.appendChild(el("p","hq-detail",extra));
+  return d;
+}
+function hqCore(app) {
+  app.appendChild(el("div","sec-tag","KENOSHA HQ · AT RELAYHOUSE"));
+  app.appendChild(el("h2","sec-title","The Building Behind the Brands."));
+  app.appendChild(el("p","sec-desc","FOOK'n OATS HQ lives in RELAYHOUSE, Kenosha. RELAYHOUSE runs the building and its spaces: a podcast room, editing, offices, and a photo studio. We work out of them, and so do our clients."));
+  var partner = el("div","hq-block");
+  partner.appendChild(el("div","hq-label","◆ PARTNER · RELAYHOUSE"));
+  partner.appendChild(el("p","hq-line","Need the space? Book it with RELAYHOUSE."));
+  var row = el("div","home-btns"); row.style.marginBottom = "0"; row.appendChild(bookSpaceBtn("btn-primary")); partner.appendChild(row);
+  app.appendChild(partner);
+  app.appendChild(block("◆ IMAGINATION CREATION STATION","Where things get built. Creative builds, prototyping, and R&D for every brand."));
+  var ml = block("◆ MAKER-LAB","Need something built? The Maker-Lab takes custom client builds. Tell us what you need. Paid builds are billed through the brand you hired.","Running now: 3D printing, embroidery, vinyl cutting. Laser CNC is planned. Until then, it's sourced on demand.");
+  ml.style.marginLeft = "18px";
+  var mb = el("button","btn-secondary","START A BUILD →"); mb.onclick = function(){ openContact("START A BUILD","build","Maker-Lab build"); };
+  ml.appendChild(mb);
+  app.appendChild(ml);
+}
+function teaser(tag, line, btnLabel, onclick) {
+  var d = el("div","teaser");
+  d.appendChild(el("div","sec-tag",tag));
+  d.appendChild(el("p","teaser-line",line));
+  var b = el("button","btn-secondary",btnLabel); b.onclick = onclick; d.appendChild(b);
+  return d;
+}
+function sectionClick(s) {
+  if (s.href === "rent") return openRent;
+  if (s.href === "shop") return function(){ openShop(); };
+  return function(){ showView("section:"+s.id); };
+}
+function storefrontCards() {
+  var g = el("div","card-grid-sm");
+  var r = card({icon:"◈",label:"RENT.OATS",tagline:"Gear rental. For any brand, or yours.<br><br><b style='color:var(--gold);font-family:var(--mono);font-size:10px'>OPEN RENT.OATS →</b>"}, openRent);
+  var s = card({icon:"◇",label:"SHOP.OATS",tagline:"One merch store. A collection per brand.<br><br><b style='color:var(--gold);font-family:var(--mono);font-size:10px'>OPEN SHOP.OATS →</b>"}, function(){ openShop(); });
+  g.appendChild(r); g.appendChild(s);
+  return g;
+}
+
 function renderView(view) {
   var app = document.getElementById("app");
   app.innerHTML = "";
@@ -631,96 +802,170 @@ function renderView(view) {
 
   // HOME
   if (view === "home") {
-    var eyebrow = el("div","home-eyebrow","Kenosha HQ · The Imagination Creation Station");
+    app.appendChild(el("div","home-eyebrow","KENOSHA HQ · IMAGINATION CREATION STATION"));
     var title = el("h1","home-title","");
     title.innerHTML = "FOOK'n <span style='color:var(--gold)'>OATS</span>";
-    var ent = el("span","home-ent","enterprises");
-    var desc = el("p","home-desc","Whatever the project needs, the space becomes. Design, custom builds, podcast room, previz suite, editing, offices — the knowledge is already in the building. Fly into ENW. Meet, plan, build it to spec.");
-    var btns = el("div","home-btns");
-    var b1=el("button","btn-primary","EXPLORE SERVICES →"); b1.onclick=function(){showView("section:services");};
-    var b2=el("button","btn-secondary","VIEW BRANDS →"); b2.onclick=function(){showView("section:brands");};
-    var b3=el("button","btn-ghost","SHOW PHOTOS ↗"); b3.onclick=openGallery;
-    btns.appendChild(b1); btns.appendChild(b2); btns.appendChild(b3);
-    app.appendChild(eyebrow); app.appendChild(title); app.appendChild(ent); app.appendChild(desc); app.appendChild(btns);
+    app.appendChild(title);
+    app.appendChild(el("span","home-ent","enterprises"));
+    app.appendChild(el("h2","home-headline","When less is more, start with a little."));
+    app.appendChild(el("p","home-desc","Home of the Oats brands, and the Kenosha HQ where they get built. Production, design, tools, the scene, the records. Fly into ENW."));
+    var btns = el("div","home-btns"); btns.style.marginBottom = "14px";
+    var b1=el("button","btn-primary","HIRE SUPERTECH LX →"); b1.onclick=function(){ openContact("HIRE SUPERTECH LX","production",""); };
+    var b2=el("button","btn-secondary","START A BUILD →"); b2.onclick=function(){ openContact("START A BUILD","build","Maker-Lab build"); };
+    btns.appendChild(b1); btns.appendChild(b2); btns.appendChild(shopRentBtn());
+    app.appendChild(btns);
+    var meet = el("a","text-link","Meet the brands ↓"); meet.href="#brands"; meet.onclick=function(e){ e.preventDefault(); showView("section:brands"); };
+    var mw = el("div",""); mw.style.marginBottom="56px"; mw.appendChild(meet); app.appendChild(mw);
+
+    var hq = el("div","home-section"); hqCore(hq); app.appendChild(hq);
+    app.appendChild(teaser("SUPERTECH LX","Production hours. Crew, programming, and previz. You Run the Rig.","HIRE SUPERTECH LX →",function(){ openContact("HIRE SUPERTECH LX","production",""); }));
+    app.appendChild(teaser("THE BRANDS","SuperTech LX is the work. Revelator Illuminae is the design. AI Oatmeal is the tools. EDM Oatmeal is the scene. Falling Star is the records.","MEET THE BRANDS →",function(){ showView("section:brands"); }));
+
+    var g4 = el("div","card-grid-sm"); g4.style.marginBottom="36px";
+    g4.appendChild(card({icon:"◎",label:"Stories",tagline:"Festival runs, long nights, desert resets.<br><br><b style='color:var(--gold);font-family:var(--mono);font-size:10px'>SHOW PHOTOS ↗</b>"}, openGallery));
+    g4.appendChild(card({icon:"⊕",label:"EDM Oatmeal",tagline:"Live streams, news, and the ground crew."}, function(){ showView("section:edm"); }));
+    app.appendChild(g4);
+    app.appendChild(el("div","universe-label","STOREFRONTS"));
+    var sf = storefrontCards(); sf.style.marginBottom="36px"; app.appendChild(sf);
+    var cg = el("div","card-grid-sm"); cg.style.marginBottom="48px";
+    cg.appendChild(card({icon:"◆",label:"Connect",tagline:"Socials, email, booking."}, function(){ openContact("CONNECT","",""); }));
+    app.appendChild(cg);
 
     app.appendChild(renderAIBox("ai-input-home","ai-replies-home",null,null));
 
-    var ulbl = el("div","universe-label","EXPLORE THE OATS WORLD");
+    app.appendChild(el("div","universe-label","THE OATS WORLD"));
     var grid = el("div","card-grid");
-    SECTIONS.forEach(function(s) {
-      grid.appendChild(card(s, function(){ showView("section:"+s.id); }));
-    });
-    // make each card click correct
-    var cards = grid.querySelectorAll(".card");
-    SECTIONS.forEach(function(s, i) {
-      cards[i].onclick = function(){ showView("section:"+s.id); };
-    });
-    app.appendChild(ulbl); app.appendChild(grid);
-
-    var footer = el("div","footer");
-    footer.innerHTML = '<span>© FOOK\'N OATS ENTERPRISES</span><span>fookn.oats.enterprises@gmail.com</span>';
-    app.appendChild(footer);
+    SECTIONS.forEach(function(s){ grid.appendChild(card(s, sectionClick(s))); });
+    app.appendChild(grid);
+    app.appendChild(jagOff("JAG-OFF: Here at FOOK'n OATS Enterprises, qualithy is our standard."));
+    app.appendChild(siteFooter());
     return;
   }
 
-  // SECTION: SERVICES
-  if (view === "section:services") {
+  // SECTION: HQ
+  if (view === "section:hq") {
     app.appendChild(backBtn("home"));
-    app.appendChild(el("div","sec-tag","SERVICES"));
-    app.appendChild(el("h2","sec-title","What Gets Built Here"));
-    app.appendChild(el("p","sec-desc","CAD and previz, master electrician work, LED walls, custom LED builds, the Maker-Lab, and crew I'd vouch for. Bring it to Kenosha or send it remote. Clear scope, clear pricing."));
-    app.appendChild(el("div","universe-label","DEPARTMENTS / SERVICES"));
+    hqCore(app);
+    app.appendChild(el("div","universe-label","RELAYHOUSE SPACES"));
+    app.appendChild(el("p","hq-spaces","◆ PODCAST ROOM · ◆ EDITING · ◆ OFFICES · ◆ PHOTO STUDIO"));
+    var sn = el("div","hq-block");
+    sn.appendChild(el("p","hq-line","These are RELAYHOUSE's spaces. Book them with RELAYHOUSE."));
+    sn.appendChild(bookSpaceBtn("btn-secondary"));
+    app.appendChild(sn);
+    var note = el("div","hq-block");
+    note.appendChild(el("p","hq-line","The Maker-Lab isn't a room. It's part of the Imagination Creation Station and takes build jobs."));
+    var nb = el("button","btn-secondary","START A BUILD →"); nb.onclick=function(){ openContact("START A BUILD","build","Maker-Lab build"); };
+    note.appendChild(nb); app.appendChild(note);
+    app.appendChild(el("div","universe-label","STOREFRONTS"));
+    var sf2 = el("p","hq-line",""); sf2.innerHTML = "<a href='"+RENT_OATS_URL+"'>RENT.OATS →</a> gear rental · <a href='#' id='hq-shop'>SHOP.OATS →</a> merch";
+    app.appendChild(sf2);
+    var hs = document.getElementById("hq-shop"); if (hs) hs.onclick = function(e){ e.preventDefault(); openShop(); };
+    app.appendChild(el("p","sec-desc","Fly into ENW. Meet, plan, build it to spec."));
+    app.appendChild(siteFooter());
+    return;
+  }
+
+  // SECTION: SUPERTECH LX (was Services)
+  if (view === "section:supertech") {
+    app.appendChild(backBtn("home"));
+    app.appendChild(el("div","sec-tag","SUPERTECH LX"));
+    app.appendChild(el("h2","sec-title","On the Rig."));
+    app.appendChild(el("div","detail-sub","YOU RUN THE RIG."));
+    app.appendChild(el("p","sec-desc","Production hours from FOOK'n OATS Enterprises. Crew, programming, and previz. Drafting, ME work, LED walls, custom LED, and crew we'd vouch for. Bring it to Kenosha or send it remote. Clear scope. Clear pricing."));
+    app.appendChild(el("p","sec-desc","The SuperTech LX previz suite is turnkey. I bring the computer, the controller and the projector. You give me a room, a desk and a blank wall. In Kenosha, we set up in the RELAYHOUSE conference room or out in the warehouse on the TVs. Anywhere else, just show me the wall."));
+    var dn = el("div","hq-block");
+    dn.appendChild(el("p","hq-line","Need the look itself? That's Revelator Illuminae."));
+    var rb = el("button","btn-secondary","SEE REVELATOR ILLUMINAE →"); rb.onclick=function(){ showView("brand:revelator"); };
+    dn.appendChild(rb); app.appendChild(dn);
+    app.appendChild(el("div","universe-label","DEPARTMENTS"));
     var grid = el("div","card-grid-sm");
-    DEPARTMENTS.forEach(function(d) {
-      grid.appendChild(card(d, function(){ showView("dept:"+d.id); }));
-    });
-    var dCards = grid.querySelectorAll(".card");
-    DEPARTMENTS.forEach(function(d, i) { dCards[i].onclick = function(){ showView("dept:"+d.id); }; });
+    DEPARTMENTS.forEach(function(d){ grid.appendChild(card(d, function(){ showView("dept:"+d.id); })); });
     app.appendChild(grid);
+    app.appendChild(jagOff("JAG-OFF: Safety is our number one prioritty. The rig is number two. You Run the Rig."));
     return;
   }
 
   // DEPT DETAIL
   var dept = DEPARTMENTS.find(function(d){ return view === "dept:"+d.id; });
-  if (dept) { app.appendChild(detailPage(dept, "section:services", true)); return; }
+  if (dept) { app.appendChild(detailPage(dept, "section:supertech", true, "SUPERTECH LX")); return; }
 
   // SECTION: BRANDS
   if (view === "section:brands") {
     app.appendChild(backBtn("home"));
-    app.appendChild(el("div","sec-tag","BRAND ECOSYSTEM"));
-    app.appendChild(el("h2","sec-title","Six Identities."));
-    app.appendChild(el("p","sec-desc","Each with its own voice, aesthetic, and purpose."));
+    app.appendChild(el("div","sec-tag","THE BRANDS"));
+    app.appendChild(el("h2","sec-title","One Company. Multiple Identities."));
+    app.appendChild(el("p","sec-desc","FOOK'n OATS is the company. SuperTech LX is the work. Revelator Illuminae is the design. AI Oatmeal is the tools, with AI Oatmeal Systems Corp as the engine room. EDM Oatmeal is the scene. Falling Star is the records. The Imagination Creation Station is where things get built. RENT.OATS and SHOP.OATS are the front doors."));
     var grid = el("div","card-grid-sm");
-    BRANDS.forEach(function(b) {
-      grid.appendChild(card(b, function(){ showView("brand:"+b.id); }));
-    });
-    var bCards = grid.querySelectorAll(".card");
-    BRANDS.forEach(function(b, i) { bCards[i].onclick = function(){ showView("brand:"+b.id); }; });
+    BRANDS.forEach(function(b){ grid.appendChild(card(b, function(){ showView("brand:"+b.id); })); });
     app.appendChild(grid);
+    var hl = el("div","universe-label","HQ STOREFRONTS"); hl.style.marginTop="36px"; app.appendChild(hl);
+    app.appendChild(storefrontCards());
+    var hib = el("a","text-link","Looking for an old one? See what's hibernating →"); hib.href="#hibernating";
+    hib.onclick=function(e){ e.preventDefault(); showView("section:hibernating"); };
+    var hw = el("div",""); hw.style.marginTop="36px"; hw.appendChild(hib); app.appendChild(hw);
+    return;
+  }
+
+  // SECTION: HIBERNATING
+  if (view === "section:hibernating") {
+    app.appendChild(backBtn("section:brands"));
+    app.appendChild(el("div","sec-tag","FOOK'n OATS · HIBERNATING"));
+    app.appendChild(el("h2","sec-title","Not Dead. Just Hibernating."));
+    app.appendChild(el("p","sec-desc","Brands we've put to sleep for now. They're still ours, and any of them could wake up."));
+    var grid = el("div","card-grid-sm");
+    HIBERNATING.forEach(function(h){
+      var c = el("div","card hib-card");
+      c.innerHTML = '<div class="card-icon">'+h.icon+'</div><div class="hib-tag">◇ HIBERNATING</div><div class="card-label">'+h.label+'</div><div class="card-tagline">'+h.tagline+'</div>';
+      grid.appendChild(c);
+    });
+    app.appendChild(grid);
+    app.appendChild(siteFooter());
     return;
   }
 
   // BRAND DETAIL
   var brand = BRANDS.find(function(b){ return view === "brand:"+b.id; });
-  if (brand) { app.appendChild(detailPage(brand, "section:brands", false)); return; }
+  if (brand) { app.appendChild(detailPage(brand, "section:brands", false, "FOOK'n OATS", true)); return; }
+
+  // CONTACT FORM
+  if (view === "contact") {
+    var w = el("div","detail-wrap");
+    w.appendChild(backBtn("home"));
+    var ib = el("div","inquiry-box");
+    ib.appendChild(el("div","inquiry-label","◆ "+contactCtx.cta.toUpperCase()));
+    ib.appendChild(inquiryForm({label:contactCtx.cta}, contactCtx.option, contactCtx.subject));
+    w.appendChild(ib);
+    w.appendChild(callBox());
+    app.appendChild(w);
+    return;
+  }
 
   // SECTION: STUDIO
   if (view === "section:studio") {
-    app.appendChild(detailPage({
+    var sp = detailPage({
       icon:"◈", label:"Studio",
-      desc:"Mobile studio solutions \u2014 audio and video capture that travels. Multi-cam video, livestreaming, and recording for shows, sessions, events, and content, set up wherever the work is. Studio-quality, on location.",
-      bullets:["Mobile multi-cam video capture","On-location audio recording","Livestream production","Event & session coverage","Content capture for the brands"]
-    }, "home", false));
+      tagline:"Audio and video capture, on location.",
+      desc:"Audio and video capture that travels. Multi-cam video, livestreams, and recording for shows, sessions, events, and content. Set up wherever the work is.",
+      bullets:["Multi-cam video","Location audio","Livestream production","Event & session coverage","Content capture for the brands"]
+    }, "home", false);
+    var pt = el("div","hq-block");
+    pt.appendChild(el("p","hq-line","Need a room instead? RELAYHOUSE, the building that houses our Kenosha HQ, has a podcast room, editing, and a photo studio."));
+    pt.appendChild(bookSpaceBtn("btn-secondary"));
+    sp.appendChild(pt);
+    app.appendChild(sp);
     return;
   }
 
   // SECTION: STORIES
   if (view === "section:stories") {
-    app.appendChild(detailPage({
-      icon:"◎", label:"Road Stories",
-      desc:"Road stories, festival chaos, and the off-the-clock stuff. The part of the work you don't put on a resume.",
-      bullets:["Tour runs — theaters, Red Rocks, Halloween in Vegas","Electric Forest — the wrong-way Uber and the scooter era","Desert resets — Joshua Tree, the Integratron, Palm Desert","More road than fits here"]
-    }, "home", false));
+    var st = detailPage({
+      icon:"◎", label:"Road Stories.",
+      desc:"Festival chaos and off-the-clock miles. The part that doesn't go on a resume.",
+      bullets:["Tour runs: theaters, Red Rocks, Halloween in Vegas","Electric Forest: the wrong-way Uber and the scooter era","Desert resets: Joshua Tree, the Integratron, Palm Desert","More road than fits here"]
+    }, "home", false);
+    var gb = el("button","btn-secondary","SHOW PHOTOS ↗"); gb.onclick = openGallery;
+    st.appendChild(gb);
+    app.appendChild(st);
     return;
   }
 
@@ -730,7 +975,7 @@ function renderView(view) {
     // ── EDM player: YouTube Data API — live check, else playlist grid ──
     var liveWrap = el("div"); liveWrap.id="edm-player-wrap"; liveWrap.style.cssText="max-width:832px;margin:0 auto 8px";
     var liveTag = el("div"); liveTag.id="edm-tag"; liveTag.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;margin:0 0 12px;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:var(--gold)";
-    liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
+    liveTag.textContent="\u25C9 EDM OATMEAL \u00b7 LATEST";
     liveWrap.appendChild(liveTag);
     var stage = el("div"); stage.id="edm-stage";
     stage.style.cssText="position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 18px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,180,0,.28)";
@@ -752,7 +997,7 @@ function renderView(view) {
       ifr.id="edm-live-ifr";
       ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:0";
       ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      ifr.setAttribute("allowfullscreen",""); ifr.title="EDM OATS"; stage.appendChild(ifr);
+      ifr.setAttribute("allowfullscreen",""); ifr.title="EDM Oatmeal"; stage.appendChild(ifr);
       if(live){
         // Embedding can lag a few seconds when a stream just goes live -> iframe may show "unavailable".
         // Reload it a couple times so it recovers without the user manually refreshing.
@@ -804,37 +1049,37 @@ function renderView(view) {
 
     function liveMsgBar(){
       var box=el("div"); box.id="edm-msgbar"; box.style.cssText="max-width:1040px;margin:14px auto 0";
-      var lbl=el("div"); lbl.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:#ff3b3b;text-transform:uppercase;margin:0 0 8px"; lbl.textContent="\u25CF MESSAGE THE STREAM";
+      var lbl=el("div"); lbl.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:#ff3b3b;text-transform:uppercase;margin:0 0 8px"; lbl.textContent="\u25CF MESSAGE THE BOOTH";
       box.appendChild(lbl);
       var row=el("div"); row.style.cssText="display:flex;gap:8px;flex-wrap:wrap";
-      var name=document.createElement("input"); name.type="text"; name.placeholder="name (optional)"; name.style.cssText="flex:0 0 130px;min-width:110px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
-      var msg=document.createElement("input"); msg.type="text"; msg.placeholder="send a message to the booth\u2026"; msg.style.cssText="flex:1 1 200px;min-width:160px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
-      var btn=el("button"); btn.textContent="SEND"; btn.style.cssText="flex:0 0 auto;background:#ff3b3b;color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;padding:11px 22px;cursor:pointer";
+      var name=document.createElement("input"); name.type="text"; name.placeholder="NAME (OPTIONAL)"; name.style.cssText="flex:0 0 130px;min-width:110px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+      var msg=document.createElement("input"); msg.type="text"; msg.placeholder="Message the booth\u2026"; msg.style.cssText="flex:1 1 200px;min-width:160px;background:rgba(0,0,0,.45);border:1px solid rgba(255,180,0,.25);border-radius:8px;color:#fff;font-family:var(--mono);font-size:13px;padding:11px 12px";
+      var btn=el("button"); btn.textContent="SEND \u2192"; btn.style.cssText="flex:0 0 auto;background:#ff3b3b;color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;padding:11px 22px;cursor:pointer";
       row.appendChild(name); row.appendChild(msg); row.appendChild(btn); box.appendChild(row);
       var note=el("div"); note.style.cssText="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:8px"; box.appendChild(note);
       function send(){
         var m=msg.value.trim(); if(!m){ msg.focus(); return; }
         btn.disabled=true; btn.textContent="\u2026"; note.textContent="";
         fetch("https://formspree.io/f/mlgwpppq",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
-          body:JSON.stringify({_subject:"\uD83D\uDD34 EDM OATS LIVE message",name:(name.value.trim()||"anon"),message:m,source:"edm-live-bar"})})
-          .then(function(r){ if(r.ok){ msg.value=""; note.style.color="#5cd68a"; note.textContent="Sent to the booth \u2713"; } else { note.style.color="#ff6b6b"; note.textContent="Couldn\'t send \u2014 try again."; } })
-          .catch(function(){ note.style.color="#ff6b6b"; note.textContent="Couldn\'t send \u2014 try again."; })
-          .finally(function(){ btn.disabled=false; btn.textContent="SEND"; });
+          body:JSON.stringify({_subject:"\uD83D\uDD34 EDM Oatmeal live message",name:(name.value.trim()||"anon"),message:m,source:"edm-live-bar"})})
+          .then(function(r){ if(r.ok){ msg.value=""; note.style.color="#5cd68a"; note.textContent="\u2713 Sent to the booth."; } else { note.style.color="#ff6b6b"; note.textContent="\u26A0 Didn\'t send. Try again."; } })
+          .catch(function(){ note.style.color="#ff6b6b"; note.textContent="\u26A0 Didn\'t send. Try again."; })
+          .finally(function(){ btn.disabled=false; btn.textContent="SEND \u2192"; });
       }
       btn.onclick=send; msg.onkeydown=function(e){ if(e.key==="Enter") send(); };
       return box;
     }
     function renderLive(id){
-      liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u2014 EDM OATS";
+      liveTag.style.color="#ff3b3b"; liveTag.innerHTML="<span style='width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 8px #ff3b3b;display:inline-block'></span> LIVE NOW \u00b7 EDM OATMEAL";
       // remove grid first so the live video does not compete for bandwidth, then autoplay
       if(grid.parentNode){ grid.parentNode.removeChild(grid); } if(gridLabel.parentNode){ gridLabel.parentNode.removeChild(gridLabel); }
       playInStage(id, true);
-      liveNote.innerHTML = noteHtml("Streaming now \u2014 tap to unmute. ");
+      liveNote.innerHTML = noteHtml("Live now. Tap to unmute. ");
       var oldBar=document.getElementById("edm-msgbar"); if(oldBar&&oldBar.parentNode) oldBar.parentNode.removeChild(oldBar);
       liveWrap.insertBefore(liveMsgBar(), liveNote);
     }
     function renderPlaylist(items){
-      liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATS \u2014 LATEST";
+      liveTag.style.color="var(--gold)"; liveTag.textContent="\u25C9 EDM OATMEAL \u00b7 LATEST";
       // Offline headlines the featured video (Ferry Corsten) — autoplay MUTED on load + TAP FOR SOUND overlay (same as live)
       var featured = SITE.youtube.fallbackVideoId || "_xyCffufcbs";
       playInStage(featured, false);
@@ -848,7 +1093,7 @@ function renderView(view) {
     app.appendChild(liveWrap);
 
     // Seed instantly with fallback poster so it's never blank while the API responds
-    posterInStage(SITE.youtube.fallbackVideoId||"_xyCffufcbs", false, "PLAY \u2014 WITH SOUND");
+    posterInStage(SITE.youtube.fallbackVideoId||"_xyCffufcbs", false, "PLAY WITH SOUND");
 
     var K=SITE.youtube.apiKey, CID=SITE.youtube.channelId;
     function loadPlaylist(){
@@ -879,30 +1124,32 @@ function renderView(view) {
 
     app.appendChild(detailPage({
       icon:"⊕", label:"EDM Oatmeal",
-      desc:"Live feed for the EDM and touring world. News, ground crew updates, and the people in it. Built by crew, for crew.",
-      bullets:["EDM & touring news","Ground crew updates","Event tracking","@theoats on Instagram","Go4Oats Show on YouTube"]
+      desc:"Live streams, news, and ground crew updates from the EDM and touring world. Built by crew, for crew.",
+      bullets:["EDM & touring news","Ground crew updates","Event tracking","@the_oats on Instagram","Go4Oats Show on YouTube"]
     }, "home", false));
     return;
   }
 
   // SECTION: CONNECT
   if (view === "section:connect") {
-    app.appendChild(detailPage({
+    var cp = detailPage({
       icon:"◆", label:"Connect",
-      desc:"All the places to find me and the projects. Reach out for work, follow along, or just say what's up.",
-      bullets:["Instagram: @theoats — main feed","Instagram / Threads: @sleepwellsweetheart — band + music","YouTube: Go4Oats Show — long-form","YouTube: A.I. Oatmeal — AI content","Email: fookn.oats.enterprises@gmail.com","Book a call — link below"]
-    }, "home", false));
+      desc:"For work, follows, or just saying what's up.",
+      bullets:["<a href='https://instagram.com/the_oats' target='_blank' rel='noopener'>@the_oats</a>","<a href='https://youtube.com/@go4oats' target='_blank' rel='noopener'>Go4Oats Show</a>","@ai_oatmeal","<a href='"+RENT_OATS_URL+"'>RENT.OATS</a>","SHOP.OATS","<a href='mailto:fookn.oats.enterprises@gmail.com'>fookn.oats.enterprises@gmail.com</a>"]
+    }, "home", false);
+    var cb = el("button","btn-primary","BOOK A CALL →"); cb.onclick = bookCall;
+    cp.appendChild(cb);
+    app.appendChild(cp);
     return;
   }
 
   // SECTION: ABOUT
   if (view === "section:about") {
     var wrap = el("div","");
-    wrap.style.maxWidth = "620px";
+    wrap.style.cssText = "max-width:620px";
     wrap.appendChild(backBtn("home"));
     wrap.appendChild(el("div","sec-tag","ABOUT"));
     var h2 = el("h2","sec-title"); h2.innerHTML = "Built on<br>the Road."; wrap.appendChild(h2);
-    wrap.style.cssText = "max-width:620px";
     var paraStyles = [
       "color:rgba(255,255,255,.72);font-size:17px;line-height:1.75;margin-bottom:20px",
       "color:rgba(255,255,255,.60);font-size:15px;line-height:1.85;margin-bottom:20px",
@@ -914,7 +1161,7 @@ function renderView(view) {
     });
 
     var aiSm = el("div",""); aiSm.style.cssText="border:1px solid rgba(255,180,0,.2);padding:22px;background:rgba(255,180,0,.02);margin-bottom:28px";
-    var ail = el("div","",""); ail.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:14px"; ail.textContent="◆ ASK ME ANYTHING"; aiSm.appendChild(ail);
+    var ail = el("div","",""); ail.style.cssText="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:14px"; ail.textContent="◆ ASK OATS"; aiSm.appendChild(ail);
     var airow = el("div","ai-row");
     var aiinp = el("input"); aiinp.type="text"; aiinp.id="ai-input-about"; aiinp.className="ai-input"; aiinp.placeholder="What do you want to know?";
     aiinp.onkeydown = function(e){ if(e.key==="Enter") handleAI("ai-input-about","ai-replies-about"); };
@@ -935,11 +1182,13 @@ function renderView(view) {
     var agrid = el("div","about-grid");
     SECTIONS.filter(function(s){return s.id!=="about";}).forEach(function(s) {
       var btn = el("button","about-link-btn"); btn.innerHTML="<span>"+s.icon+"</span>"+s.label;
-      btn.onclick = function(){ showView("section:"+s.id); };
+      btn.onclick = sectionClick(s);
       agrid.appendChild(btn);
     });
     wrap.appendChild(agrid);
+    wrap.appendChild(jagOff("JAG-OFF: Thank you for visiting FOOK'n OATS Enterprises. You did not have a choise. But thank you. This has been JAG-OFF. Start with a little."));
     app.appendChild(wrap);
+    app.appendChild(siteFooter());
     return;
   }
 }
@@ -949,14 +1198,18 @@ function renderView(view) {
 // view "section:edm" -> "#edm", "dept:cad" -> "#cad", "brand:revelator" -> "#revelator", "home" -> ""
 function viewToHash(view){
   if(!view || view==="home") return "";
-  return "#" + view.replace(/^(section:|dept:|brand:)/,"");
+  return "#" + (view==="contact"?"contact":view).replace(/^(section:|dept:|brand:)/,"");
 }
 function hashToView(hash){
   var h=(hash||"").replace(/^#/,"").toLowerCase();
   if(!h) return "home";
-  var depts=["cad","gaffer","led","consult","makerlab","designnet"];
-  var brands=["revelator","sleepwell","aioatmeal","ghosted","crypto","fallingstar"];
-  var sections=["services","brands","studio","stories","edm","about","connect"];
+  if(h==="services") return "section:supertech";
+  if(h==="makerlab") return "section:hq";
+  if(h==="sleepwell"||h==="ghosted"||h==="crypto") return "section:hibernating";
+  if(h==="contact") return "contact";
+  var depts=DEPARTMENTS.map(function(d){return d.id;});
+  var brands=BRANDS.map(function(b){return b.id;});
+  var sections=["hq","supertech","brands","hibernating","studio","stories","edm","about","connect"];
   if(depts.indexOf(h)>=0) return "dept:"+h;
   if(brands.indexOf(h)>=0) return "brand:"+h;
   if(sections.indexOf(h)>=0) return "section:"+h;
