@@ -43,10 +43,10 @@ function isAlwaysOpenPath(pathname) {
 }
 
 function unauthorized() {
-  return new Response('Authentication required.', {
+  return new Response('Attention. This area is restricted to authorized crew. Visitors are apreciated elsewhere: fookn-oats.enterprises. This has been JAG-OFF. Start with a little.', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="Restricted", charset="UTF-8"',
+      'WWW-Authenticate': 'Basic realm="FOOKn OATS Crew Only", charset="UTF-8"',
     },
   });
 }
@@ -54,6 +54,11 @@ function unauthorized() {
 export default async function middleware(request) {
   const url = new URL(request.url);
   const host = request.headers.get('host') || '';
+
+  // Preview deployments: skip the crew gate (Vercel SSO still applies).
+  if (process.env.VERCEL_ENV === 'preview') {
+    return undefined;
+  }
 
   // Real domain: never gate.
   if (OPEN_HOSTS.has(host)) {

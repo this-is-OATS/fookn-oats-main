@@ -4,15 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Rolled &amp; Recorded — EDM Oatmeal Presents</title>
-  <meta name="description" content="A digital festival day. Live from the studio. EDM Oatmeal Presents: Rolled &amp; Recorded."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="description" content="EDM Oatmeal Presents: Rolled &amp; Recorded. A digital festival day, recorded and streamed. Session 01 · Jan 7, 2027."/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="EDM Oatmeal Presents: Rolled &amp; Recorded"/>
-  <meta property="og:description" content="A digital festival day. Recorded from the studio."/>
+  <meta property="og:description" content="A digital festival day. Sets, cameras, and a podcast room. Session 01 · Jan 7, 2027."/>
   <meta property="og:image" content="https://fookn-oats.enterprises/rolled-recorded-og.png"/>
   <meta property="og:url" content="https://fookn-oats.enterprises/rolled-recorded"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="EDM Oatmeal Presents: Rolled &amp; Recorded"/>
-  <meta name="twitter:description" content="A digital festival day. Recorded from the studio."/>
+  <meta name="twitter:description" content="A digital festival day. Sets, cameras, and a podcast room. Session 01 · Jan 7, 2027."/>
   <meta name="twitter:image" content="https://fookn-oats.enterprises/rolled-recorded-og.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
   <style>
@@ -197,7 +198,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.15 · 2026.09.30'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.16 · 2026.10.24'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
 
@@ -331,14 +332,14 @@ var RR_VERSION='rr-v1.15 · 2026.09.30'; // ← bump on every R&R deploy
     var f=el('footer');f.id='footer';
     var fl=div('footer-links');
     if(links&&links.edmFeed){
-      var l1=el('a','footer-link');l1.href=links.edmFeed;txt(l1,'◉ EDM OATS Feed');fl.appendChild(l1);
+      var l1=el('a','footer-link');l1.href=links.edmFeed;txt(l1,'◉ EDM FEED');fl.appendChild(l1);
     }
     if(links&&links.instagram){
       var l2=el('a','footer-link');l2.href=links.instagram;l2.target='_blank';l2.rel='noopener';txt(l2,'◆ Instagram');fl.appendChild(l2);
     }
-    var l3=el('a','footer-link');l3.href='/';txt(l3,'← Fook\'n Oats');fl.appendChild(l3);
+    var l3=el('a','footer-link');l3.href='/';txt(l3,'← FOOK\'n OATS');fl.appendChild(l3);
     f.appendChild(fl);
-    var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · fookn-oats.enterprises');
+    var brand=div('footer-brand');txt(brand,'EDM Oatmeal Presents · Rolled & Recorded · A FOOK\'n OATS ENTERPRISES production · fookn-oats.enterprises');
     f.appendChild(brand);
     var stamp=div('footer-brand');txt(stamp,RR_VERSION);stamp.style.marginTop='6px';stamp.style.opacity='.5';
     f.appendChild(stamp);

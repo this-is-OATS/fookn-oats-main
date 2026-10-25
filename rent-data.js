@@ -6,9 +6,9 @@
 
 const RENT = {
   brand: "RENT.OATS",
-  tagline: "Borrow my photo & video gear.",
-  eyebrow: "FOOK'N OATS ENTERPRISES",
-  intro: "Twenty years on the road means a lot of cameras, lenses, lights, and audio gear sitting in cases between tours. Most of it is just collecting dust — so it's here to borrow. This is separate from the tour life, music, and everyday stuff on Instagram @the_oats. This is just the gear.",
+  tagline: "Gear rental. For any brand, or yours.",
+  eyebrow: "FOOK'n OATS ENTERPRISES · KENOSHA HQ",
+  intro: "Twenty years on the road built a deep kit. Cameras, lenses, lights, and audio gear, rented out of the Kenosha HQ to our own brands and to outside clients. The tour life and the music live on Instagram @the_oats. This page is just the gear.",
   instagramHandle: "@the_oats",
   instagramUrl: "https://instagram.com/the_oats",
   contactEmail: "fookn.oats.enterprises@gmail.com",
@@ -16,9 +16,9 @@ const RENT = {
   homeUrl: "https://fookn-oats.enterprises",
 
   howItWorks: [
-    { step: "1", label: "Browse the gear", desc: "See what's available below — camera bodies, lenses, lighting, audio, and support gear." },
-    { step: "2", label: "Request to borrow", desc: "Send dates and what it's for. Local pickup/return, or ship at your cost." },
-    { step: "3", label: "Donate if you can", desc: "Borrowing is free. A donation via QR code (below) helps keep the gear maintained and the collection growing — never required." }
+    { step: "1", label: "Browse the gear", desc: "Camera bodies, lenses, lighting, audio, and support." },
+    { step: "2", label: "Request it", desc: "Send dates and what it's for. Local pickup and return, or ship at your cost." },
+    { step: "3", label: "Get a quote", desc: "We confirm availability and terms." }  // [CONFIRM: rates/deposit language]
   ],
 
   // Placeholder listings — replace with your real gear, condition notes, and what's included.
