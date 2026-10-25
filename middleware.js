@@ -55,6 +55,11 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const host = request.headers.get('host') || '';
 
+  // Preview deployments: skip the crew gate (Vercel SSO still applies).
+  if (process.env.VERCEL_ENV === 'preview') {
+    return undefined;
+  }
+
   // Real domain: never gate.
   if (OPEN_HOSTS.has(host)) {
     return undefined; // fall through to normal routing
