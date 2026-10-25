@@ -247,7 +247,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'n OATS</div>
-      <span id="nav-version">v2.9.2 · 2026.10.24</span>
+      <span id="nav-version">v2.9.3 · 2026.10.24</span>
     </div>
     <button id="talk-btn" onclick="bookCall()">BOOK A CALL →</button>
   </div>
@@ -767,7 +767,7 @@ function hqCore(app) {
   partner.appendChild(el("p","hq-line","Need the space? Book it with RELAYHOUSE."));
   var row = el("div","home-btns"); row.style.marginBottom = "0"; row.appendChild(bookSpaceBtn("btn-primary")); partner.appendChild(row);
   app.appendChild(partner);
-  app.appendChild(block("◆ IMAGINATION CREATION STATION","Where things get built. Creative builds, prototyping, and R&D for every brand."));
+  app.appendChild(block("◆ IMAGINATION CREATION STATION","Where things get built. Creative builds, prototyping, and R&D for every brand.","Where sparks of ideas are realized into flame."));
   var ml = block("◆ MAKER-LAB","Need something built? The Maker-Lab takes custom client builds. Tell us what you need. Paid builds are billed through the brand you hired.","Running now: 3D printing, embroidery, vinyl cutting. Laser CNC is planned. Until then, it's sourced on demand.");
   ml.style.marginLeft = "18px";
   var mb = el("button","btn-secondary","START A BUILD →"); mb.onclick = function(){ openContact("START A BUILD","build","Maker-Lab build"); };
