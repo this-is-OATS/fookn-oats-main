@@ -35,6 +35,10 @@
   Cache-Control: public, max-age=0, must-revalidate
 /rent-data.js
   Cache-Control: public, max-age=0, must-revalidate
+/privacy
+  Cache-Control: public, max-age=0, must-revalidate
+/terms
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Images: safe to cache hard (filenames are stable)
 /images/*
