@@ -6,7 +6,7 @@
 
 const SITE = {
   title: "FOOK'n OATS",
-  version: "v2.9.4 · 2026.10.25",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
+  version: "v2.9.5 · 2026.10.27",   // ← SINGLE SOURCE OF TRUTH for the badge. Bump this only.
   youtube: { channelId: "UCa-9QRISRcW6xVLrMvZ4Egg", apiKey: "AIzaSyAUzyhIMESo4HJ5PaoNPjZv0ZK2T9f-Mtw", fallbackVideoId: "_xyCffufcbs" },  // SET liveVideoId to the stream video id when live (works for UNLISTED); clear to "" when done.
   calendly: {
     url: "https://calendly.com/fookn-oats-enterprises/30min",
@@ -50,10 +50,12 @@ const SITE = {
     { icon: "◎", label: "Desert Resets",          tagline: "Joshua Tree · Integratron · Palm Desert",             desc: "Off the clock and out of range — Joshua Tree, the Integratron sound bath, Palm Desert." }
   ],
   social: [
-    { platform: "Instagram",          handle: "@theoats",            icon: "◆", desc: "The Oats — main feed",              url: "https://instagram.com/theoats" },
-    { platform: "Instagram / Threads",handle: "@sleepwellsweetheart",icon: "♫", desc: "Sleepwell Sweetheart — band + music",url: "https://instagram.com/sleepwellsweetheart" },
-    { platform: "YouTube",            handle: "Go4Oats Show",        icon: "▶", desc: "Go4Oats Show — long-form content",  url: "https://youtube.com/@go4oats" },
-    { platform: "YouTube",            handle: "A.I. Oatmeal",        icon: "⬡", desc: "A.I. Oatmeal Channel — AI content", url: "https://youtube.com/@aioatmeal" }
+    { platform: "Instagram",          handle: "@edm_oats",           icon: "⊕", desc: "EDM Oatmeal — scene, sets, live streams", url: "https://instagram.com/edm_oats" },
+    { platform: "Instagram",          handle: "@the_oats",           icon: "◆", desc: "The Oats — builds & road life",           url: "https://instagram.com/the_oats" },
+    { platform: "Web3 Domain",        handle: "fookn-oats.dream",    icon: "🌐", desc: "Unstoppable Web3 Identity",              url: "https://ud.me/fookn-oats.dream" },
+    { platform: "Instagram / Threads",handle: "@sleepwellsweetheart",icon: "♫", desc: "Sleepwell Sweetheart — band + music",    url: "https://instagram.com/sleepwellsweetheart" },
+    { platform: "YouTube",            handle: "Go4Oats Show",        icon: "▶", desc: "Go4Oats Show — long-form content",       url: "https://youtube.com/@go4oats" },
+    { platform: "YouTube",            handle: "A.I. Oatmeal",        icon: "⬡", desc: "A.I. Oatmeal Channel — AI content",      url: "https://youtube.com/@aioatmeal" }
   ],
   about: {
     headline: "Built on the Road.",
