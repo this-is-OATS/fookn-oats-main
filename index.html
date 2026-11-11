@@ -275,7 +275,7 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'n OATS</div>
-      <span id="nav-version">v2.9.7 · 2026.11.10</span>
+      <span id="nav-version">v2.9.8 · 2026.11.10</span>
     </div>
     <button id="talk-btn" onclick="bookCall()">BOOK A CALL →</button>
   </div>
@@ -864,7 +864,7 @@ function renderView(view) {
     var grid = el("div","card-grid");
     SECTIONS.forEach(function(s){ grid.appendChild(card(s, sectionClick(s))); });
     app.appendChild(grid);
-    app.appendChild(jagOff("JAG-OFF: Here at FOOK'n OATS Enterprises, qualithy is our standard."));
+    app.appendChild(jagOff("jagoff.bot: Here at FOOK'n OATS Enterprises, qualithy is our standard."));
     app.appendChild(siteFooter());
     return;
   }
@@ -908,7 +908,7 @@ function renderView(view) {
     var grid = el("div","card-grid-sm");
     DEPARTMENTS.forEach(function(d){ grid.appendChild(card(d, function(){ showView("dept:"+d.id); })); });
     app.appendChild(grid);
-    app.appendChild(jagOff("JAG-OFF: Safety is our number one prioritty. The rig is number two. You Run the Rig."));
+    app.appendChild(jagOff("jagoff.bot: Safety is our number one prioritty. The rig is number two. You Run the Rig."));
     return;
   }
 
@@ -1262,7 +1262,7 @@ function renderView(view) {
       agrid.appendChild(btn);
     });
     wrap.appendChild(agrid);
-    wrap.appendChild(jagOff("JAG-OFF: Thank you for visiting FOOK'n OATS Enterprises. You did not have a choise. But thank you. This has been jagoff.bot. Start with a little."));
+    wrap.appendChild(jagOff("jagoff.bot: Thank you for visiting FOOK'n OATS Enterprises. You did not have a choise. But thank you. This has been jagoff.bot. Start with a little."));
     app.appendChild(wrap);
     app.appendChild(siteFooter());
     return;
