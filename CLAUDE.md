@@ -8,6 +8,9 @@ Live site deploys from `main` via Vercel. Every push to main goes live in ~1 min
   1. `site.js` → `SITE.version`
   2. `index.html` → `<span id="nav-version">` fallback
   Format: `v2.6.3 · 2026.07.06` (patch bump + today's date). The badge is how the owner verifies a deploy landed.
+- **ALWAYS disclose all AI-generated images as `RENDER PLACEHOLDER`.** No exceptions. Every AI-generated image used anywhere on the site or in promotional assets must:
+  1. Carry a baked-in `◆ RENDER PLACEHOLDER · AI GENERATED ◆` stamp on the image itself, AND
+  2. Include a visible `RENDER PLACEHOLDER` HTML pill/caption/banner in the UI container so visitors, artists, and crew always know it is an AI pre-visualization placeholder rather than real session photography.
 - Production changes go to `main`. Feature branches don't deploy.
 - Show diffs and get confirmation before pushing copy/content changes, unless explicitly told to deploy.
 
@@ -16,6 +19,8 @@ Live site deploys from `main` via Vercel. Every push to main goes live in ~1 min
 - `index.html` — the SPA. Inline JS data arrays: `DEPARTMENTS` (services), `BRANDS`, `SECTIONS`, home copy, detail pages. Meta/OG tags.
 - `ticker.json` — the live ticker text. NOT site.js.
 - `site.js` — `SITE.version`, `about.paragraphs`, `about.tree`. Its `services`/`brands` arrays are NOT rendered by the live site — don't write copy there.
+- `rolled-recorded.html`, `rolled-recorded-event.html`, `rr-events/*.json` — Rolled & Recorded series hub and individual session pages (`session-1.json` has `cam//cam`, `Benny`, `Skidish`, `ƒalling Star`, and `Open Slot`).
+- `rolled-recorded/vision.html` (`/rolled-recorded/vision`) — Founding Crew & Artist Vision Board for Session 01 · First Light (`Thu Jan 7, 2027 · @RELAYHOUSE`). Uses stamped AI concept plates in `/images/rr/session-01/` with explicit `RENDER PLACEHOLDER` disclosures.
 
 ## Content workflow
 
