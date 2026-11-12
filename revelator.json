@@ -78,8 +78,7 @@
   },
 
   "work": {
-    "hidden": true,
-    "_hidden_note": "Section stays off the page until full-sheet plot exports exist (see images/revelator/README.md, Plot export spec). Set hidden to false to show it.",
+    "hidden": false,
     "label": "SELECTED WORK",
     "note": "Real credits only. Every one of these was a team effort. The role listed is the part I played, not the show's design credit. Plots and drawings were done alongside the team at Voyage Productions.",
     "designed": [],
@@ -129,29 +128,9 @@
         "event": "Fall run",
         "year": "2017",
         "role": "Plot drafting, revs 5 to 7.2",
-        "line": "Drafted the merged co-headline plot with rigging weights, a team effort with the lighting vendor and the production manager. The co-headliner carried its own crew.",
-        "plots": [
-          {
-            "src": "/images/revelator/plots/plot-rig-detail-fixtures-a.jpg",
-            "tag": "plot",
-            "caption": "Flown truss and floor package, detail"
-          },
-          {
-            "src": "/images/revelator/plots/plot-rig-detail-legend-b.jpg",
-            "tag": "plot",
-            "caption": "Fixture legend, detail"
-          },
-          {
-            "src": "/images/revelator/plots/plot-rig-detail-motors-c.jpg",
-            "tag": "plot",
-            "caption": "Motor count, detail"
-          },
-          {
-            "src": "/images/revelator/plots/plot-rig-detail-floor-d.jpg",
-            "tag": "plot",
-            "caption": "Floor package, detail"
-          }
-        ]
+        "line": "Merged co-headline plot, fall 2017, ver. 5. Drafting and rigging weights by me, with the lighting vendor's team and the production manager. The co-headliner carried its own crew.",
+        "plot": "/images/revelator/plots/plot-sublime-2017.jpg",
+        "plotTag": "plot"
       },
       {
         "artist": "Dirty Heads",
