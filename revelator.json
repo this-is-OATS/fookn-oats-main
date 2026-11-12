@@ -1,0 +1,122 @@
+{
+  "_readme": [
+    "REVELATOR ILLUMINAE page content. revelator.html reads this file; edit copy here, not in the HTML.",
+    "Empty arrays / null fields hide their section automatically. Fill them and the section appears.",
+    "Image tags: 'vectorworks' = VECTORWORKS RENDER, 'plot' = PLOT CAPTURE, 'ma3' = GRANDMA3 SCREEN GRAB, 'photo' = PHOTO, 'ai' = RENDER PLACEHOLDER (AI). Anything AI-generated or AI-upscaled MUST be tagged 'ai' AND carry the baked-in stamp on the file itself.",
+    "Assets live in images/revelator/{hero,plots,renders,ma3}/ — see images/revelator/README.md for the naming + size spec."
+  ],
+
+  "meta": {
+    "title": "Revelator Illuminae — Lighting Design",
+    "description": "Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it. A FOOK'n OATS brand, Kenosha HQ.",
+    "url": "https://fookn-oats.enterprises/revelator",
+    "ogImage": "https://fookn-oats.enterprises/og.png"
+  },
+
+  "hero": {
+    "eyebrow": "A FOOK'n OATS BRAND · LIGHTING DESIGN",
+    "title": "REVELATOR ILLUMINAE",
+    "tagline": "The look.",
+    "line": "Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it.",
+    "image": null,
+    "imageTag": "vectorworks",
+    "imageCaption": "",
+    "ctaLabel": "START A DESIGN INQUIRY →",
+    "secondaryLabel": "SEE THE WORK ↓"
+  },
+
+  "isIsnt": {
+    "is": {
+      "label": "REVELATOR IS",
+      "text": "The design. What the show looks like, why, and the file that makes it happen."
+    },
+    "isnt": {
+      "label": "REVELATOR ISN'T",
+      "text": "The crew. Hanging it, running it, fixing it at 2 AM is SuperTech LX, or your own vendor. Either works.",
+      "linkLabel": "SUPERTECH LX →",
+      "link": "/#supertech"
+    }
+  },
+
+  "offer": {
+    "label": "THE OFFER",
+    "items": [
+      { "icon": "✦", "title": "Lighting Design",   "text": "Rig, positions, fixtures, and the reasons behind them. Paperwork a shop can quote from." },
+      { "icon": "◈", "title": "Look Development",  "text": "Mood boards, references, color and texture decisions before anyone touches a console." },
+      { "icon": "▦", "title": "Show Files",        "text": "grandMA3. Built clean, labeled, and handed over so anyone can run it." },
+      { "icon": "◎", "title": "Previz",            "text": "See it before load-in. Vectorworks for the plot; a rendered pass for the look." },
+      { "icon": "★", "title": "Design Credit",     "text": "Your program says who designed it. That credit is the product." }
+    ]
+  },
+
+  "ma3": {
+    "label": "GRANDMA3 SHOW-FILE SYSTEMS",
+    "title": "A show file anyone can run.",
+    "intro": "",
+    "points": [],
+    "images": [],
+    "_owner_todo": "INTERVIEW REQUIRED. Fill intro + points in the owner's words (structure, naming, how a file is built so a sub can run it). Do not invent system names. Drop MA3 screen grabs in images/revelator/ma3/ as ma3-<topic>.jpg and list them in images[] as {\"src\":\"/images/revelator/ma3/ma3-<topic>.jpg\",\"caption\":\"...\",\"tag\":\"ma3\"}."
+  },
+
+  "video": {
+    "label": "WALKTHROUGH",
+    "youtubeId": "",
+    "title": "",
+    "caption": "",
+    "_owner_todo": "Upload the recorded walkthrough UNLISTED to the Go4Oats / A.I. Oatmeal channel. Put the 11-char video id in youtubeId. Caption = what's being walked through + length (e.g. 'Show-file structure, 12 min')."
+  },
+
+  "process": {
+    "label": "PROCESS",
+    "steps": [
+      { "step": "01", "title": "Brief",     "text": "One call: the music, the room, the budget." },
+      { "step": "02", "title": "Concept",   "text": "Looks, references, a direction to say yes to." },
+      { "step": "03", "title": "Previz",    "text": "The show on a wall before it's in a truck." },
+      { "step": "04", "title": "Show file", "text": "Built, labeled, handed over." },
+      { "step": "05", "title": "Handoff",   "text": "Walk your crew through it, or bring SuperTech and I run it myself." }
+    ]
+  },
+
+  "work": {
+    "label": "SELECTED WORK",
+    "note": "Real credits only. Designed means I held the design credit. Programmed / Supported means I built or ran someone else's design.",
+    "designed": [],
+    "supported": [],
+    "_owner_todo": "Each entry: {\"artist\":\"\",\"event\":\"\",\"year\":\"\",\"role\":\"\",\"line\":\"\",\"plot\":\"/images/revelator/plots/plot-<show>-<year>.jpg\",\"render\":\"/images/revelator/renders/render-<show>-<look>.jpg\",\"renderTag\":\"vectorworks\"}. tour-history.md credits (ODESZA, Pretty Lights, Royel Otis) are SuperTech-side unless the owner confirms a design credit — list those under supported, never designed, without his say-so."
+  },
+
+  "vizzies": {
+    "label": "GO4OATS.VIZZIES",
+    "text": "",
+    "url": "",
+    "linkLabel": "OPEN GO4OATS.VIZZIES ↗",
+    "_owner_todo": "Ask the owner what Go4oats.vizzies is and its URL. No URL = section stays hidden and it should be dropped from the BRANDS[1] card copy in index.html too."
+  },
+
+  "billing": {
+    "label": "HOW IT'S BILLED",
+    "title": "Flat fee. Separate line.",
+    "text": "Design is quoted as a flat fee per show or per tour, on its own line, separate from production. You can hand the file to SuperTech LX or to any vendor you already trust. Either way the design credit stays with Revelator Illuminae.",
+    "_owner_todo": "Confirm the billing shape (per show / per tour / retainer) before ship."
+  },
+
+  "contact": {
+    "label": "BOOK IT",
+    "title": "Start a design inquiry.",
+    "text": "Tell me the artist, the dates, and the room. I'll come back with a direction and a number.",
+    "formEndpoint": "https://formspree.io/f/mlgwpppq",
+    "option": "LIGHTING DESIGN (REVELATOR ILLUMINAE)",
+    "subject": "Revelator Illuminae — design inquiry",
+    "directEmail": "fookn.oats.enterprises@gmail.com",
+    "callLabel": "PREFER A CALL? →",
+    "callUrl": "https://calendly.com/fookn-oats-enterprises/30min"
+  },
+
+  "footer": {
+    "brandLine": "A FOOK'n OATS BRAND · KENOSHA HQ · IMAGINATION CREATION STATION",
+    "homeLabel": "← ALL BRANDS",
+    "homeUrl": "/#brands",
+    "supertechLabel": "SUPERTECH LX",
+    "supertechUrl": "/#supertech"
+  }
+}

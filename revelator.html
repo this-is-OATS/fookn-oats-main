@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Revelator Illuminae — Lighting Design</title>
+  <meta name="description" content="Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it. A FOOK'n OATS brand, Kenosha HQ."/>
+  <link rel="canonical" href="https://fookn-oats.enterprises/revelator"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="FOOK'n OATS"/>
+  <meta property="og:url" content="https://fookn-oats.enterprises/revelator"/>
+  <meta property="og:title" content="Revelator Illuminae — Lighting Design"/>
+  <meta property="og:description" content="Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it."/>
+  <!-- TODO before ship: swap og.png for a real render exported at 1200x630 → /images/revelator/hero/og.jpg -->
+  <meta property="og:image" content="https://fookn-oats.enterprises/og.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Revelator Illuminae — Lighting Design"/>
+  <meta name="twitter:description" content="The concept, the look, the show file. Lighting design billed on its own."/>
+  <meta name="twitter:image" content="https://fookn-oats.enterprises/og.png"/>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --gold:#ffb400;
+      --bg:#090909;
+      --bg2:rgba(14,14,14,0.9);
+      --border:rgba(255,180,0,0.18);
+      --text:#fff;
+      --muted:rgba(255,255,255,0.5);
+      --mono:'IBM Plex Mono',monospace;
+      --serif:'Playfair Display',Georgia,serif;
+    }
+    html,body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100%;overflow-x:hidden}
+    a{color:var(--gold)}
+    img{display:block;max-width:100%}
+    [hidden]{display:none!important}
+
+    /* ── NAV ── */
+    #nav{max-width:1040px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    #nav a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap}
+    #nav a:hover{color:var(--gold)}
+    #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,.28);white-space:nowrap}
+
+    /* ── HERO ── */
+    #hero{max-width:1040px;margin:0 auto;padding:40px 24px 24px;display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+    #hero.has-image{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+    .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+    .eyebrow::before{content:'';display:block;width:32px;height:1px;background:rgba(255,180,0,.4);flex-shrink:0}
+    .hero-title{font-family:var(--serif);font-weight:900;font-size:clamp(40px,8.5vw,84px);line-height:.95;letter-spacing:-.02em}
+    .hero-title .dot{color:var(--gold)}
+    .hero-tagline{font-family:var(--serif);font-style:italic;font-weight:900;font-size:clamp(22px,4vw,34px);color:var(--gold);margin-top:16px}
+    .hero-line{font-size:16px;line-height:1.75;color:rgba(255,255,255,.62);max-width:560px;margin-top:20px}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn-primary,.btn-secondary{font-family:var(--mono);font-size:12px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:10px;padding:14px 22px;display:inline-flex;align-items:center;gap:10px;transition:all .18s;border:1px solid transparent}
+    .btn-primary{background:var(--gold);color:#0a0a0a;box-shadow:0 8px 30px rgba(255,180,0,.2)}
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-secondary{background:transparent;color:var(--gold);border-color:rgba(255,180,0,.4)}
+    .btn-secondary:hover{background:rgba(255,180,0,.06)}
+    .hero-art{position:relative;border:1px solid var(--border);background:var(--bg2);aspect-ratio:16/9;overflow:hidden}
+    .hero-art img{width:100%;height:100%;object-fit:cover}
+
+    /* ── SHARED ── */
+    .section{max-width:1040px;margin:0 auto;padding:56px 24px 0}
+    .section-label{font-family:var(--mono);font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .sec-title{font-family:var(--serif);font-weight:900;font-size:clamp(26px,4vw,40px);line-height:1.05;letter-spacing:-.01em;margin-bottom:16px}
+    .sec-text{font-size:15px;line-height:1.8;color:rgba(255,255,255,.6);max-width:680px}
+    .card{border:1px solid var(--border);background:var(--bg2);padding:22px 20px}
+
+    /* image frame + truthful tags */
+    .frame{position:relative;border:1px solid rgba(255,255,255,.1);background:#0e0e0e;overflow:hidden}
+    .frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9}
+    .tag{position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:4px 8px;border-radius:4px;background:rgba(0,0,0,.72);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.18)}
+    .tag.ai{background:rgba(255,180,0,.14);color:var(--gold);border-color:rgba(255,180,0,.55);font-weight:700}
+    .frame-cap{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.45);line-height:1.6;margin-top:8px}
+
+    /* ── IS / ISN'T ── */
+    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .split-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:10px}
+    .split .isnt .split-label{color:rgba(255,255,255,.4)}
+    .split-text{font-family:var(--serif);font-weight:900;font-size:clamp(18px,2.4vw,24px);line-height:1.3}
+    .split a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-decoration:none;display:inline-block;margin-top:14px;border-bottom:1px solid rgba(255,180,0,.35)}
+
+    /* ── OFFER ── */
+    .offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+    .offer-icon{font-size:22px;color:var(--gold);margin-bottom:10px}
+    .offer-title{font-family:var(--serif);font-weight:900;font-size:19px;margin-bottom:8px;line-height:1.15}
+    .offer-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+
+    /* ── MA3 ── */
+    .ma3-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;align-items:start}
+    @media(max-width:760px){.ma3-grid{grid-template-columns:1fr}}
+    .points{list-style:none;margin-top:18px}
+    .points li{display:flex;gap:12px;font-size:14px;line-height:1.65;color:rgba(255,255,255,.6);margin-bottom:12px}
+    .points li b{color:#fff;font-weight:700}
+    .points .dot{color:var(--gold);flex-shrink:0}
+    .ma3-images{display:grid;grid-template-columns:1fr;gap:14px}
+
+    /* ── VIDEO ── */
+    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--border);box-shadow:0 18px 60px rgba(0,0,0,.6)}
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* ── PROCESS ── */
+    .process{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+    .step-num{font-family:var(--serif);font-weight:900;font-size:26px;color:var(--gold);margin-bottom:8px}
+    .step-title{font-family:var(--mono);font-size:12px;letter-spacing:.06em;margin-bottom:8px;font-weight:700}
+    .step-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+
+    /* ── WORK ── */
+    .work-group{margin-bottom:34px}
+    .work-group-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.4);margin-bottom:14px}
+    .work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+    .work-media{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .work-media.single{grid-template-columns:1fr}
+    .work-meta{padding:16px 2px 0}
+    .work-artist{font-family:var(--serif);font-weight:900;font-size:20px;line-height:1.1}
+    .work-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-top:6px}
+    .work-line{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55);margin-top:8px}
+
+    /* ── BILLING / CONTACT ── */
+    .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:start}
+    .inquiry-box{border:1px solid var(--border);background:var(--bg2);padding:26px 24px}
+    .inquiry-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:8px}
+    .field-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-bottom:6px;margin-top:14px}
+    .field-input,.field-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none}
+    .field-input:focus,.field-textarea:focus{border-color:rgba(255,180,0,.6)}
+    .field-textarea{resize:vertical}
+    .submit-btn{margin-top:20px;background:var(--gold);color:#0a0a0a;border:none;padding:12px 26px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.1em}
+    .submit-btn:disabled{background:rgba(255,180,0,.3);cursor:not-allowed}
+    .form-err{color:#ff5555;font-family:var(--mono);font-size:11px;margin-top:12px}
+    .form-success{color:var(--gold);font-family:var(--mono);font-size:13px;line-height:1.8}
+    .direct-email{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);margin-top:14px;letter-spacing:.04em}
+    .call-link{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-decoration:none;border-bottom:1px solid rgba(255,180,0,.35)}
+
+    /* ── FOOTER ── */
+    .footer{max-width:1040px;margin:70px auto 0;border-top:1px solid rgba(255,255,255,.06);padding:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .footer span,.footer a{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.06em}
+    .footer a:hover{color:var(--gold)}
+
+    @media(max-width:760px){#hero.has-image{grid-template-columns:1fr}.hero-art{order:-1}}
+    @media(max-width:480px){#hero{padding-top:28px}.hero-line{font-size:15px}.section{padding-top:44px}.eyebrow{font-size:9px;letter-spacing:.18em}.eyebrow::before{display:none}}
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="/#brands">◆ FOOK'n OATS</a>
+    <span id="nav-version"></span>
+    <a href="/#supertech">SUPERTECH LX →</a>
+  </nav>
+
+  <header id="hero">
+    <div>
+      <div class="eyebrow" id="hero-eyebrow"></div>
+      <h1 class="hero-title" id="hero-title"></h1>
+      <div class="hero-tagline" id="hero-tagline"></div>
+      <p class="hero-line" id="hero-line"></p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#book" id="hero-cta"></a>
+        <a class="btn-secondary" href="#offer" id="hero-cta2"></a>
+      </div>
+    </div>
+    <div class="hero-art" id="hero-art" hidden></div>
+  </header>
+
+  <section class="section" id="isisnt">
+    <div class="split" id="split"></div>
+  </section>
+
+  <section class="section" id="offer">
+    <div class="section-label" id="offer-label"></div>
+    <div class="offer-grid" id="offer-grid"></div>
+  </section>
+
+  <section class="section" id="ma3" hidden>
+    <div class="section-label" id="ma3-label"></div>
+    <div class="ma3-grid">
+      <div>
+        <h2 class="sec-title" id="ma3-title"></h2>
+        <p class="sec-text" id="ma3-intro"></p>
+        <ul class="points" id="ma3-points"></ul>
+      </div>
+      <div class="ma3-images" id="ma3-images"></div>
+    </div>
+  </section>
+
+  <section class="section" id="video" hidden>
+    <div class="section-label" id="video-label"></div>
+    <div class="video-wrap" id="video-wrap"></div>
+    <div class="frame-cap" id="video-cap"></div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="section-label" id="process-label"></div>
+    <div class="process" id="process-grid"></div>
+  </section>
+
+  <section class="section" id="work" hidden>
+    <div class="section-label" id="work-label"></div>
+    <p class="sec-text" id="work-note" style="margin-bottom:28px"></p>
+    <div id="work-groups"></div>
+  </section>
+
+  <section class="section" id="vizzies" hidden>
+    <div class="section-label" id="vizzies-label"></div>
+    <p class="sec-text" id="vizzies-text"></p>
+    <a class="btn-secondary" id="vizzies-link" target="_blank" rel="noopener" style="margin-top:18px"></a>
+  </section>
+
+  <section class="section" id="book">
+    <div class="two">
+      <div>
+        <div class="section-label" id="billing-label"></div>
+        <h2 class="sec-title" id="billing-title"></h2>
+        <p class="sec-text" id="billing-text"></p>
+        <h2 class="sec-title" id="contact-title" style="margin-top:34px"></h2>
+        <p class="sec-text" id="contact-text"></p>
+        <a class="call-link" id="call-link" target="_blank" rel="noopener"></a>
+      </div>
+      <div class="inquiry-box">
+        <div class="inquiry-label" id="contact-label"></div>
+        <div id="form"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="./site.js"></script>
+  <script>
+  try { if (typeof SITE !== "undefined" && SITE.version) document.getElementById("nav-version").textContent = SITE.version; } catch(e) {}
+
+  function el(t,cls,html){var e=document.createElement(t);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e;}
+  function txt(id,s){var n=document.getElementById(id);if(n)n.textContent=s||"";}
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function show(id){document.getElementById(id).hidden=false;}
+
+  // Truthful image tags. 'ai' is the hard-rule disclosure (CLAUDE.md): the file must ALSO carry the baked-in stamp.
+  var TAGS = { vectorworks:"VECTORWORKS RENDER", plot:"PLOT CAPTURE", ma3:"GRANDMA3 SCREEN GRAB", photo:"PHOTO", ai:"◆ RENDER PLACEHOLDER · AI GENERATED ◆" };
+  function frame(src, tag, caption, alt){
+    var w = el("div");
+    var f = el("div","frame");
+    var img = el("img"); img.src = src; img.loading = "lazy"; img.alt = alt || caption || "";
+    f.appendChild(img);
+    var t = (tag||"").toLowerCase();
+    if (TAGS[t]) f.appendChild(el("span","tag"+(t==="ai"?" ai":""),TAGS[t]));
+    w.appendChild(f);
+    var cap = caption || "";
+    if (t==="ai") cap = (cap ? cap+" · " : "") + "RENDER PLACEHOLDER";
+    if (cap) w.appendChild(el("div","frame-cap",esc(cap)));
+    return w;
+  }
+
+  function render(D){
+    // HERO
+    var h = D.hero || {};
+    txt("hero-eyebrow", h.eyebrow);
+    document.getElementById("hero-title").innerHTML = esc(h.title||"REVELATOR ILLUMINAE").replace(/ ILLUMINAE$/, " ILLUMINAE<span class='dot'>.</span>");
+    txt("hero-tagline", h.tagline); txt("hero-line", h.line);
+    txt("hero-cta", h.ctaLabel || "START A DESIGN INQUIRY →"); txt("hero-cta2", h.secondaryLabel || "SEE THE WORK ↓");
+    if (h.image) {
+      var ha = document.getElementById("hero-art"); ha.hidden = false; ha.className = "";
+      ha.appendChild(frame(h.image, h.imageTag, h.imageCaption, "Revelator Illuminae hero render"));
+      document.getElementById("hero").classList.add("has-image");
+    }
+
+    // IS / ISN'T
+    var s = D.isIsnt || {}, split = document.getElementById("split");
+    [["is",s.is],["isnt",s.isnt]].forEach(function(p){
+      if (!p[1]) return;
+      var c = el("div","card "+p[0]);
+      c.appendChild(el("div","split-label",esc(p[1].label)));
+      c.appendChild(el("div","split-text",esc(p[1].text)));
+      if (p[1].link) { var a = el("a","",esc(p[1].linkLabel||"MORE →")); a.href = p[1].link; c.appendChild(a); }
+      split.appendChild(c);
+    });
+
+    // OFFER
+    var o = D.offer || {items:[]};
+    txt("offer-label", "◆ "+(o.label||"THE OFFER"));
+    var og = document.getElementById("offer-grid");
+    (o.items||[]).forEach(function(i){
+      var c = el("div","card");
+      c.appendChild(el("div","offer-icon",esc(i.icon||"✦")));
+      c.appendChild(el("div","offer-title",esc(i.title)));
+      c.appendChild(el("div","offer-text",esc(i.text)));
+      og.appendChild(c);
+    });
+
+    // MA3 SYSTEMS (hidden until the owner's words + grabs exist)
+    var m = D.ma3 || {};
+    if ((m.intro && m.intro.trim()) || (m.points||[]).length || (m.images||[]).length) {
+      show("ma3");
+      txt("ma3-label","◆ "+(m.label||"GRANDMA3 SHOW-FILE SYSTEMS")); txt("ma3-title", m.title); txt("ma3-intro", m.intro);
+      var pts = document.getElementById("ma3-points");
+      (m.points||[]).forEach(function(p){
+        var li = el("li"); li.appendChild(el("span","dot","◆"));
+        var body = typeof p === "string" ? esc(p) : "<b>"+esc(p.title)+"</b> "+esc(p.text);
+        li.appendChild(el("span","",body)); pts.appendChild(li);
+      });
+      var mi = document.getElementById("ma3-images");
+      (m.images||[]).forEach(function(im){ mi.appendChild(frame(im.src, im.tag||"ma3", im.caption, im.alt)); });
+    }
+
+    // VIDEO (youtube-nocookie, same pattern as the EDM section)
+    var v = D.video || {};
+    if (v.youtubeId && /^[\w-]{6,}$/.test(v.youtubeId)) {
+      show("video");
+      txt("video-label","◆ "+(v.label||"WALKTHROUGH"));
+      var ifr = el("iframe");
+      ifr.src = "https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.youtubeId)+"?playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3";
+      ifr.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      ifr.setAttribute("allowfullscreen",""); ifr.title = v.title || "Revelator Illuminae walkthrough"; ifr.loading = "lazy";
+      document.getElementById("video-wrap").appendChild(ifr);
+      txt("video-cap", [v.title, v.caption].filter(Boolean).join(" · "));
+    }
+
+    // PROCESS
+    var pr = D.process || {steps:[]};
+    txt("process-label","◆ "+(pr.label||"PROCESS"));
+    var pg = document.getElementById("process-grid");
+    (pr.steps||[]).forEach(function(st){
+      var c = el("div","card");
+      c.appendChild(el("div","step-num",esc(st.step)));
+      c.appendChild(el("div","step-title",esc(st.title)));
+      c.appendChild(el("div","step-text",esc(st.text)));
+      pg.appendChild(c);
+    });
+
+    // SELECTED WORK (Designed vs Programmed / Supported — never blur the two)
+    var w = D.work || {};
+    var groups = [["DESIGNED", w.designed||[]],["PROGRAMMED / SUPPORTED", w.supported||[]]].filter(function(g){return g[1].length;});
+    if (groups.length) {
+      show("work");
+      txt("work-label","◆ "+(w.label||"SELECTED WORK")); txt("work-note", w.note);
+      var wg = document.getElementById("work-groups");
+      groups.forEach(function(g){
+        var grp = el("div","work-group");
+        grp.appendChild(el("div","work-group-label",g[0]));
+        var grid = el("div","work-grid");
+        g[1].forEach(function(e){
+          var c = el("div");
+          var media = el("div","work-media"+((e.plot&&e.render)?"":" single"));
+          if (e.plot)   media.appendChild(frame(e.plot, e.plotTag||"plot", "", (e.artist||"")+" plot"));
+          if (e.render) media.appendChild(frame(e.render, e.renderTag||"vectorworks", "", (e.artist||"")+" render"));
+          if (e.plot || e.render) c.appendChild(media);
+          var meta = el("div","work-meta");
+          meta.appendChild(el("div","work-artist",esc(e.artist)));
+          meta.appendChild(el("div","work-sub",esc([e.event,e.year,e.role].filter(Boolean).join(" · "))));
+          if (e.line) meta.appendChild(el("div","work-line",esc(e.line)));
+          if (e.renderTag==="ai" || e.plotTag==="ai") meta.appendChild(el("div","work-sub","RENDER PLACEHOLDER · AI GENERATED"));
+          c.appendChild(meta); grid.appendChild(c);
+        });
+        grp.appendChild(grid); wg.appendChild(grp);
+      });
+    }
+
+    // GO4OATS.VIZZIES — only if it has a destination
+    var vz = D.vizzies || {};
+    if (vz.url) {
+      show("vizzies");
+      txt("vizzies-label","◆ "+(vz.label||"GO4OATS.VIZZIES")); txt("vizzies-text", vz.text);
+      var vl = document.getElementById("vizzies-link"); vl.href = vz.url; vl.textContent = vz.linkLabel || "OPEN ↗";
+    }
+
+    // BILLING + CONTACT
+    var b = D.billing || {}, ct = D.contact || {};
+    txt("billing-label","◆ "+(b.label||"HOW IT'S BILLED")); txt("billing-title", b.title); txt("billing-text", b.text);
+    txt("contact-title", ct.title); txt("contact-text", ct.text);
+    var cl = document.getElementById("call-link");
+    if (ct.callUrl) { cl.href = ct.callUrl; cl.textContent = ct.callLabel || "PREFER A CALL? →"; } else cl.hidden = true;
+    txt("contact-label","◆ "+(ct.label||"BOOK IT"));
+    inquiryForm(ct);
+
+    // FOOTER
+    var f = D.footer || {};
+    document.getElementById("footer").innerHTML =
+      '<span>'+esc(f.brandLine||"A FOOK'n OATS BRAND")+'</span>' +
+      '<span><a href="'+esc(f.homeUrl||"/#brands")+'">'+esc(f.homeLabel||"← ALL BRANDS")+'</a>' +
+      (f.supertechUrl ? ' &middot; <a href="'+esc(f.supertechUrl)+'">'+esc(f.supertechLabel||"SUPERTECH LX")+'</a>' : '') + '</span>';
+  }
+
+  // Inquiry form — same Formspree endpoint + payload shape as index.html, preset to the design option.
+  function inquiryForm(ct){
+    var wrap = document.getElementById("form");
+    var st = {name:"",email:"",phone:"",detail:"",status:"idle",err:""};
+    function validate(){
+      if (!st.name.trim() && !st.email.trim()) return "NAME AND EMAIL REQUIRED.";
+      if (!st.name.trim()) return "Name, please.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email.trim())) return "That email doesn't look right. Check it and try again.";
+      if (st.phone && !/^[\d\s()+\-.]+$/.test(st.phone)) return "Digits only, or leave it blank.";
+      return "";
+    }
+    function draw(){
+      wrap.innerHTML = "";
+      if (st.status === "success") { wrap.appendChild(el("div","form-success","Signal received. Check your inbox. You'll get a reply with a few quick questions and a link to grab a call.")); return; }
+      [{key:"name",label:"NAME",type:"text"},{key:"email",label:"EMAIL",type:"email"},{key:"phone",label:"PHONE / TEXT (OPTIONAL)",type:"tel"}].forEach(function(fd){
+        var lbl = el("label","field-label",fd.label); lbl.setAttribute("for","rv-"+fd.key);
+        var inp = el("input"); inp.type = fd.type; inp.id = "rv-"+fd.key; inp.className = "field-input"; inp.value = st[fd.key];
+        inp.oninput = function(){ st[fd.key] = this.value; };
+        wrap.appendChild(lbl); wrap.appendChild(inp);
+      });
+      wrap.appendChild(el("label","field-label","THE SHOW (OPTIONAL)"));
+      var ta = el("textarea"); ta.className = "field-textarea"; ta.rows = 4; ta.placeholder = "Artist, dates, venue, who's hanging it..."; ta.value = st.detail;
+      ta.oninput = function(){ st.detail = this.value; };
+      wrap.appendChild(ta);
+      if (st.err) wrap.appendChild(el("div","form-err",esc(st.err)));
+      if (st.status==="error") wrap.appendChild(el("div","form-err","⚠ Didn't send. Try again, or email "+esc(ct.directEmail||"fookn.oats.enterprises@gmail.com")+"."));
+      var btn = el("button","submit-btn", st.status==="sending" ? "SENDING…" : "SEND INQUIRY →");
+      btn.disabled = st.status==="sending";
+      btn.onclick = function(){
+        st.err = validate(); if (st.err) { draw(); return; }
+        st.status = "sending"; draw();
+        fetch(ct.formEndpoint || "https://formspree.io/f/mlgwpppq", {
+          method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body: JSON.stringify({ _subject: ct.subject || "Revelator Illuminae — design inquiry", name:st.name, email:st.email, phone:st.phone,
+            department:"Revelator Illuminae", need: ct.option || "LIGHTING DESIGN (REVELATOR ILLUMINAE)", message:st.detail, source:"revelator" })
+        }).then(function(r){ st.status = r.ok ? "success" : "error"; draw(); })
+          .catch(function(){ st.status = "error"; draw(); });
+      };
+      wrap.appendChild(btn);
+      wrap.appendChild(el("div","direct-email","Direct: "+esc(ct.directEmail||"fookn.oats.enterprises@gmail.com")));
+    }
+    draw();
+  }
+
+  fetch("./revelator.json?t="+Date.now())
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(function(e){
+      document.getElementById("hero-title").textContent = "REVELATOR ILLUMINAE";
+      document.getElementById("hero-line").textContent = "Lighting design as its own credit. Content is loading slowly — refresh, or email fookn.oats.enterprises@gmail.com.";
+      console.error("revelator.json failed", e);
+    });
+  </script>
+</body>
+</html>

@@ -35,12 +35,14 @@ map generated copy to the right fields in index.html, site.js, and ticker.json, 
    | dept.makerlab     | index.html  | DEPARTMENTS[4] tagline + desc + bullets   |
    | dept.designnet    | index.html  | DEPARTMENTS[5] tagline + desc + bullets   |
    | brands            | index.html  | SECTIONS[1] tagline + desc                |
-   | brand.revelator   | index.html  | BRANDS[0] tagline + desc + bullets        |
-   | brand.sleepwell   | index.html  | BRANDS[1] tagline + desc + bullets        |
+   | brand.supertechlx | index.html  | BRANDS[0] tagline + desc + bullets        |
+   | brand.revelator   | index.html  | BRANDS[1] tagline + desc + bullets (page copy lives in revelator.json) |
    | brand.aioatmeal   | index.html  | BRANDS[2] tagline + desc + bullets        |
-   | brand.ghosted     | index.html  | BRANDS[3] tagline + desc + bullets        |
-   | brand.crypto      | index.html  | BRANDS[4] tagline + desc + bullets        |
-   | brand.fallingstar | index.html  | BRANDS[5] tagline + desc + bullets        |
+   | brand.edmoatmeal  | index.html  | BRANDS[3] tagline + desc + bullets        |
+   | brand.fallingstar | index.html  | BRANDS[4] tagline + desc + bullets        |
+   | brand.sleepwell   | index.html  | HIBERNATING[0] tagline                    |
+   | brand.ghosted     | index.html  | HIBERNATING[1] tagline                    |
+   | brand.crypto      | index.html  | HIBERNATING[2] tagline                    |
    | studio            | index.html  | studio detailPage desc + bullets          |
    | stories           | index.html  | SECTIONS[3] tagline + desc + bullets      |
    | edm               | index.html  | EDM detailPage desc + bullets             |
