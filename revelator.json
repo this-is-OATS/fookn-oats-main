@@ -163,10 +163,9 @@
 
   "vizzies": {
     "label": "GO4OATS.VIZZIES",
-    "text": "A visuals generator and blending software.",
-    "url": "",
-    "linkLabel": "OPEN GO4OATS.VIZZIES ↗",
-    "_owner_todo": "Owner says: a visuals generator and blending software. Still need the URL. No URL = section stays hidden, and Go4oats.vizzies should come out of the BRANDS[1] card copy in index.html too."
+    "text": "A visuals generator and blending software. Clips and fractals, driven straight from grandMA3.",
+    "url": "https://oats-apps-hub.vercel.app/vizzies/",
+    "linkLabel": "OPEN GO4OATS.VIZZIES ↗"
   },
 
   "billing": {
