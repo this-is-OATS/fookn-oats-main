@@ -161,6 +161,28 @@
     ]
   },
 
+  "partner": {
+    "label": "Design partner",
+    "title": "Rolled & Recorded.",
+    "kicker": "The look for EDM Oatmeal's streamed sessions.",
+    "text": "Revelator Illuminae designs the light for Rolled & Recorded, EDM Oatmeal's recorded and streamed sessions. A small room, a real camera, and no pretending it's an arena. Session 01 is the first show that carries the credit.",
+    "facts": [
+      { "label": "Series",  "value": "Rolled & Recorded · EDM Oatmeal Presents" },
+      { "label": "Session", "value": "01 · First Light" },
+      { "label": "Date",    "value": "Thursday, January 7, 2027" },
+      { "label": "Room",    "value": "@RELAYHOUSE, Kenosha" },
+      { "label": "Credit",  "value": "Lighting design · Revelator Illuminae" }
+    ],
+    "url": "/rolled-recorded",
+    "linkLabel": "Rolled & Recorded",
+    "images": [
+      { "src": "/images/rr/session-01/dir3_square_notext.jpg", "tag": "ai", "caption": "First light beam, pre-visualization", "alt": "First Light beam concept plate (render placeholder)" },
+      { "src": "/images/rr/session-01/dir1_square_notext.jpg", "tag": "ai", "caption": "Over the shoulder, deck and tally light", "alt": "Deck and tally light concept plate (render placeholder)" },
+      { "src": "/images/rr/session-01/dir2_square_notext.jpg", "tag": "ai", "caption": "The kitchen table and the podcast corner", "alt": "Kitchen table concept plate (render placeholder)" }
+    ],
+    "_note": "Plates are the stamped AI pre-vis from rolled-recorded/vision.html. Swap for real photographs after Jan 7, 2027 and change tag to 'photo'."
+  },
+
   "vizzies": {
     "label": "GO4OATS.VIZZIES",
     "text": "A visuals generator and blending software. Clips and fractals, driven straight from grandMA3.",

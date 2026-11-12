@@ -14,13 +14,41 @@
   },
   "lineup": [],
   "schedule": [
-    { "time": "TBD", "label": "Doors / Arrival", "note": "" },
-    { "time": "TBD", "label": "Warm-up Segment", "note": "" },
-    { "time": "TBD", "label": "Set 1", "note": "" },
-    { "time": "TBD", "label": "Reset / Intermission", "note": "" },
-    { "time": "TBD", "label": "Set 2", "note": "" },
-    { "time": "TBD", "label": "Feature Set", "note": "" },
-    { "time": "TBD", "label": "Close", "note": "" }
+    {
+      "time": "TBD",
+      "label": "Doors / Arrival",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Warm-up Segment",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Set 1",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Reset / Intermission",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Set 2",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Feature Set",
+      "note": ""
+    },
+    {
+      "time": "TBD",
+      "label": "Close",
+      "note": ""
+    }
   ],
   "rsvp": {
     "enabled": true,
@@ -30,6 +58,7 @@
   },
   "links": {
     "edmFeed": "/edm-lite",
-    "instagram": "https://www.instagram.com/edm_oats?igsh=Z2JkMWxvZnltOGFi&utm_source=qr"
+    "instagram": "https://www.instagram.com/edm_oats?igsh=Z2JkMWxvZnltOGFi&utm_source=qr",
+    "revelator": "/revelator"
   }
 }

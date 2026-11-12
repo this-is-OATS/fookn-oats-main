@@ -198,7 +198,7 @@
 <div id="root"></div>
 
 <script>
-var RR_VERSION='rr-v1.18 · 2026.11.11'; // ← bump on every R&R deploy
+var RR_VERSION='rr-v1.19 · 2026.11.12'; // ← bump on every R&R deploy
 (function(){
   var root=document.getElementById('root');
 
@@ -336,6 +336,9 @@ var RR_VERSION='rr-v1.18 · 2026.11.11'; // ← bump on every R&R deploy
     }
     if(links&&links.instagram){
       var l2=el('a','footer-link');l2.href=links.instagram;l2.target='_blank';l2.rel='noopener';txt(l2,'◆ Instagram');fl.appendChild(l2);
+    }
+    if(links&&links.revelator){
+      var l4=el('a','footer-link');l4.href=links.revelator;txt(l4,'✦ Lighting design · Revelator Illuminae');fl.appendChild(l4);
     }
     var l3=el('a','footer-link');l3.href='/';txt(l3,'← FOOK\'n OATS');fl.appendChild(l3);
     f.appendChild(fl);

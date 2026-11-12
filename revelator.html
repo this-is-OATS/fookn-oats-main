@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="color-scheme" content="light"/>
   <title>Revelator Illuminae — Lighting Design</title>
   <meta name="description" content="Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it. A FOOK'n OATS brand, Kenosha HQ."/>
   <link rel="canonical" href="https://fookn-oats.enterprises/revelator"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="FOOK'n OATS"/>
+  <meta property="og:site_name" content="Revelator Illuminae"/>
   <meta property="og:url" content="https://fookn-oats.enterprises/revelator"/>
   <meta property="og:title" content="Revelator Illuminae — Lighting Design"/>
   <meta property="og:description" content="Lighting design as its own credit. The concept, the look, the show file. Billed on its own, separate from whoever hangs it."/>
@@ -19,212 +20,277 @@
   <meta name="twitter:title" content="Revelator Illuminae — Lighting Design"/>
   <meta name="twitter:description" content="The concept, the look, the show file. Lighting design billed on its own."/>
   <meta name="twitter:image" content="https://fookn-oats.enterprises/og.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     :root{
-      --gold:#ffb400;
-      --bg:#090909;
-      --bg2:rgba(14,14,14,0.9);
-      --border:rgba(255,180,0,0.18);
-      --text:#fff;
-      --muted:rgba(255,255,255,0.5);
-      --mono:'IBM Plex Mono',monospace;
-      --serif:'Playfair Display',Georgia,serif;
+      --paper:#f3efe6;
+      --mat:#faf8f3;
+      --ink:#15140f;
+      --ink-2:rgba(21,20,15,.66);
+      --ink-3:rgba(21,20,15,.44);
+      --rule:rgba(21,20,15,.14);
+      --rule-2:rgba(21,20,15,.08);
+      --accent:#5b1e22;
+      --dark:#0e0d0b;
+      --serif:'Cormorant Garamond',Garamond,'Times New Roman',serif;
+      --sans:'Inter',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+      --w:1120px;
     }
-    html,body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100%;overflow-x:hidden}
-    a{color:var(--gold)}
+    html{background:var(--paper)}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;min-height:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit}
     img{display:block;max-width:100%}
     [hidden]{display:none!important}
+    ::selection{background:var(--ink);color:var(--paper)}
+
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 32px}
+    .label{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+    .rule{height:1px;background:var(--rule)}
+    .section{padding-top:96px}
+    .section-head{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:40px;align-items:baseline;border-top:1px solid var(--rule);padding-top:22px}
+    .sec-title{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.6vw,46px);line-height:1.06;letter-spacing:-.005em}
+    .sec-text{font-size:16px;line-height:1.8;color:var(--ink-2);max-width:620px;margin-top:18px}
+    .sec-text em,.hero-line em{font-family:var(--serif);font-style:italic;font-size:1.12em;color:var(--ink)}
+    .link{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:5px;display:inline-block;transition:color .2s,border-color .2s}
+    .link:hover{color:var(--accent);border-color:var(--accent)}
+    .btn{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:12px;padding:18px 28px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);transition:background .2s,color .2s}
+    .btn:hover{background:var(--paper);color:var(--ink)}
+    .btn.ghost{background:transparent;color:var(--ink)}
+    .btn.ghost:hover{background:var(--ink);color:var(--paper)}
 
     /* ── NAV ── */
-    #nav{max-width:1040px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-    #nav a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap}
-    #nav a:hover{color:var(--gold)}
-    #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,.28);white-space:nowrap}
+    #nav{max-width:var(--w);margin:0 auto;padding:30px 32px 0;display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap}
+    .wordmark{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
+    .wordmark i{font-style:italic;color:var(--accent)}
+    .nav-r{display:flex;gap:28px;align-items:center}
+    .nav-r a{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;white-space:nowrap;transition:color .2s}
+    .nav-r a:hover{color:var(--ink)}
+    #nav-version{font-family:var(--sans);font-weight:400;font-size:9px;letter-spacing:.1em;color:var(--ink-3);opacity:.6;white-space:nowrap}
 
     /* ── HERO ── */
-    #hero{max-width:1040px;margin:0 auto;padding:40px 24px 24px;display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
-    #hero.has-image{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
-    .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:14px}
-    .eyebrow::before{content:'';display:block;width:32px;height:1px;background:rgba(255,180,0,.4);flex-shrink:0}
-    .hero-title{font-family:var(--serif);font-weight:900;font-size:clamp(40px,8.5vw,84px);line-height:.95;letter-spacing:-.02em}
-    .hero-title .dot{color:var(--gold)}
-    .hero-tagline{font-family:var(--serif);font-style:italic;font-weight:900;font-size:clamp(22px,4vw,34px);color:var(--gold);margin-top:16px}
-    .hero-line{font-size:16px;line-height:1.75;color:rgba(255,255,255,.62);max-width:560px;margin-top:20px}
-    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-    .btn-primary,.btn-secondary{font-family:var(--mono);font-size:12px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:10px;padding:14px 22px;display:inline-flex;align-items:center;gap:10px;transition:all .18s;border:1px solid transparent}
-    .btn-primary{background:var(--gold);color:#0a0a0a;box-shadow:0 8px 30px rgba(255,180,0,.2)}
-    .btn-primary:hover{transform:translateY(-1px)}
-    .btn-secondary{background:transparent;color:var(--gold);border-color:rgba(255,180,0,.4)}
-    .btn-secondary:hover{background:rgba(255,180,0,.06)}
-    .hero-art{position:relative;border:1px solid var(--border);background:var(--bg2);aspect-ratio:16/9;overflow:hidden}
-    .hero-art img{width:100%;height:100%;object-fit:cover}
+    #hero{max-width:var(--w);margin:0 auto;padding:120px 32px 0}
+    .hero-title{font-family:var(--serif);font-weight:500;font-size:clamp(58px,10.5vw,138px);line-height:.92;letter-spacing:-.02em;margin-top:26px;max-width:14ch}
+    .hero-title .dot{color:var(--accent)}
+    .hero-tagline{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(26px,3.4vw,40px);line-height:1.1;color:var(--ink-2);margin-top:30px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;margin-top:52px;padding-top:34px;border-top:1px solid var(--rule)}
+    .hero-line{font-size:17px;line-height:1.8;color:var(--ink-2);max-width:520px}
+    .hero-ctas{display:flex;gap:28px;align-items:center;flex-wrap:wrap;justify-self:end}
+    .hero-art{margin-top:72px}
+    .hero-art .frame img{aspect-ratio:21/9}
 
-    /* ── SHARED ── */
-    .section{max-width:1040px;margin:0 auto;padding:56px 24px 0}
-    .section-label{font-family:var(--mono);font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:28px}
-    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-    .sec-title{font-family:var(--serif);font-weight:900;font-size:clamp(26px,4vw,40px);line-height:1.05;letter-spacing:-.01em;margin-bottom:16px}
-    .sec-text{font-size:15px;line-height:1.8;color:rgba(255,255,255,.6);max-width:680px}
-    .card{border:1px solid var(--border);background:var(--bg2);padding:22px 20px}
-
-    /* image frame + truthful tags */
-    .frame{position:relative;border:1px solid rgba(255,255,255,.1);background:#0e0e0e;overflow:hidden}
-    .frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9}
-    .tag{position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:4px 8px;border-radius:4px;background:rgba(0,0,0,.72);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.18)}
-    .tag.ai{background:rgba(255,180,0,.14);color:var(--gold);border-color:rgba(255,180,0,.55);font-weight:700}
-    .frame-cap{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.45);line-height:1.6;margin-top:8px}
+    /* ── FRAMES (matted prints) ── */
+    .print{display:block}
+    .frame{background:var(--mat);border:1px solid var(--rule);padding:14px}
+    .frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;background:var(--dark)}
+    .frame img.plot{object-fit:contain;aspect-ratio:auto;height:auto;background:#fff}
+    .frame-foot{display:flex;justify-content:space-between;align-items:baseline;gap:10px 16px;margin-top:10px;flex-wrap:wrap}
+    .print,.frame{min-width:0}
+    .frame-cap{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-2);line-height:1.5}
+    .frame-tag{font-family:var(--sans);font-weight:500;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);line-height:1.6}
+    .frame-tag.ai{color:var(--accent);border:1px solid var(--accent);padding:5px 9px}
+    .hero-grid>*,.section-head>*,.two>*,.ma3-grid>*,.partner-grid>*,.split>*{min-width:0}
 
     /* ── IS / ISN'T ── */
-    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .split-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:10px}
-    .split .isnt .split-label{color:rgba(255,255,255,.4)}
-    .split-text{font-family:var(--serif);font-weight:900;font-size:clamp(18px,2.4vw,24px);line-height:1.3}
-    .split a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-decoration:none;display:inline-block;margin-top:14px;border-bottom:1px solid rgba(255,180,0,.35)}
+    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;border-top:1px solid var(--rule)}
+    .split > div{padding:36px 40px 40px 0;border-right:1px solid var(--rule)}
+    .split > div:last-child{border-right:0;padding-left:40px;padding-right:0}
+    .split-text{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.8vw,34px);line-height:1.22;margin-top:22px;max-width:18ch}
+    .split .isnt .split-text{color:var(--ink-2);font-weight:400}
+    .split .link{margin-top:26px}
 
     /* ── OFFER ── */
-    .offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-    .offer-icon{font-size:22px;color:var(--gold);margin-bottom:10px}
-    .offer-title{font-family:var(--serif);font-weight:900;font-size:19px;margin-bottom:8px;line-height:1.15}
-    .offer-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+    .offer{list-style:none;counter-reset:o;margin-top:12px}
+    .offer li{display:grid;grid-template-columns:72px minmax(0,300px) minmax(0,1fr);gap:28px;align-items:baseline;padding:30px 0;border-top:1px solid var(--rule-2)}
+    .offer li:first-child{border-top:0}
+    .o-num{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink-3)}
+    .o-title{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1}
+    .o-text{font-size:15px;line-height:1.75;color:var(--ink-2);max-width:520px}
 
     /* ── MA3 ── */
-    .ma3-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;align-items:start}
-    @media(max-width:760px){.ma3-grid{grid-template-columns:1fr}}
-    .points{list-style:none;margin-top:18px}
-    .points li{display:flex;gap:12px;font-size:14px;line-height:1.65;color:rgba(255,255,255,.6);margin-bottom:12px}
-    .points li b{color:#fff;font-weight:700}
-    .points .dot{color:var(--gold);flex-shrink:0}
-    .ma3-images{display:grid;grid-template-columns:1fr;gap:14px}
+    .ma3-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:start}
+    .points{list-style:none;margin-top:30px;border-top:1px solid var(--rule-2)}
+    .points li{padding:18px 0;border-bottom:1px solid var(--rule-2);font-size:15px;line-height:1.7;color:var(--ink-2)}
+    .points li b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;color:var(--ink);margin-bottom:4px}
+    .ma3-images{display:grid;grid-template-columns:1fr;gap:28px}
 
     /* ── VIDEO ── */
-    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--border);box-shadow:0 18px 60px rgba(0,0,0,.6)}
+    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;background:var(--dark);border:1px solid var(--rule)}
     .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
     /* ── PROCESS ── */
-    .process{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-    .step-num{font-family:var(--serif);font-weight:900;font-size:26px;color:var(--gold);margin-bottom:8px}
-    .step-title{font-family:var(--mono);font-size:12px;letter-spacing:.06em;margin-bottom:8px;font-weight:700}
-    .step-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+    .process{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+    .step{padding:28px 24px 34px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-height:200px;display:flex;flex-direction:column}
+    .step-num{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-3)}
+    .step-title{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.1;margin-top:auto;padding-top:28px}
+    .step-text{font-size:13.5px;line-height:1.65;color:var(--ink-2);margin-top:10px}
 
     /* ── WORK ── */
-    .work-group{margin-bottom:34px}
-    .work-group-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.4);margin-bottom:14px}
-    .work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-    .work-media{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .work-group{margin-top:56px}
+    .work-group:first-child{margin-top:0}
+    .work-group-label{display:flex;align-items:center;gap:18px;margin-bottom:30px}
+    .work-group-label::after{content:'';flex:1;height:1px;background:var(--rule-2)}
+    .work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:40px 32px}
+    .work-media{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     .work-media.single{grid-template-columns:1fr}
-    .work-meta{padding:16px 2px 0}
-    .work-artist{font-family:var(--serif);font-weight:900;font-size:20px;line-height:1.1}
-    .work-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-top:6px}
-    .work-line{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55);margin-top:8px}
+    .work-meta{padding-top:18px}
+    .work-artist{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05}
+    .work-sub{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+    .work-line{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin-top:10px;max-width:60ch}
+    .work-text-only{border-top:1px solid var(--rule-2);padding-top:22px}
 
-    /* ── BILLING / CONTACT ── */
-    .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:start}
-    .inquiry-box{border:1px solid var(--border);background:var(--bg2);padding:26px 24px}
-    .inquiry-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:8px}
-    .field-label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-bottom:6px;margin-top:14px}
-    .field-input,.field-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px;color:#fff;font-family:var(--mono);font-size:13px;outline:none}
-    .field-input:focus,.field-textarea:focus{border-color:rgba(255,180,0,.6)}
-    .field-textarea{resize:vertical}
-    .submit-btn{margin-top:20px;background:var(--gold);color:#0a0a0a;border:none;padding:12px 26px;font-family:var(--mono);font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.1em}
-    .submit-btn:disabled{background:rgba(255,180,0,.3);cursor:not-allowed}
-    .form-err{color:#ff5555;font-family:var(--mono);font-size:11px;margin-top:12px}
-    .form-success{color:var(--gold);font-family:var(--mono);font-size:13px;line-height:1.8}
-    .direct-email{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);margin-top:14px;letter-spacing:.04em}
-    .call-link{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-decoration:none;border-bottom:1px solid rgba(255,180,0,.35)}
+    /* ── PARTNER (Rolled & Recorded) ── */
+    .partner-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:start}
+    .partner-kicker{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink-2);margin-top:10px}
+    .partner-facts{list-style:none;margin-top:30px;border-top:1px solid var(--rule-2)}
+    .partner-facts li{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--rule-2);font-size:14.5px;line-height:1.6;color:var(--ink)}
+    .partner-facts li span:first-child{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+    .partner-images{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .partner-images .print:first-child{grid-column:1 / -1}
+
+    /* ── BILLING + CONTACT ── */
+    .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start}
+    .bill-title{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.6vw,46px);line-height:1.06}
+    .inquiry{border-top:1px solid var(--ink);padding-top:26px}
+    .field-label{display:block;font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);margin-top:26px;margin-bottom:6px}
+    .field-input,.field-textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--rule);padding:10px 0;color:var(--ink);font-family:var(--serif);font-size:20px;outline:none;border-radius:0;transition:border-color .2s}
+    .field-input:focus,.field-textarea:focus{border-color:var(--ink)}
+    .field-textarea{resize:vertical;min-height:84px;line-height:1.4}
+    .field-input::placeholder,.field-textarea::placeholder{color:var(--ink-3);font-style:italic}
+    .submit-btn{margin-top:34px}
+    .submit-btn:disabled{opacity:.4;cursor:not-allowed}
+    .form-err{color:var(--accent);font-family:var(--sans);font-size:12px;margin-top:16px;line-height:1.5}
+    .form-success{font-family:var(--serif);font-size:22px;line-height:1.5;color:var(--ink)}
+    .direct-email{font-family:var(--sans);font-size:11px;letter-spacing:.06em;color:var(--ink-3);margin-top:22px}
+    .call-link{margin-top:34px}
 
     /* ── FOOTER ── */
-    .footer{max-width:1040px;margin:70px auto 0;border-top:1px solid rgba(255,255,255,.06);padding:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-    .footer span,.footer a{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.06em}
-    .footer a:hover{color:var(--gold)}
+    .footer{max-width:var(--w);margin:120px auto 0;padding:30px 32px 56px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px}
+    .footer span,.footer a{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);text-decoration:none}
+    .footer a:hover{color:var(--ink)}
+    .footer .wordmark{font-size:17px;text-transform:none;letter-spacing:.02em;color:var(--ink)}
 
-    @media(max-width:760px){#hero.has-image{grid-template-columns:1fr}.hero-art{order:-1}}
-    @media(max-width:480px){#hero{padding-top:28px}.hero-line{font-size:15px}.section{padding-top:44px}.eyebrow{font-size:9px;letter-spacing:.18em}.eyebrow::before{display:none}}
+    @media(max-width:900px){
+      .process{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .two{grid-template-columns:minmax(0,1fr);gap:56px}
+      .ma3-grid,.partner-grid{grid-template-columns:minmax(0,1fr);gap:36px}
+      .section-head{grid-template-columns:minmax(0,1fr);gap:14px}
+    }
+    @media(max-width:640px){
+      .wrap,#nav,#hero,.footer{padding-left:22px;padding-right:22px}
+      #hero{padding-top:72px}
+      .section{padding-top:72px}
+      .hero-grid{grid-template-columns:minmax(0,1fr);gap:30px}
+      .hero-ctas{justify-self:start}
+      .offer li{grid-template-columns:44px minmax(0,1fr);gap:16px}
+      .offer li .o-text{grid-column:2}
+      .split > div{padding:30px 0;border-right:0;border-bottom:1px solid var(--rule)}
+      .split > div:last-child{padding-left:0;border-bottom:0}
+      .process{grid-template-columns:minmax(0,1fr)}
+      .step{min-height:0}
+      .nav-r{gap:14px;flex-wrap:wrap}
+      .nav-r a:first-child{display:none}
+      #nav-version{font-size:8px}
+      .partner-images{grid-template-columns:minmax(0,1fr)}
+      .partner-facts li{grid-template-columns:1fr;gap:4px}
+    }
   </style>
 </head>
 <body>
 
   <nav id="nav">
-    <a href="/#brands">◆ FOOK'n OATS</a>
-    <span id="nav-version"></span>
-    <a href="/#supertech">SUPERTECH LX →</a>
+    <a class="wordmark" href="/revelator">Revelator <i>Illuminae</i></a>
+    <div class="nav-r">
+      <a href="/#supertech">SuperTech LX</a>
+      <a href="/#brands">FOOK'n OATS ↗</a>
+      <span id="nav-version"></span>
+    </div>
   </nav>
 
   <header id="hero">
-    <div>
-      <div class="eyebrow" id="hero-eyebrow"></div>
-      <h1 class="hero-title" id="hero-title"></h1>
-      <div class="hero-tagline" id="hero-tagline"></div>
+    <div class="label" id="hero-eyebrow"></div>
+    <h1 class="hero-title" id="hero-title"></h1>
+    <div class="hero-tagline" id="hero-tagline"></div>
+    <div class="hero-grid">
       <p class="hero-line" id="hero-line"></p>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#book" id="hero-cta"></a>
-        <a class="btn-secondary" href="#offer" id="hero-cta2"></a>
+        <a class="btn" href="#book" id="hero-cta"></a>
+        <a class="link" href="#offer" id="hero-cta2"></a>
       </div>
     </div>
     <div class="hero-art" id="hero-art" hidden></div>
   </header>
 
-  <section class="section" id="isisnt">
+  <section class="section wrap" id="isisnt">
     <div class="split" id="split"></div>
   </section>
 
-  <section class="section" id="offer">
-    <div class="section-label" id="offer-label"></div>
-    <div class="offer-grid" id="offer-grid"></div>
+  <section class="section wrap" id="offer">
+    <div class="section-head"><div class="label" id="offer-label"></div><h2 class="sec-title" id="offer-title">What the credit covers.</h2></div>
+    <ol class="offer" id="offer-grid"></ol>
   </section>
 
-  <section class="section" id="ma3" hidden>
-    <div class="section-label" id="ma3-label"></div>
-    <div class="ma3-grid">
+  <section class="section wrap" id="ma3" hidden>
+    <div class="section-head"><div class="label" id="ma3-label"></div><h2 class="sec-title" id="ma3-title"></h2></div>
+    <div class="ma3-grid" style="margin-top:34px">
       <div>
-        <h2 class="sec-title" id="ma3-title"></h2>
-        <p class="sec-text" id="ma3-intro"></p>
+        <p class="sec-text" id="ma3-intro" style="margin-top:0"></p>
         <ul class="points" id="ma3-points"></ul>
       </div>
       <div class="ma3-images" id="ma3-images"></div>
     </div>
   </section>
 
-  <section class="section" id="video" hidden>
-    <div class="section-label" id="video-label"></div>
-    <div class="video-wrap" id="video-wrap"></div>
-    <div class="frame-cap" id="video-cap"></div>
+  <section class="section wrap" id="video" hidden>
+    <div class="section-head"><div class="label" id="video-label"></div><h2 class="sec-title" id="video-title"></h2></div>
+    <div class="video-wrap" id="video-wrap" style="margin-top:34px"></div>
+    <div class="frame-cap" id="video-cap" style="margin-top:12px"></div>
   </section>
 
-  <section class="section" id="process">
-    <div class="section-label" id="process-label"></div>
-    <div class="process" id="process-grid"></div>
+  <section class="section wrap" id="process">
+    <div class="section-head"><div class="label" id="process-label"></div><h2 class="sec-title">Five steps. No surprises.</h2></div>
+    <div class="process" id="process-grid" style="margin-top:34px"></div>
   </section>
 
-  <section class="section" id="work" hidden>
-    <div class="section-label" id="work-label"></div>
-    <p class="sec-text" id="work-note" style="margin-bottom:28px"></p>
-    <div id="work-groups"></div>
+  <section class="section wrap" id="work" hidden>
+    <div class="section-head"><div class="label" id="work-label"></div><div><h2 class="sec-title">Selected work.</h2><p class="sec-text" id="work-note"></p></div></div>
+    <div id="work-groups" style="margin-top:44px"></div>
   </section>
 
-  <section class="section" id="vizzies" hidden>
-    <div class="section-label" id="vizzies-label"></div>
-    <p class="sec-text" id="vizzies-text"></p>
-    <a class="btn-secondary" id="vizzies-link" target="_blank" rel="noopener" style="margin-top:18px"></a>
-  </section>
-
-  <section class="section" id="book">
-    <div class="two">
+  <section class="section wrap" id="partner" hidden>
+    <div class="section-head"><div class="label" id="partner-label"></div><h2 class="sec-title" id="partner-title"></h2></div>
+    <div class="partner-grid" style="margin-top:34px">
       <div>
-        <div class="section-label" id="billing-label"></div>
-        <h2 class="sec-title" id="billing-title"></h2>
-        <p class="sec-text" id="billing-text"></p>
-        <h2 class="sec-title" id="contact-title" style="margin-top:34px"></h2>
-        <p class="sec-text" id="contact-text"></p>
-        <a class="call-link" id="call-link" target="_blank" rel="noopener"></a>
+        <div class="partner-kicker" id="partner-kicker"></div>
+        <p class="sec-text" id="partner-text"></p>
+        <ul class="partner-facts" id="partner-facts"></ul>
+        <a class="link" id="partner-link" style="margin-top:30px"></a>
       </div>
-      <div class="inquiry-box">
-        <div class="inquiry-label" id="contact-label"></div>
+      <div class="partner-images" id="partner-images"></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="vizzies" hidden>
+    <div class="section-head"><div class="label" id="vizzies-label"></div><div><h2 class="sec-title">The visuals, driven from the desk.</h2><p class="sec-text" id="vizzies-text"></p><a class="link" id="vizzies-link" target="_blank" rel="noopener" style="margin-top:26px"></a></div></div>
+  </section>
+
+  <section class="section wrap" id="book">
+    <div class="section-head"><div class="label" id="billing-label"></div><div class="two">
+      <div>
+        <h2 class="bill-title" id="billing-title"></h2>
+        <p class="sec-text" id="billing-text"></p>
+        <h3 class="bill-title" id="contact-title" style="margin-top:56px;font-size:clamp(26px,3vw,36px)"></h3>
+        <p class="sec-text" id="contact-text"></p>
+        <a class="link call-link" id="call-link" target="_blank" rel="noopener"></a>
+      </div>
+      <div class="inquiry">
+        <div class="label" id="contact-label"></div>
         <div id="form"></div>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <footer class="footer" id="footer"></footer>
@@ -239,19 +305,19 @@
   function show(id){document.getElementById(id).hidden=false;}
 
   // Truthful image tags. 'ai' is the hard-rule disclosure (CLAUDE.md): the file must ALSO carry the baked-in stamp.
-  var TAGS = { vectorworks:"VECTORWORKS RENDER", plot:"PLOT CAPTURE", ma3:"GRANDMA3 SCREEN GRAB", photo:"PHOTO", ai:"◆ RENDER PLACEHOLDER · AI GENERATED ◆" };
+  var TAGS = { vectorworks:"Vectorworks render", plot:"Plot capture", ma3:"grandMA3 screen", photo:"Photograph", ai:"◆ Render placeholder · AI generated ◆" };
   function frame(src, tag, caption, alt){
-    var w = el("div");
+    var w = el("div","print");
     var f = el("div","frame");
-    var img = el("img"); img.src = src; img.loading = "lazy"; img.alt = alt || caption || "";
     var t = (tag||"").toLowerCase();
-    if (t==="plot") { img.style.cssText = "object-fit:contain;aspect-ratio:auto;height:auto;background:#fff"; }
+    var img = el("img"); img.src = src; img.loading = "lazy"; img.alt = alt || caption || "";
+    if (t==="plot") img.className = "plot";
     f.appendChild(img);
-    if (TAGS[t]) f.appendChild(el("span","tag"+(t==="ai"?" ai":""),TAGS[t]));
     w.appendChild(f);
-    var cap = caption || "";
-    if (t==="ai") cap = (cap ? cap+" · " : "") + "RENDER PLACEHOLDER";
-    if (cap) w.appendChild(el("div","frame-cap",esc(cap)));
+    var foot = el("div","frame-foot");
+    foot.appendChild(el("div","frame-cap",esc(caption||"")));
+    if (TAGS[t]) foot.appendChild(el("span","frame-tag"+(t==="ai"?" ai":""),esc(TAGS[t])));
+    w.appendChild(foot);
     return w;
   }
 
@@ -259,72 +325,71 @@
     // HERO
     var h = D.hero || {};
     txt("hero-eyebrow", h.eyebrow);
-    document.getElementById("hero-title").innerHTML = esc(h.title||"REVELATOR ILLUMINAE").replace(/ ILLUMINAE$/, " ILLUMINAE<span class='dot'>.</span>");
+    document.getElementById("hero-title").innerHTML = esc(h.title||"REVELATOR ILLUMINAE").replace(/^REVELATOR ILLUMINAE$/i,"Revelator<br>Illuminae<span class='dot'>.</span>");
     txt("hero-tagline", h.tagline); txt("hero-line", h.line);
-    txt("hero-cta", h.ctaLabel || "START A DESIGN INQUIRY →"); txt("hero-cta2", h.secondaryLabel || "SEE THE WORK ↓");
+    txt("hero-cta", h.ctaLabel || "Start a design inquiry"); txt("hero-cta2", h.secondaryLabel || "See the work");
     if (h.image) {
-      var ha = document.getElementById("hero-art"); ha.hidden = false; ha.className = "";
-      ha.appendChild(frame(h.image, h.imageTag, h.imageCaption, "Revelator Illuminae hero render"));
-      document.getElementById("hero").classList.add("has-image");
+      var ha = document.getElementById("hero-art"); ha.hidden = false;
+      ha.appendChild(frame(h.image, h.imageTag, h.imageCaption, "Revelator Illuminae"));
     }
 
     // IS / ISN'T
     var s = D.isIsnt || {}, split = document.getElementById("split");
     [["is",s.is],["isnt",s.isnt]].forEach(function(p){
       if (!p[1]) return;
-      var c = el("div","card "+p[0]);
-      c.appendChild(el("div","split-label",esc(p[1].label)));
+      var c = el("div",p[0]);
+      c.appendChild(el("div","label",esc(p[1].label)));
       c.appendChild(el("div","split-text",esc(p[1].text)));
-      if (p[1].link) { var a = el("a","",esc(p[1].linkLabel||"MORE →")); a.href = p[1].link; c.appendChild(a); }
+      if (p[1].link) { var a = el("a","link",esc(p[1].linkLabel||"More")); a.href = p[1].link; c.appendChild(a); }
       split.appendChild(c);
     });
 
     // OFFER
     var o = D.offer || {items:[]};
-    txt("offer-label", "◆ "+(o.label||"THE OFFER"));
+    txt("offer-label", o.label||"The offer");
     var og = document.getElementById("offer-grid");
-    (o.items||[]).forEach(function(i){
-      var c = el("div","card");
-      c.appendChild(el("div","offer-icon",esc(i.icon||"✦")));
-      c.appendChild(el("div","offer-title",esc(i.title)));
-      c.appendChild(el("div","offer-text",esc(i.text)));
-      og.appendChild(c);
+    (o.items||[]).forEach(function(i, n){
+      var li = el("li");
+      li.appendChild(el("div","o-num","0"+(n+1)));
+      li.appendChild(el("div","o-title",esc(i.title)));
+      li.appendChild(el("div","o-text",esc(i.text)));
+      og.appendChild(li);
     });
 
     // MA3 SYSTEMS (hidden until the owner's words + grabs exist)
     var m = D.ma3 || {};
     if ((m.intro && m.intro.trim()) || (m.points||[]).length || (m.images||[]).length) {
       show("ma3");
-      txt("ma3-label","◆ "+(m.label||"GRANDMA3 SHOW-FILE SYSTEMS")); txt("ma3-title", m.title); txt("ma3-intro", m.intro);
+      txt("ma3-label", m.label||"grandMA3 show-file systems"); txt("ma3-title", m.title); txt("ma3-intro", m.intro);
       var pts = document.getElementById("ma3-points");
       (m.points||[]).forEach(function(p){
-        var li = el("li"); li.appendChild(el("span","dot","◆"));
-        var body = typeof p === "string" ? esc(p) : "<b>"+esc(p.title)+"</b> "+esc(p.text);
-        li.appendChild(el("span","",body)); pts.appendChild(li);
+        var li = el("li");
+        li.innerHTML = typeof p === "string" ? esc(p) : "<b>"+esc(p.title)+"</b>"+esc(p.text);
+        pts.appendChild(li);
       });
       var mi = document.getElementById("ma3-images");
       (m.images||[]).forEach(function(im){ mi.appendChild(frame(im.src, im.tag||"ma3", im.caption, im.alt)); });
     }
 
-    // VIDEO (youtube-nocookie, same pattern as the EDM section)
+    // VIDEO (youtube-nocookie)
     var v = D.video || {};
     if (v.youtubeId && /^[\w-]{6,}$/.test(v.youtubeId)) {
       show("video");
-      txt("video-label","◆ "+(v.label||"WALKTHROUGH"));
+      txt("video-label", v.label||"Walkthrough"); txt("video-title", v.title||"The file, walked through.");
       var ifr = el("iframe");
       ifr.src = "https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.youtubeId)+"?playsinline=1&controls=1&rel=0&modestbranding=1&color=white&iv_load_policy=3";
       ifr.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       ifr.setAttribute("allowfullscreen",""); ifr.title = v.title || "Revelator Illuminae walkthrough"; ifr.loading = "lazy";
       document.getElementById("video-wrap").appendChild(ifr);
-      txt("video-cap", [v.title, v.caption].filter(Boolean).join(" · "));
+      txt("video-cap", v.caption);
     }
 
     // PROCESS
     var pr = D.process || {steps:[]};
-    txt("process-label","◆ "+(pr.label||"PROCESS"));
+    txt("process-label", pr.label||"Process");
     var pg = document.getElementById("process-grid");
     (pr.steps||[]).forEach(function(st){
-      var c = el("div","card");
+      var c = el("div","step");
       c.appendChild(el("div","step-num",esc(st.step)));
       c.appendChild(el("div","step-title",esc(st.title)));
       c.appendChild(el("div","step-text",esc(st.text)));
@@ -333,14 +398,14 @@
 
     // SELECTED WORK (Designed vs Programmed / Supported — never blur the two)
     var w = D.work || {};
-    var groups = [["DESIGNED", w.designed||[]],["PROGRAMMED / SUPPORTED", w.supported||[]],[w.crewLabel||"CREW & DRAFTING", w.crew||[]],[w.earlierLabel||"EARLIER", w.earlier||[]]].filter(function(g){return g[1].length;});
+    var groups = [["Designed", w.designed||[]],["Programmed / Supported", w.supported||[]],[w.crewLabel||"Crew & Drafting", w.crew||[]],[w.earlierLabel||"Earlier", w.earlier||[]]].filter(function(g){return g[1].length;});
     if (groups.length) {
       show("work");
-      txt("work-label","◆ "+(w.label||"SELECTED WORK")); txt("work-note", w.note);
+      txt("work-label", w.label||"Selected work"); txt("work-note", w.note);
       var wg = document.getElementById("work-groups");
       groups.forEach(function(g){
         var grp = el("div","work-group");
-        grp.appendChild(el("div","work-group-label",g[0]));
+        grp.appendChild(el("div","work-group-label label",esc(g[0])));
         var grid = el("div","work-grid");
         g[1].forEach(function(e){
           var c = el("div");
@@ -351,40 +416,54 @@
           if (n < 2) media.className += " single";
           if (n) c.appendChild(media);
           if (n > 2) c.style.gridColumn = "1 / -1";
-          var meta = el("div","work-meta");
+          var meta = el("div","work-meta"+(n?"":" work-text-only"));
           meta.appendChild(el("div","work-artist",esc(e.artist)));
-          meta.appendChild(el("div","work-sub",esc([e.event,e.year,e.role].filter(Boolean).join(" · "))));
+          meta.appendChild(el("div","work-sub",esc([e.event,e.year,e.role].filter(Boolean).join("  ·  "))));
           if (e.line) meta.appendChild(el("div","work-line",esc(e.line)));
-          if (e.renderTag==="ai" || e.plotTag==="ai") meta.appendChild(el("div","work-sub","RENDER PLACEHOLDER · AI GENERATED"));
           c.appendChild(meta); grid.appendChild(c);
         });
         grp.appendChild(grid); wg.appendChild(grp);
       });
     }
 
+    // DESIGN PARTNER — Rolled & Recorded (hidden until filled)
+    var pt = D.partner || {};
+    if (pt.title || pt.text) {
+      show("partner");
+      txt("partner-label", pt.label||"Design partner"); txt("partner-title", pt.title); txt("partner-kicker", pt.kicker); txt("partner-text", pt.text);
+      var pf = document.getElementById("partner-facts");
+      (pt.facts||[]).forEach(function(f){ var li = el("li"); li.appendChild(el("span","",esc(f.label))); li.appendChild(el("span","",esc(f.value))); pf.appendChild(li); });
+      var pl = document.getElementById("partner-link");
+      if (pt.url) { pl.href = pt.url; pl.textContent = pt.linkLabel || "Rolled & Recorded"; } else pl.hidden = true;
+      var pi = document.getElementById("partner-images");
+      (pt.images||[]).forEach(function(im){ pi.appendChild(frame(im.src, im.tag, im.caption, im.alt)); });
+      if (!(pt.images||[]).length) pi.hidden = true;
+    }
+
     // GO4OATS.VIZZIES — only if it has a destination
     var vz = D.vizzies || {};
     if (vz.url) {
       show("vizzies");
-      txt("vizzies-label","◆ "+(vz.label||"GO4OATS.VIZZIES")); txt("vizzies-text", vz.text);
-      var vl = document.getElementById("vizzies-link"); vl.href = vz.url; vl.textContent = vz.linkLabel || "OPEN ↗";
+      txt("vizzies-label", vz.label||"Go4oats.vizzies"); txt("vizzies-text", vz.text);
+      var vl = document.getElementById("vizzies-link"); vl.href = vz.url; vl.textContent = vz.linkLabel || "Open";
     }
 
     // BILLING + CONTACT
     var b = D.billing || {}, ct = D.contact || {};
-    txt("billing-label","◆ "+(b.label||"HOW IT'S BILLED")); txt("billing-title", b.title); txt("billing-text", b.text);
+    txt("billing-label", b.label||"How it's billed"); txt("billing-title", b.title); txt("billing-text", b.text);
     txt("contact-title", ct.title); txt("contact-text", ct.text);
     var cl = document.getElementById("call-link");
-    if (ct.callUrl) { cl.href = ct.callUrl; cl.textContent = ct.callLabel || "PREFER A CALL? →"; } else cl.hidden = true;
-    txt("contact-label","◆ "+(ct.label||"BOOK IT"));
+    if (ct.callUrl) { cl.href = ct.callUrl; cl.textContent = ct.callLabel || "Prefer a call?"; } else cl.hidden = true;
+    txt("contact-label", ct.label||"Book it");
     inquiryForm(ct);
 
     // FOOTER
     var f = D.footer || {};
     document.getElementById("footer").innerHTML =
-      '<span>'+esc(f.brandLine||"A FOOK'n OATS BRAND")+'</span>' +
-      '<span><a href="'+esc(f.homeUrl||"/#brands")+'">'+esc(f.homeLabel||"← ALL BRANDS")+'</a>' +
-      (f.supertechUrl ? ' &middot; <a href="'+esc(f.supertechUrl)+'">'+esc(f.supertechLabel||"SUPERTECH LX")+'</a>' : '') + '</span>';
+      '<a class="wordmark" href="/revelator">Revelator <i>Illuminae</i></a>' +
+      '<span>'+esc(f.brandLine||"A FOOK'n OATS brand")+'</span>' +
+      '<span><a href="'+esc(f.homeUrl||"/#brands")+'">'+esc(f.homeLabel||"All brands")+'</a>' +
+      (f.supertechUrl ? ' &nbsp;·&nbsp; <a href="'+esc(f.supertechUrl)+'">'+esc(f.supertechLabel||"SuperTech LX")+'</a>' : '') + '</span>';
   }
 
   // Inquiry form — same Formspree endpoint + payload shape as index.html, preset to the design option.
@@ -392,7 +471,7 @@
     var wrap = document.getElementById("form");
     var st = {name:"",email:"",phone:"",detail:"",status:"idle",err:""};
     function validate(){
-      if (!st.name.trim() && !st.email.trim()) return "NAME AND EMAIL REQUIRED.";
+      if (!st.name.trim() && !st.email.trim()) return "A name and an email, please.";
       if (!st.name.trim()) return "Name, please.";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.email.trim())) return "That email doesn't look right. Check it and try again.";
       if (st.phone && !/^[\d\s()+\-.]+$/.test(st.phone)) return "Digits only, or leave it blank.";
@@ -400,20 +479,20 @@
     }
     function draw(){
       wrap.innerHTML = "";
-      if (st.status === "success") { wrap.appendChild(el("div","form-success","Signal received. Check your inbox. You'll get a reply with a few quick questions and a link to grab a call.")); return; }
-      [{key:"name",label:"NAME",type:"text"},{key:"email",label:"EMAIL",type:"email"},{key:"phone",label:"PHONE / TEXT (OPTIONAL)",type:"tel"}].forEach(function(fd){
+      if (st.status === "success") { wrap.appendChild(el("div","form-success","Received. You'll hear back with a few questions and a time to talk.")); return; }
+      [{key:"name",label:"Name",type:"text"},{key:"email",label:"Email",type:"email"},{key:"phone",label:"Phone (optional)",type:"tel"}].forEach(function(fd){
         var lbl = el("label","field-label",fd.label); lbl.setAttribute("for","rv-"+fd.key);
         var inp = el("input"); inp.type = fd.type; inp.id = "rv-"+fd.key; inp.className = "field-input"; inp.value = st[fd.key];
         inp.oninput = function(){ st[fd.key] = this.value; };
         wrap.appendChild(lbl); wrap.appendChild(inp);
       });
-      wrap.appendChild(el("label","field-label","THE SHOW (OPTIONAL)"));
-      var ta = el("textarea"); ta.className = "field-textarea"; ta.rows = 4; ta.placeholder = "Artist, dates, venue, who's hanging it..."; ta.value = st.detail;
+      wrap.appendChild(el("label","field-label","The show"));
+      var ta = el("textarea"); ta.className = "field-textarea"; ta.rows = 3; ta.placeholder = "Artist, dates, the room, who's hanging it"; ta.value = st.detail;
       ta.oninput = function(){ st.detail = this.value; };
       wrap.appendChild(ta);
       if (st.err) wrap.appendChild(el("div","form-err",esc(st.err)));
-      if (st.status==="error") wrap.appendChild(el("div","form-err","⚠ Didn't send. Try again, or email "+esc(ct.directEmail||"fookn.oats.enterprises@gmail.com")+"."));
-      var btn = el("button","submit-btn", st.status==="sending" ? "SENDING…" : "SEND INQUIRY →");
+      if (st.status==="error") wrap.appendChild(el("div","form-err","Didn't send. Try again, or write to "+esc(ct.directEmail||"fookn.oats.enterprises@gmail.com")+"."));
+      var btn = el("button","btn submit-btn", st.status==="sending" ? "Sending" : "Send inquiry");
       btn.disabled = st.status==="sending";
       btn.onclick = function(){
         st.err = validate(); if (st.err) { draw(); return; }
@@ -435,8 +514,8 @@
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
     .catch(function(e){
-      document.getElementById("hero-title").textContent = "REVELATOR ILLUMINAE";
-      document.getElementById("hero-line").textContent = "Lighting design as its own credit. Content is loading slowly — refresh, or email fookn.oats.enterprises@gmail.com.";
+      document.getElementById("hero-title").innerHTML = "Revelator<br>Illuminae<span class='dot'>.</span>";
+      document.getElementById("hero-line").textContent = "Lighting design as its own credit. Content is loading slowly. Refresh, or write to fookn.oats.enterprises@gmail.com.";
       console.error("revelator.json failed", e);
     });
   </script>
