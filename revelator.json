@@ -79,25 +79,100 @@
 
   "work": {
     "label": "SELECTED WORK",
-    "note": "Real credits only. Designed means I held the design credit. Programmed / Supported means I built or ran someone else's design.",
+    "note": "Real credits only. Every one of these was a team effort. The role listed is the part I played, not the show's design credit. Plots and drawings were done alongside the team at Voyage Productions.",
     "designed": [],
     "supported": [],
-    "_owner_todo": "Each entry: {\"artist\":\"\",\"event\":\"\",\"year\":\"\",\"role\":\"\",\"line\":\"\",\"plot\":\"/images/revelator/plots/plot-<show>-<year>.jpg\",\"render\":\"/images/revelator/renders/render-<show>-<look>.jpg\",\"renderTag\":\"vectorworks\"}. tour-history.md credits (ODESZA, Pretty Lights, Royel Otis) are SuperTech-side unless the owner confirms a design credit — list those under supported, never designed, without his say-so."
+    "crewLabel": "CREW & DRAFTING",
+    "crew": [
+      {
+        "artist": "Of The Trees",
+        "event": "2026 run",
+        "year": "",
+        "role": "Lighting crew chief",
+        "line": "Ran the lighting crew and the room-by-room advances. Opener LD on the Jade Cicada dates."
+      },
+      {
+        "artist": "Pretty Lights",
+        "event": "Arena and festival run",
+        "year": "2024",
+        "role": "LX crew chief",
+        "line": "Crew chief on the lighting side, festivals included. The production's lighting designer held the design."
+      }
+    ],
+    "earlierLabel": "EARLIER · 2016 TO 2019",
+    "earlier": [
+      {
+        "artist": "GRiZ",
+        "event": "Fillmore",
+        "year": "2019",
+        "role": "Plot drafting · lighting tech",
+        "line": "Room plot drawn in Vectorworks with the Voyage Productions team. Lighting tech on the road with GRiZ the same year."
+      },
+      {
+        "artist": "GRiZmas",
+        "event": "Holiday run",
+        "year": "2018",
+        "role": "Vectorworks drafting",
+        "line": "Drew the plot for Voyage Productions."
+      },
+      {
+        "artist": "Gramatik",
+        "event": "",
+        "year": "2018",
+        "role": "Plot drafting",
+        "line": "Drafting for Voyage Productions."
+      },
+      {
+        "artist": "Sublime with Rome",
+        "event": "Fall run",
+        "year": "2017",
+        "role": "Plot drafting, revs 5 to 7.2",
+        "line": "Drafted the merged co-headline plot with rigging weights, a team effort with the lighting vendor and the production manager. The co-headliner carried its own crew.",
+        "plots": [
+          {
+            "src": "/images/revelator/plots/plot-rig-detail-fixtures-a.jpg",
+            "tag": "plot",
+            "caption": "Flown truss and floor package, detail"
+          },
+          {
+            "src": "/images/revelator/plots/plot-rig-detail-legend-b.jpg",
+            "tag": "plot",
+            "caption": "Fixture legend, detail"
+          },
+          {
+            "src": "/images/revelator/plots/plot-rig-detail-motors-c.jpg",
+            "tag": "plot",
+            "caption": "Motor count, detail"
+          },
+          {
+            "src": "/images/revelator/plots/plot-rig-detail-floor-d.jpg",
+            "tag": "plot",
+            "caption": "Floor package, detail"
+          }
+        ]
+      },
+      {
+        "artist": "Dirty Heads",
+        "event": "Fall US tour",
+        "year": "2016",
+        "role": "Lighting director",
+        "line": "Small light package, five and a half weeks, bus and trailer."
+      }
+    ]
   },
 
   "vizzies": {
     "label": "GO4OATS.VIZZIES",
-    "text": "",
+    "text": "A visuals generator and blending software.",
     "url": "",
     "linkLabel": "OPEN GO4OATS.VIZZIES ↗",
-    "_owner_todo": "Ask the owner what Go4oats.vizzies is and its URL. No URL = section stays hidden and it should be dropped from the BRANDS[1] card copy in index.html too."
+    "_owner_todo": "Owner says: a visuals generator and blending software. Still need the URL. No URL = section stays hidden, and Go4oats.vizzies should come out of the BRANDS[1] card copy in index.html too."
   },
 
   "billing": {
     "label": "HOW IT'S BILLED",
-    "title": "Flat fee. Separate line.",
-    "text": "Design is quoted as a flat fee per show or per tour, on its own line, separate from production. You can hand the file to SuperTech LX or to any vendor you already trust. Either way the design credit stays with Revelator Illuminae.",
-    "_owner_todo": "Confirm the billing shape (per show / per tour / retainer) before ship."
+    "title": "Per project. Separate line.",
+    "text": "Design is quoted per project, on its own line, separate from production. You can hand the file to SuperTech LX or to any vendor you already trust. Either way the design credit stays with Revelator Illuminae."
   },
 
   "contact": {

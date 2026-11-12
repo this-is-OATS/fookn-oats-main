@@ -244,8 +244,9 @@
     var w = el("div");
     var f = el("div","frame");
     var img = el("img"); img.src = src; img.loading = "lazy"; img.alt = alt || caption || "";
-    f.appendChild(img);
     var t = (tag||"").toLowerCase();
+    if (t==="plot") { img.style.cssText = "object-fit:contain;aspect-ratio:auto;height:auto;background:#fff"; }
+    f.appendChild(img);
     if (TAGS[t]) f.appendChild(el("span","tag"+(t==="ai"?" ai":""),TAGS[t]));
     w.appendChild(f);
     var cap = caption || "";
@@ -332,7 +333,7 @@
 
     // SELECTED WORK (Designed vs Programmed / Supported — never blur the two)
     var w = D.work || {};
-    var groups = [["DESIGNED", w.designed||[]],["PROGRAMMED / SUPPORTED", w.supported||[]]].filter(function(g){return g[1].length;});
+    var groups = [["DESIGNED", w.designed||[]],["PROGRAMMED / SUPPORTED", w.supported||[]],[w.crewLabel||"CREW & DRAFTING", w.crew||[]],[w.earlierLabel||"EARLIER", w.earlier||[]]].filter(function(g){return g[1].length;});
     if (groups.length) {
       show("work");
       txt("work-label","◆ "+(w.label||"SELECTED WORK")); txt("work-note", w.note);
@@ -343,10 +344,13 @@
         var grid = el("div","work-grid");
         g[1].forEach(function(e){
           var c = el("div");
-          var media = el("div","work-media"+((e.plot&&e.render)?"":" single"));
-          if (e.plot)   media.appendChild(frame(e.plot, e.plotTag||"plot", "", (e.artist||"")+" plot"));
-          if (e.render) media.appendChild(frame(e.render, e.renderTag||"vectorworks", "", (e.artist||"")+" render"));
-          if (e.plot || e.render) c.appendChild(media);
+          var media = el("div","work-media"), n = 0;
+          if (e.plot)   { media.appendChild(frame(e.plot, e.plotTag||"plot", "", (e.artist||"")+" plot")); n++; }
+          (e.plots||[]).forEach(function(p){ media.appendChild(frame(p.src, p.tag||"plot", p.caption||"", p.alt||((e.artist||"")+" plot detail"))); n++; });
+          if (e.render) { media.appendChild(frame(e.render, e.renderTag||"vectorworks", "", (e.artist||"")+" render")); n++; }
+          if (n < 2) media.className += " single";
+          if (n) c.appendChild(media);
+          if (n > 2) c.style.gridColumn = "1 / -1";
           var meta = el("div","work-meta");
           meta.appendChild(el("div","work-artist",esc(e.artist)));
           meta.appendChild(el("div","work-sub",esc([e.event,e.year,e.role].filter(Boolean).join(" · "))));
