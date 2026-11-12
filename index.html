@@ -77,6 +77,13 @@
     #nav-version{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,0.28)}
     #talk-btn{background:var(--gold);border:1px solid var(--gold);color:#0a0a0a;font-family:var(--mono);font-weight:700;font-size:9px;cursor:pointer;letter-spacing:.1em;padding:3px 10px;white-space:nowrap;flex-shrink:0}
     #nav-logo,#nav-version{white-space:nowrap}
+    #whereabouts{flex:1;min-width:0;display:none;align-items:center;justify-content:center;gap:6px;margin:0 12px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);white-space:nowrap;overflow:hidden}
+    #whereabouts span{overflow:hidden;text-overflow:ellipsis}
+    #whereabouts i{flex:none;width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 6px #3ddc84;animation:wa-pulse 2.4s ease-in-out infinite}
+    #whereabouts.last i{background:rgba(255,255,255,0.3);box-shadow:none;animation:none}
+    @keyframes wa-pulse{50%{opacity:.35}}
+    @media(prefers-reduced-motion:reduce){#whereabouts i{animation:none}}
+    @media(max-width:600px){#whereabouts{font-size:8px;letter-spacing:.06em;margin:0 8px;justify-content:flex-start}#whereabouts .wa-who{display:none}#nav-top>div:first-child{flex-direction:column;align-items:flex-start!important;gap:1px!important}}
     @media(max-width:480px){#nav-logo{font-size:11px}#nav-version{font-size:8px}#talk-btn{font-size:8px;padding:3px 7px;letter-spacing:.06em}}
     #nav-tabs{display:flex;align-items:center;gap:18px;height:32px;padding:0 20px;overflow-x:auto}
     .nav-tab{background:none;border:none;color:rgba(255,255,255,0.45);font-family:var(--mono);font-size:9px;cursor:pointer;letter-spacing:.1em;padding:0;white-space:nowrap;flex-shrink:0;transition:color .2s}
@@ -275,8 +282,9 @@
   <div id="nav-top">
     <div style="display:flex;align-items:baseline;gap:10px">
       <div id="nav-logo" onclick="showView('home')">FOOK'n OATS</div>
-      <span id="nav-version">v2.9.20 · 2026.11.12</span>
+      <span id="nav-version">v2.9.21 · 2026.11.12</span>
     </div>
+    <div id="whereabouts" aria-live="polite"><i></i><span><b class="wa-who" style="font-weight:inherit"></b><em class="wa-txt" style="font-style:normal"></em></span></div>
     <button id="talk-btn" onclick="bookCall()">BOOK A CALL →</button>
   </div>
   <!-- TICKER -->
@@ -400,6 +408,23 @@ fetch("./ticker.json?nocache=" + Date.now())
       bar.addEventListener("click", matrixRain);
     }
   }).catch(function(){});
+
+// ── WHEREABOUTS: where Johnny is today, generalized (town / landmark / county) ──
+// Words only, from loc.crewfam.app/api/whereabouts; hidden when he is off the grid.
+function loadWhereabouts(){
+  fetch("https://loc.crewfam.app/api/whereabouts")
+    .then(function(r){return r.json()})
+    .then(function(d){
+      var el = document.getElementById("whereabouts");
+      if (!d || !d.text || d.mode === "off") { el.style.display = "none"; return; }
+      el.className = d.mode === "last-seen" ? "last" : "";
+      el.querySelector(".wa-who").textContent = d.mode === "last-seen" ? "Last seen " : "Johnny is ";
+      el.querySelector(".wa-txt").textContent = d.text;
+      el.title = d.sentence + (d.updated ? " (updated " + d.updated + ")" : "");
+      el.style.display = "flex";
+    }).catch(function(){});
+}
+loadWhereabouts(); setInterval(loadWhereabouts, 5 * 60 * 1000);
 
 // ── EASTER EGG: MATRIX RAIN (tap the ticker) ─────────────────────────────────
 var _mxOn = false;
