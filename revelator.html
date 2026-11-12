@@ -402,7 +402,7 @@
     // SELECTED WORK (Designed vs Programmed / Supported — never blur the two)
     var w = D.work || {};
     var groups = [["Designed", w.designed||[]],["Programmed / Supported", w.supported||[]],[w.crewLabel||"Crew & Drafting", w.crew||[]],[w.earlierLabel||"Earlier", w.earlier||[]]].filter(function(g){return g[1].length;});
-    if (groups.length) {
+    if (groups.length && !w.hidden) {
       show("work");
       txt("work-label", w.label||"Selected work"); txt("work-note", w.note);
       var wg = document.getElementById("work-groups");

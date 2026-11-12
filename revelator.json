@@ -78,6 +78,8 @@
   },
 
   "work": {
+    "hidden": true,
+    "_hidden_note": "Section stays off the page until full-sheet plot exports exist (see images/revelator/README.md, Plot export spec). Set hidden to false to show it.",
     "label": "SELECTED WORK",
     "note": "Real credits only. Every one of these was a team effort. The role listed is the part I played, not the show's design credit. Plots and drawings were done alongside the team at Voyage Productions.",
     "designed": [],
